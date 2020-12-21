@@ -1,0 +1,7 @@
+You may not create works using the PotionsMaster code (source or binary) without thevortex's explicit permission except in the cases listed in this license.
+The source code is hosted on GitHub
+You may NOT create derivative Jars from PotionsMaster source to distribute to other users.
+You MAY use snippets of PotionsMaster code in your own projects, but only if your project consists of less than 25% of PotionsMaster derived code. You must give credit to the PotionsMaster Project for the code used, including a link to the Github Project. Put this in your class file headers that contain PotionsMaster code, in your readme, and on the main download page.
+You may NOT use PotionsMaster Art Assets in other projects unless the project is intended to operate alongside PotionsMaster. Examples are Addons and InterMod Integration.
+You MAY fork and edit the Github Project for the purpose of contributing to the Official PotionsMaster Project for Forge. You may NOT distribute any Jar created from a fork for any reason, including 'unofficial' ports to Fabric, or any other mod loader.
+All contributions to the Official PotionsMaster Project will become the property of thevortex, as are all rights to the distribution thereof, if you do not agree to these terms, you SHALL NOT fork the project.
