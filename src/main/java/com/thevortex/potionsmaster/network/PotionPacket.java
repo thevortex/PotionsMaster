@@ -30,7 +30,9 @@ public class PotionPacket {
             ctx.get().enqueueWork(() -> {
                 String removed_potion = message.potionName;
                 PotionsMaster.blockStore.getStoreByReference("forge:ores/" + removed_potion).getBlockData().setDrawing(false);
-                Controller.toggleDrawOres();
+                if (Controller.drawOres()) {
+                    Controller.toggleDrawOres();
+                }
             });
             ctx.get().setPacketHandled(true);
         }

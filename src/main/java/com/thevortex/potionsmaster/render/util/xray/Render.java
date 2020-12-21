@@ -31,34 +31,33 @@ public class Render {
     public static void drawOres(RenderWorldLastEvent event) {
 
         Vector3d view = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
-
         MatrixStack stack = event.getMatrixStack();
-        stack.push();
-        stack.translate(-view.x, -view.y, -view.z); // translate
-        RenderSystem.pushMatrix();
-        RenderSystem.multMatrix(stack.getLast().getMatrix());
 
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        Profile.BLOCKS.apply(); // Sets GL state for block drawing
-        ores.forEach(b -> {
-            if (b == null) {
-                return;
-            }
+        try {
+            stack.push();
             RenderSystem.pushMatrix();
-            buffer.begin(GL_LINES, DefaultVertexFormats.POSITION_COLOR);
-            Util.renderBlock(buffer, b, (int) b.alpha);
 
-            tessellator.draw();
+            stack.translate(-view.x, -view.y, -view.z); // translate
+            RenderSystem.multMatrix(stack.getLast().getMatrix());
+
+            Tessellator tessellator = Tessellator.getInstance();
+            BufferBuilder buffer = tessellator.getBuffer();
+            Profile.BLOCKS.apply(); // Sets GL state for block drawing
+            ores.forEach(b -> {
+                if (b == null) {
+                    return;
+                }
+                buffer.begin(GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+                Util.renderBlock(buffer, b, (int) b.alpha);
+
+                tessellator.draw();
+            });
+            Profile.BLOCKS.clean();
+        } finally {
+            stack.pop();
             RenderSystem.popMatrix();
-        });
-        Profile.BLOCKS.clean();
-        stack.pop();
-        RenderSystem.popMatrix();
-
-
+        }
     }
-
 
     /**
      * OpenGL Profiles used for rendering blocks and entities
