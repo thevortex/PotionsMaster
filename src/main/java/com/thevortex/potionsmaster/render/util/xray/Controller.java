@@ -68,8 +68,9 @@ public class Controller {
 
 	}
 
+
 	private static boolean playerHasMoved() {
-		if (!PotionsMaster.proxy.getClientPlayer().isAlive()) {
+		if ((PotionsMaster.proxy.getClientWorld() == null) && (Controller.drawOres)) {
 			toggleDrawOres();
 			return false;
 		}
