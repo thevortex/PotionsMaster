@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "potionsmaster:pestle"
+    },
+    {
+      "item": "potionsmaster:ender_powder"
+    },
+    {
+      "item": "potionsmaster:coal_powder"
+    },
+    {
+      "item": "potionsmaster:redstone_powder"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "potionsmaster:tile_mortar"
+    }
+  ],
+  "result": {
+    "item": "minecraft:blaze_powder"
+  }
+}

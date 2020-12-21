@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "potionsmaster:pestle"
+    },
+    {
+      "tag": "forge:ingots/zinc"
+    },
+    {
+      "item": "potionsmaster:tile_mortar"
+    }
+  ],
+  "result": {
+    "item": "potionsmaster:zinc_powder"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "potionsmaster:pestle"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "potionsmaster:tile_mortar"
+    }
+  ],
+  "result": {
+    "item": "potionsmaster:quartz_powder"
+  }
+}

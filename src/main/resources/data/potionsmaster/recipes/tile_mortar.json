@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "WoW",
+    " W "
+  ],
+  "key": {
+    "W": {
+      "tag": "forge:ingots/brick"
+    },
+    "o": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "potionsmaster:tile_mortar"
+  }
+}

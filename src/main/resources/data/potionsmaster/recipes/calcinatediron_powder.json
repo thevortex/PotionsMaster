@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:iron_powder"
+  },
+  "result": "potionsmaster:calcinatediron_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

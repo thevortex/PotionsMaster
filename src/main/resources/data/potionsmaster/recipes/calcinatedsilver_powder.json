@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:silver_powder"
+  },
+  "result": "potionsmaster:calcinatedsilver_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "potionsmaster:item/ender_powder_village_mash"
+  }
+}

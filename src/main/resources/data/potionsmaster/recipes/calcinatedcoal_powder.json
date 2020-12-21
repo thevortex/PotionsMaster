@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:coal_powder"
+  },
+  "result": "potionsmaster:calcinatedcoal_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

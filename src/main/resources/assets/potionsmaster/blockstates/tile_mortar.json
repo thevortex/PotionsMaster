@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "potionsmaster:block/tile_mortar"
+    }
+  }
+}

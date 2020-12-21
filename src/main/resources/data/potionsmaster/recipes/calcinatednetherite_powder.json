@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:netherite_powder"
+  },
+  "result": "potionsmaster:calcinatednetherite_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

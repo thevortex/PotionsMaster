@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:allthemodium_powder"
+  },
+  "result": "potionsmaster:calcinatedallthemodium_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:quartz_powder"
+  },
+  "result": "potionsmaster:calcinatedquartz_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

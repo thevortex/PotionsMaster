@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:uranium_powder"
+  },
+  "result": "potionsmaster:calcinateduranium_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

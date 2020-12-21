@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:charcoal_powder"
+  },
+  "result": "potionsmaster:activated_charcoal",
+  "experience": 0.15,
+  "cookingtime": 200
+}

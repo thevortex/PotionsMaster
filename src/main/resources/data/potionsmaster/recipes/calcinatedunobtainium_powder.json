@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:unobtainium_powder"
+  },
+  "result": "potionsmaster:calcinatedunobtainium_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

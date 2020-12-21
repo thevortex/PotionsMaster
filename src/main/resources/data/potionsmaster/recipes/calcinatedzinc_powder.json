@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:zinc_powder"
+  },
+  "result": "potionsmaster:calcinatedzinc_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

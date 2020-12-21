@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:copper_powder"
+  },
+  "result": "potionsmaster:calcinatedcopper_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

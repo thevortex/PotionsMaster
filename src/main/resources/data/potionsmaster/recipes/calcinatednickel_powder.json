@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:nickel_powder"
+  },
+  "result": "potionsmaster:calcinatednickel_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

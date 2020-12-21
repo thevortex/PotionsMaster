@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:diamond_powder"
+  },
+  "result": "potionsmaster:calcinateddiamond_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

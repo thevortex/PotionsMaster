@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:vibranium_powder"
+  },
+  "result": "potionsmaster:calcinatedvibranium_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

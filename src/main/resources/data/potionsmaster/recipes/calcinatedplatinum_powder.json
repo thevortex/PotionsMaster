@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:platinum_powder"
+  },
+  "result": "potionsmaster:calcinatedplatinum_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}

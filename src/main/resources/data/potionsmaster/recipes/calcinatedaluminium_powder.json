@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "potionsmaster:aluminium_powder"
+  },
+  "result": "potionsmaster:calcinatedaluminium_powder",
+  "experience": 0.75,
+  "cookingtime": 800
+}
