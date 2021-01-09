@@ -1,14 +1,12 @@
 package com.thevortex.potionsmaster.blocks;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 import com.thevortex.potionsmaster.entity.TileEntityCauldron;
 import com.thevortex.potionsmaster.init.ModItems;
-import com.thevortex.potionsmaster.init.ModPotions;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,11 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
 import net.minecraft.particles.RedstoneParticleData;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
+import net.minecraft.potion.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -48,6 +42,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.server.command.TextComponentHelper;
+
+import javax.annotation.Nullable;
 
 import static net.minecraft.block.CampfireBlock.LIT;
 
@@ -177,8 +173,8 @@ public class Cauldron extends CauldronBlock {
 				}
 				if ((item == Items.GLASS_BOTTLE) && (cauldron.isComplete())) {
 					ItemStack itemstack2 = new ItemStack(Items.POTION);
-
-					PotionUtils.appendEffects(itemstack2, cauldron.getOutput());
+					Collection<EffectInstance> effects = cauldron.getOutput();
+					PotionUtils.appendEffects(itemstack2, effects);
 					itemstack2.setDisplayName((ITextComponent) TextComponentHelper.createComponentTranslation(player2, "Blended Potion", new Object()));
 					player2.setHeldItem(handIn, itemstack2.copy());
 					cauldronBlock.setWaterLevel(worldIn, pos, state, i - 1);

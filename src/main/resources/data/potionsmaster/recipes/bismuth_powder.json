@@ -13,5 +13,14 @@
   ],
   "result": {
     "item": "potionsmaster:bismuth_powder"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/bismuth"
+      }
+    }
+  ]
 }

@@ -10,32 +10,32 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 
 public class ModPotions {
-    public static final EffectInstance COALSIGHT = new EffectInstance(ModPotionEffects.COALSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance IRONSIGHT = new EffectInstance(ModPotionEffects.IRONSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance REDSTONESIGHT = new EffectInstance(ModPotionEffects.REDSTONESIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance LAPISSIGHT = new EffectInstance(ModPotionEffects.LAPISSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance GOLDSIGHT = new EffectInstance(ModPotionEffects.GOLDSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance DIAMONDSIGHT = new EffectInstance(ModPotionEffects.DIAMONDSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance EMERALDSIGHT = new EffectInstance(ModPotionEffects.EMERALDSIGHT, 6000, 0, false, false, true);
+    public static final EffectInstance COALSIGHT = new EffectInstance(ModPotionEffects.COALSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance IRONSIGHT = new EffectInstance(ModPotionEffects.IRONSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance REDSTONESIGHT = new EffectInstance(ModPotionEffects.REDSTONESIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance LAPISSIGHT = new EffectInstance(ModPotionEffects.LAPISSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance GOLDSIGHT = new EffectInstance(ModPotionEffects.GOLDSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance DIAMONDSIGHT = new EffectInstance(ModPotionEffects.DIAMONDSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance EMERALDSIGHT = new EffectInstance(ModPotionEffects.EMERALDSIGHT, 6000, 0, false, true, true);
 
-    public static final EffectInstance ALUMINIUMSIGHT = new EffectInstance(ModPotionEffects.ALUMINIUMSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance COPPERSIGHT = new EffectInstance(ModPotionEffects.COPPERSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance TINSIGHT = new EffectInstance(ModPotionEffects.TINSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance NICKELSIGHT = new EffectInstance(ModPotionEffects.NICKELSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance URANIUMSIGHT = new EffectInstance(ModPotionEffects.URANIUMSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance LEADSIGHT = new EffectInstance(ModPotionEffects.LEADSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance SILVERSIGHT = new EffectInstance(ModPotionEffects.SILVERSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance ZINCSIGHT = new EffectInstance(ModPotionEffects.ZINCSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance OSMIUMSIGHT = new EffectInstance(ModPotionEffects.OSMIUMSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance QUARTZSIGHT = new EffectInstance(ModPotionEffects.QUARTZSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance BISMUTHSIGHT = new EffectInstance(ModPotionEffects.BISMUTHSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance CRIMSONIRONSIGHT = new EffectInstance(ModPotionEffects.CRIMSONIRONSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance PLATINUMSIGHT = new EffectInstance(ModPotionEffects.PLATINUMSIGHT, 6000, 0, false, false, true);
-    public static final EffectInstance NETHERITESIGHT = new EffectInstance(ModPotionEffects.NETHERITESIGHT, 6000, 0, false, false, true);
+    public static final EffectInstance ALUMINIUMSIGHT = new EffectInstance(ModPotionEffects.ALUMINIUMSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance COPPERSIGHT = new EffectInstance(ModPotionEffects.COPPERSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance TINSIGHT = new EffectInstance(ModPotionEffects.TINSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance NICKELSIGHT = new EffectInstance(ModPotionEffects.NICKELSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance URANIUMSIGHT = new EffectInstance(ModPotionEffects.URANIUMSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance LEADSIGHT = new EffectInstance(ModPotionEffects.LEADSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance SILVERSIGHT = new EffectInstance(ModPotionEffects.SILVERSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance ZINCSIGHT = new EffectInstance(ModPotionEffects.ZINCSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance OSMIUMSIGHT = new EffectInstance(ModPotionEffects.OSMIUMSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance QUARTZSIGHT = new EffectInstance(ModPotionEffects.QUARTZSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance BISMUTHSIGHT = new EffectInstance(ModPotionEffects.BISMUTHSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance CRIMSONIRONSIGHT = new EffectInstance(ModPotionEffects.CRIMSONIRONSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance PLATINUMSIGHT = new EffectInstance(ModPotionEffects.PLATINUMSIGHT, 6000, 0, false, true, true);
+    public static final EffectInstance NETHERITESIGHT = new EffectInstance(ModPotionEffects.NETHERITESIGHT, 6000, 0, false, true, true);
 
-    public static final EffectInstance ALLTHEMODIUMSIGHT = new EffectInstance(ModPotionEffects.ALLTHEMODIUMSIGHT, 3000, 0, false, false, true);
-    public static final EffectInstance VIBRANIUMSIGHT = new EffectInstance(ModPotionEffects.VIBRANIUMSIGHT, 3000, 0, false, false, true);
-    public static final EffectInstance UNOBTAINIUMSIGHT = new EffectInstance(ModPotionEffects.UNOBTAINIUMSIGHT, 3000, 0, false, false, true);
+    public static final EffectInstance ALLTHEMODIUMSIGHT = new EffectInstance(ModPotionEffects.ALLTHEMODIUMSIGHT, 3000, 0, false, true, true);
+    public static final EffectInstance VIBRANIUMSIGHT = new EffectInstance(ModPotionEffects.VIBRANIUMSIGHT, 3000, 0, false, true, true);
+    public static final EffectInstance UNOBTAINIUMSIGHT = new EffectInstance(ModPotionEffects.UNOBTAINIUMSIGHT, 3000, 0, false, true, true);
 
 
     public static final Potion COAL_SIGHT = new Potion("coal_sight", COALSIGHT).setRegistryName(location("coal_sight"));
@@ -56,8 +56,6 @@ public class ModPotions {
     public static final Potion ZINC_SIGHT = new Potion("zinc_sight", ZINCSIGHT).setRegistryName(location("zinc_sight"));
     public static final Potion OSMIUM_SIGHT = new Potion("osmium_sight", OSMIUMSIGHT).setRegistryName(location("osmium_sight"));
 
-    //public static final Potion INVISIBILITY = new Potion(new EffectInstance(Effects.INVISIBILITY, 3600,0,false,false,true)).setRegistryName(override("invisibility"));
-    //public static final Potion LONG_INVISIBILITY = new Potion(new EffectInstance(Effects.INVISIBILITY, 9600,0,false,false,true)).setRegistryName(override("long_invisibility"));
 
     public static final Potion QUARTZ_SIGHT = new Potion("quartz_sight", QUARTZSIGHT).setRegistryName(location("quartz_sight"));
     public static final Potion BISMUTH_SIGHT = new Potion("bismuth_sight", BISMUTHSIGHT).setRegistryName(location("bismuth_sight"));
@@ -97,15 +95,10 @@ public class ModPotions {
         event.getRegistry().register(ModPotions.VIBRANIUM_SIGHT);
         event.getRegistry().register(ModPotions.UNOBTAINIUM_SIGHT);
 
-        //event.getRegistry().register(ModPotions.INVISIBILITY);
-        //event.getRegistry().register(ModPotions.LONG_INVISIBILITY);
     }
 
     private static ResourceLocation location(String name) {
         return new ResourceLocation(Reference.MOD_ID, name);
     }
 
-    private static ResourceLocation override(String name) {
-        return new ResourceLocation("minecraft", name);
-    }
 }

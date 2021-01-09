@@ -160,12 +160,20 @@ public class TileEntityCauldron extends TileEntity implements IBrew, ITickableTi
 
 
                     for (EffectInstance a : cauldron.INPUT_A) {
-                        this.OUTPUT.add(a);
+                        EffectInstance e;
+                        if (cauldron.INPUT_B.contains(a)) {
+                            e = new EffectInstance(a.getPotion().getEffect(), a.getDuration() + a.getDuration(), a.getAmplifier(), false, false);
+                            cauldron.INPUT_B.remove(a);
+                        } else {
+                            e = new EffectInstance(a.getPotion().getEffect(), a.getDuration(), a.getAmplifier(), false, false);
+                        }
+                        this.OUTPUT.add(e);
 
 
                     }
                     for (EffectInstance b : cauldron.INPUT_B) {
-                        this.OUTPUT.add(b);
+                        EffectInstance f = new EffectInstance(b.getPotion().getEffect(), b.getDuration(), b.getAmplifier(), false, false);
+                        this.OUTPUT.add(f);
 
                     }
                     Cauldron cauldronBlock = (Cauldron) cauldron.getBlockState().getBlock();

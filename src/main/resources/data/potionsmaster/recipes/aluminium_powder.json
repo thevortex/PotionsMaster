@@ -13,5 +13,14 @@
   ],
   "result": {
     "item": "potionsmaster:aluminium_powder"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/aluminum"
+      }
+    }
+  ]
 }

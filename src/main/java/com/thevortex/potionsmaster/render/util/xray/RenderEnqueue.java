@@ -131,83 +131,83 @@ public class RenderEnqueue implements Runnable {
 					for (int i = lowBoundX; i <= highBoundX; i++) {
 						for (int j = lowBoundY; j <= highBoundY; j++) {
 							for (int k = lowBoundZ; k <= highBoundZ; k++) {
-								currentState = ebs.getBlockState(i, j, k);
+                                currentState = ebs.getBlockState(i, j, k);
 
-								// Reject blacklisted blocks
-								//if( Controller.blackList.contains(currentState.getBlock()) )
-								//	continue;
-								block = currentState.getBlock().getRegistryName();
-								if (block == null)
-									continue;
+                                // Reject blacklisted blocks
+                                //if( Controller.blackList.contains(currentState.getBlock()) )
+                                //	continue;
+                                block = currentState.getBlock().getRegistryName();
+                                if (block == null)
+                                    continue;
 
-								if (currentState.getBlock().getTags().contains(Ores.DIAMOND)) {
-									block = Ores.DIAMOND;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.LAPIS)) {
-									block = Ores.LAPIS;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.ALUMINIUM)) {
-									block = Ores.ALUMINIUM;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.COPPER)) {
-									block = Ores.COPPER;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.TIN)) {
-									block = Ores.TIN;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.LEAD)) {
-									block = Ores.LEAD;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.SILVER)) {
-									block = Ores.SILVER;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.GOLD)) {
-									block = Ores.GOLD;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.URANIUM)) {
-									block = Ores.URANIUM;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.NICKEL)) {
-									block = Ores.NICKEL;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.IRON)) {
-									block = Ores.IRON;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.OSMIUM)) {
-									block = Ores.OSMIUM;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.ZINC)) {
-									block = Ores.ZINC;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.EMERALD)) {
-									block = Ores.EMERALD;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.COAL)) {
-									block = Ores.COAL;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.REDSTONE)) {
-									block = Ores.REDSTONE;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.QUARTZ)) {
-									block = Ores.QUARTZ;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.BISMUTH)) {
-									block = Ores.BISMUTH;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.CRIMSONIRON)) {
-									block = Ores.CRIMSONIRON;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.PLATINUM)) {
-									block = Ores.PLATINUM;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.NETHERITE)) {
-									block = Ores.NETHERITE;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.ALLTHEMODIUM)) {
-									block = Ores.ALLTHEMODIUM;
-								}
-								if (currentState.getBlock().getTags().contains(Ores.VIBRANIUM)) {
-									block = Ores.VIBRANIUM;
+                                if ((currentState.getBlock().getTags().contains(Ores.DIAMOND)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_diamond"))) {
+                                    block = Ores.DIAMOND;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.LAPIS)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_lapis"))) {
+                                    block = Ores.LAPIS;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.ALUMINIUM)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_aluminum"))) {
+                                    block = Ores.ALUMINIUM;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.COPPER)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_copper"))) {
+                                    block = Ores.COPPER;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.TIN)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_tin"))) {
+                                    block = Ores.TIN;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.LEAD)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_lead"))) {
+                                    block = Ores.LEAD;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.SILVER)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_silver"))) {
+                                    block = Ores.SILVER;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.GOLD)) || (currentState.getBlock().getRegistryName().getPath().contains("nether_gold_ore"))) {
+                                    block = Ores.GOLD;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.URANIUM)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_uranium"))) {
+                                    block = Ores.URANIUM;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.NICKEL)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_nickel"))) {
+                                    block = Ores.NICKEL;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.IRON)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_iron"))) {
+                                    block = Ores.IRON;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.OSMIUM)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_osmium"))) {
+                                    block = Ores.OSMIUM;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.ZINC)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_zinc"))) {
+                                    block = Ores.ZINC;
+                                }
+                                if (currentState.getBlock().getTags().contains(Ores.EMERALD)) {
+                                    block = Ores.EMERALD;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.COAL)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_coal"))) {
+                                    block = Ores.COAL;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.REDSTONE)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_redstone"))) {
+                                    block = Ores.REDSTONE;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.QUARTZ)) || (currentState.getBlock().getRegistryName().getPath().contains("quartz"))) {
+                                    block = Ores.QUARTZ;
+                                }
+                                if (currentState.getBlock().getTags().contains(Ores.BISMUTH)) {
+                                    block = Ores.BISMUTH;
+                                }
+                                if (currentState.getBlock().getTags().contains(Ores.CRIMSONIRON)) {
+                                    block = Ores.CRIMSONIRON;
+                                }
+                                if ((currentState.getBlock().getTags().contains(Ores.PLATINUM)) || (currentState.getBlock().getRegistryName().getPath().contains("ore_other_platinum"))) {
+                                    block = Ores.PLATINUM;
+                                }
+                                if (currentState.getBlock().getTags().contains(Ores.NETHERITE)) {
+                                    block = Ores.NETHERITE;
+                                }
+                                if (currentState.getBlock().getTags().contains(Ores.ALLTHEMODIUM)) {
+                                    block = Ores.ALLTHEMODIUM;
+                                }
+                                if (currentState.getBlock().getTags().contains(Ores.VIBRANIUM)) {
+                                    block = Ores.VIBRANIUM;
 								}
 								if (currentState.getBlock().getTags().contains(Ores.UNOBTAINIUM)) {
 									block = Ores.UNOBTAINIUM;
