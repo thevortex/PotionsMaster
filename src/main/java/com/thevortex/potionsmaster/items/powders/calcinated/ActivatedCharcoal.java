@@ -9,24 +9,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class ActivatedCharcoal extends Item {
 
     public ActivatedCharcoal(Properties properties) {
 
-        super(properties.maxStackSize(16));
+        super(properties.stacksTo(16));
 
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
 
         if ((entityLiving instanceof PlayerEntity) && (stack.getItem() == ModItems.ACTIVATEDCHARCOAL)) {
             PlayerEntity player = (PlayerEntity) entityLiving;
-            if (player.isPotionActive(Effects.WITHER)) {
-                player.removePotionEffect(Effects.WITHER);
+            if (player.hasEffect(Effects.WITHER)) {
+                player.removeEffect(Effects.WITHER);
             }
         }
-        return super.onItemUseFinish(stack, worldIn, entityLiving);
+        return super.finishUsingItem(stack, worldIn, entityLiving);
     }
 
 }

@@ -76,13 +76,13 @@ public class Controller {
 		}
 
 		return lastPlayerPos == null
-				|| lastPlayerPos.getX() != PotionsMaster.proxy.getClientPlayer().getPosX()
-				|| lastPlayerPos.getZ() != PotionsMaster.proxy.getClientPlayer().getPosZ();
+				|| lastPlayerPos.getX() != PotionsMaster.proxy.getClientPlayer().getX()
+				|| lastPlayerPos.getZ() != PotionsMaster.proxy.getClientPlayer().getZ();
 	}
 
 	private static void updatePlayerPosition() {
 
-		lastPlayerPos = PotionsMaster.proxy.getClientPlayer().getPosition();
+		lastPlayerPos = new Vector3i(PotionsMaster.proxy.getClientPlayer().position().x,PotionsMaster.proxy.getClientPlayer().position().y,PotionsMaster.proxy.getClientPlayer().position().z);
 	}
 
 	public static synchronized void requestBlockFinder(boolean force) {

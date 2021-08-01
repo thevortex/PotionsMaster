@@ -28,26 +28,26 @@ public class QuartzPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.QUARTZ.toString());
             BlockData QUARTZ = bdUUID.getBlockData();
-            if ((QUARTZ.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.QUARTZSIGHT) == null))) {
+            if ((QUARTZ.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.QUARTZSIGHT) == null))) {
                 QUARTZ.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

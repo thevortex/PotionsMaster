@@ -20,7 +20,7 @@ public class NetheritePotionRecipe extends BrewingRecipe {
 
     @Override
     public boolean isInput(ItemStack input) {
-        return (PotionUtils.getPotionFromItem(input) == Potions.MUNDANE);
+        return (PotionUtils.getPotion(input) == Potions.MUNDANE);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class NetheritePotionRecipe extends BrewingRecipe {
     }
 
     public ItemStack getOutput() {
-        return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModPotions.NETHERITE_SIGHT);
+        return PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.NETHERITE_SIGHT);
 
     }
 

@@ -24,7 +24,7 @@ public class AluminiumPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
 
         return true;
 
@@ -32,18 +32,18 @@ public class AluminiumPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.ALUMINIUM.toString());
             BlockData ALUMINIUM = bdUUID.getBlockData();
-            if ((ALUMINIUM.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.ALUMINIUMSIGHT) == null))) {
+            if ((ALUMINIUM.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.ALUMINIUMSIGHT) == null))) {
                 ALUMINIUM.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
 
 

@@ -6,10 +6,12 @@ import com.thevortex.potionsmaster.init.ModItems;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.item.Item.Properties;
+
 public class Mortar extends BlockItem {
 
     public Mortar(Properties properties) {
-        super(ModBlocks.MORTAR, properties.maxStackSize(1));
+        super(ModBlocks.MORTAR, properties.stacksTo(1));
     }
 
     @Override

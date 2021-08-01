@@ -19,7 +19,7 @@ public class LapisPotionRecipe extends BrewingRecipe {
 
     @Override
     public boolean isInput(ItemStack input) {
-        return (PotionUtils.getPotionFromItem(input) == Potions.MUNDANE);
+        return (PotionUtils.getPotion(input) == Potions.MUNDANE);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class LapisPotionRecipe extends BrewingRecipe {
     }
 
     public ItemStack getOutput() {
-        return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModPotions.LAPIS_SIGHT);
+        return PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.LAPIS_SIGHT);
     }
 
 }

@@ -25,26 +25,26 @@ public class TinPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.TIN.toString());
             BlockData TIN = bdUUID.getBlockData();
-            if ((TIN.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.TINSIGHT) == null))) {
+            if ((TIN.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.TINSIGHT) == null))) {
                 TIN.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

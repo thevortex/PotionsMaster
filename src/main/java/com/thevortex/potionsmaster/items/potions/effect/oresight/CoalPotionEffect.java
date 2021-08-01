@@ -25,19 +25,19 @@ public class CoalPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.COAL.toString());
             BlockData COAL = bdUUID.getBlockData();
-            if ((COAL.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.COALSIGHT) == null))) {
+            if ((COAL.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.COALSIGHT) == null))) {
                 COAL.setDrawing(true);
             }
 
@@ -45,7 +45,7 @@ public class CoalPotionEffect extends Effect {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

@@ -30,18 +30,18 @@ public class Render {
     @OnlyIn(Dist.CLIENT)
     public static void drawOres(RenderWorldLastEvent event) {
 
-        Vector3d view = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
+        Vector3d view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
         MatrixStack stack = event.getMatrixStack();
 
         try {
-            stack.push();
+            stack.pushPose();
             RenderSystem.pushMatrix();
 
             stack.translate(-view.x, -view.y, -view.z); // translate
-            RenderSystem.multMatrix(stack.getLast().getMatrix());
+            RenderSystem.multMatrix(stack.last().pose());
 
             Tessellator tessellator = Tessellator.getInstance();
-            BufferBuilder buffer = tessellator.getBuffer();
+            BufferBuilder buffer = tessellator.getBuilder();
             Profile.BLOCKS.apply(); // Sets GL state for block drawing
             ores.forEach(b -> {
                 if (b == null) {
@@ -50,11 +50,11 @@ public class Render {
                 buffer.begin(GL_LINES, DefaultVertexFormats.POSITION_COLOR);
                 Util.renderBlock(buffer, b, (int) b.alpha);
 
-                tessellator.draw();
+                tessellator.end();
             });
             Profile.BLOCKS.clean();
         } finally {
-            stack.pop();
+            stack.popPose();
             RenderSystem.popMatrix();
         }
     }

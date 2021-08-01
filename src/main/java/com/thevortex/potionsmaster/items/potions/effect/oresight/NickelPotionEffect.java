@@ -25,26 +25,26 @@ public class NickelPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.NICKEL.toString());
             BlockData NICKEL = bdUUID.getBlockData();
-            if ((NICKEL.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.NICKELSIGHT) == null))) {
+            if ((NICKEL.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.NICKELSIGHT) == null))) {
                 NICKEL.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

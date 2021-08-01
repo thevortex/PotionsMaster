@@ -24,19 +24,19 @@ public class RedStonePotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.REDSTONE.toString());
             BlockData REDSTONE = bdUUID.getBlockData();
-            if ((REDSTONE.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.REDSTONESIGHT) == null))) {
+            if ((REDSTONE.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.REDSTONESIGHT) == null))) {
                 REDSTONE.setDrawing(true);
             }
 
@@ -44,7 +44,7 @@ public class RedStonePotionEffect extends Effect {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

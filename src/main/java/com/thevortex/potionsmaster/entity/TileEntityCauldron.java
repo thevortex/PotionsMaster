@@ -79,25 +79,25 @@ public class TileEntityCauldron extends TileEntity implements IBrew, ITickableTi
     @Override
     public void giveCatalyst() {
         this.hasCatalyst = true;
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
     public void startBrewing() {
         this.isBrewing = true;
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
     public void goForReady() {
         this.isReadyToBrew = true;
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
     public void brewComplete() {
         this.isComplete = true;
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
@@ -126,9 +126,9 @@ public class TileEntityCauldron extends TileEntity implements IBrew, ITickableTi
         this.INPUT_A = new ArrayList<EffectInstance>();
         this.INPUT_B = new ArrayList<EffectInstance>();
         this.OUTPUT = new ArrayList<EffectInstance>();
-        ServerWorld world = (ServerWorld) this.getWorld();
-        Cauldron thisCauldron = (Cauldron) world.getBlockState(this.getPos()).getBlock();
-        thisCauldron.setWaterLevel(this.getWorld(), this.getPos(), this.getBlockState(), 0);
+        ServerWorld world = (ServerWorld) this.getLevel();
+        Cauldron thisCauldron = (Cauldron) world.getBlockState(this.getBlockPos()).getBlock();
+        thisCauldron.setWaterLevel(this.getLevel(), this.getBlockPos(), this.getBlockState(), 0);
         this.isBrewing = false;
         this.isReadyToBrew = false;
         this.isComplete = false;
@@ -143,10 +143,10 @@ public class TileEntityCauldron extends TileEntity implements IBrew, ITickableTi
 
     @Override
     public void tick() {
-        if (!this.getWorld().isRemote()) {
-            ServerWorld worldIn = (ServerWorld) this.getWorld();
-            if (worldIn.getBlockState(this.getPos().down()).get(LIT)) {
-                TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
+        if (!this.getLevel().isClientSide()) {
+            ServerWorld worldIn = (ServerWorld) this.getLevel();
+            if (worldIn.getBlockState(this.getBlockPos().below()).getValue(LIT)) {
+                TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getBlockEntity(this.getBlockPos());
 
                 if (cauldron.isBrewing()) {
                     cauldron.brewTime++;
@@ -162,26 +162,26 @@ public class TileEntityCauldron extends TileEntity implements IBrew, ITickableTi
                     for (EffectInstance a : cauldron.INPUT_A) {
                         EffectInstance e;
                         if (cauldron.INPUT_B.contains(a)) {
-                            e = new EffectInstance(a.getPotion().getEffect(), a.getDuration() + a.getDuration(), a.getAmplifier(), false, false);
+                            e = new EffectInstance(a.getEffect().getEffect(), a.getDuration() + a.getDuration(), a.getAmplifier(), false, false);
                             cauldron.INPUT_B.remove(a);
                         } else {
-                            e = new EffectInstance(a.getPotion().getEffect(), a.getDuration(), a.getAmplifier(), false, false);
+                            e = new EffectInstance(a.getEffect().getEffect(), a.getDuration(), a.getAmplifier(), false, false);
                         }
                         this.OUTPUT.add(e);
 
 
                     }
                     for (EffectInstance b : cauldron.INPUT_B) {
-                        EffectInstance f = new EffectInstance(b.getPotion().getEffect(), b.getDuration(), b.getAmplifier(), false, false);
+                        EffectInstance f = new EffectInstance(b.getEffect().getEffect(), b.getDuration(), b.getAmplifier(), false, false);
                         this.OUTPUT.add(f);
 
                     }
                     Cauldron cauldronBlock = (Cauldron) cauldron.getBlockState().getBlock();
-                    cauldronBlock.setWaterLevel(worldIn, pos, cauldronBlock.getDefaultState(), 1);
+                    cauldronBlock.setWaterLevel(worldIn, this.getBlockPos(), cauldronBlock.defaultBlockState(), 1);
                 }
             }
         }
-        this.markDirty();
+        this.setChanged();
     }
 
 

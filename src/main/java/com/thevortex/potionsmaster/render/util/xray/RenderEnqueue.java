@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
@@ -40,7 +41,7 @@ public class RenderEnqueue implements Runnable {
 		if (!Controller.drawOres() || Controller.getBlockStore().getStore().isEmpty())
 			return; // just pass
 
-		String defaultState = state.getBlock().getDefaultState().toString();
+		String defaultState = state.getBlock().defaultBlockState().toString();
 
 
 		// Let's see if the block to check is an ore we monitor
@@ -58,7 +59,7 @@ public class RenderEnqueue implements Runnable {
 			if (data == null)
 				return;
 
-			double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(pos.getX(), pos.getY(), pos.getZ())) / Controller.getRadius()) * 255);
+			double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) / Controller.getRadius()) * 255);
 
 			// the block was added to the world, let's add it to the drawing buffer
 			Render.ores.add(new BlockInfo(pos, data.getColor().getColor(), alpha));
@@ -83,7 +84,7 @@ public class RenderEnqueue implements Runnable {
 
 		}
 
-		final World world = PotionsMaster.proxy.getClientPlayer().world;
+		final World world = PotionsMaster.proxy.getClientPlayer().level;
 
 		final PlayerEntity player = PotionsMaster.proxy.getClientPlayer();
 
@@ -104,7 +105,7 @@ public class RenderEnqueue implements Runnable {
 
 			for (int chunkZ = box.minChunkZ; chunkZ <= box.maxChunkZ; chunkZ++) {
 				// Time to getStore the chunk (16x256x16) and split it into 16 vertical extends (16x16x16)
-				if (!world.chunkExists(chunkX, chunkZ)) {
+				if (!world.hasChunk(chunkX, chunkZ)) {
 					continue; // We won't find anything interesting in unloaded chunks
 				}
 
@@ -222,7 +223,7 @@ public class RenderEnqueue implements Runnable {
 
 								// Calculate distance from player to block. Fade out further away blocks
 								//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
-								double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k) / (Controller.getRadius() / 4));
+								double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 4));
 								// Push the block to the render queue
 								renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor().getColor(), alpha));
 							}
@@ -231,7 +232,7 @@ public class RenderEnqueue implements Runnable {
 				}
 			}
 		}
-		renderQueue.sort((t, t1) -> Double.compare(t1.distanceSq(player.getPosition()), t.distanceSq(player.getPosition())));
+		renderQueue.sort((t, t1) -> Double.compare(t1.distSqr(new Vector3i(player.getX(),player.getY(),player.getZ())), t.distSqr(new Vector3i(player.getX(),player.getY(),player.getZ()))));
 
 		Render.ores.clear();
 		Render.ores.addAll(renderQueue); // Add all our found blocks to the Render.ores list. To be use by Render when drawing.

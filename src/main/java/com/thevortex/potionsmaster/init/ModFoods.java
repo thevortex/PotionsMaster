@@ -11,8 +11,8 @@ public class ModFoods {
 
 
     static {
-        BEZOAR = (new Food.Builder()).hunger(1).saturation(0.5F).fastToEat().setAlwaysEdible().build();
-        ACTIVATEDCHARCOAL = (new Food.Builder()).hunger(1).saturation(0.5F).fastToEat().setAlwaysEdible().build();
-        GALLBLADDER = (new Food.Builder()).hunger(1).saturation(0.5F).fastToEat().setAlwaysEdible().build();
+        BEZOAR = (new Food.Builder()).nutrition(1).saturationMod(0.5F).fast().alwaysEat().build();
+        ACTIVATEDCHARCOAL = (new Food.Builder()).nutrition(1).saturationMod(0.5F).fast().alwaysEat().build();
+        GALLBLADDER = (new Food.Builder()).nutrition(1).saturationMod(0.5F).fast().alwaysEat().build();
     }
 }

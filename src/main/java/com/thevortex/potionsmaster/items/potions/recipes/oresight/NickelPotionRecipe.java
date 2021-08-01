@@ -21,7 +21,7 @@ public class NickelPotionRecipe extends BrewingRecipe {
 
     @Override
     public boolean isInput(ItemStack input) {
-        return (PotionUtils.getPotionFromItem(input) == Potions.MUNDANE);
+        return (PotionUtils.getPotion(input) == Potions.MUNDANE);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class NickelPotionRecipe extends BrewingRecipe {
     }
 
     public ItemStack getOutput() {
-        return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModPotions.NICKEL_SIGHT);
+        return PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.NICKEL_SIGHT);
 
     }
 

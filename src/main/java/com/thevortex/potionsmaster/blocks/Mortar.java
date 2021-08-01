@@ -30,14 +30,16 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class Mortar extends Block {
 
-    public VoxelShape blockshape = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 5.0D, 13.0D);
+    public VoxelShape blockshape = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 5.0D, 13.0D);
 
 
     public Mortar() {
 
-        super(Properties.create(Material.GLASS).sound(SoundType.STONE).hardnessAndResistance(2.0f));
+        super(Properties.of(Material.GLASS).sound(SoundType.STONE).strength(2.0f));
     }
 
     @Override

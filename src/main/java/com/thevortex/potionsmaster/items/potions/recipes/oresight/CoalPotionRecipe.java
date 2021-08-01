@@ -20,8 +20,7 @@ public class CoalPotionRecipe extends BrewingRecipe {
 
 
     @Override
-    public boolean isInput(ItemStack input) {
-        return (PotionUtils.getPotionFromItem(input) == Potions.MUNDANE);
+    public boolean isInput(ItemStack input) { return (PotionUtils.getPotion(input) == Potions.MUNDANE);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class CoalPotionRecipe extends BrewingRecipe {
     }
 
     public ItemStack getOutput() {
-        return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModPotions.COAL_SIGHT);
+        return PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.COAL_SIGHT);
 
     }
 

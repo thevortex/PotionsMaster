@@ -28,25 +28,25 @@ public class BismuthPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.BISMUTH.toString());
             BlockData BISMUTH = bdUUID.getBlockData();
-            if ((BISMUTH.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.BISMUTHSIGHT) == null))) {
+            if ((BISMUTH.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.BISMUTHSIGHT) == null))) {
                 BISMUTH.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
 
 

@@ -25,26 +25,26 @@ public class SilverPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.SILVER.toString());
             BlockData SILVER = bdUUID.getBlockData();
-            if ((SILVER.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.SILVERSIGHT) == null))) {
+            if ((SILVER.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.SILVERSIGHT) == null))) {
                 SILVER.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

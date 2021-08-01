@@ -47,33 +47,32 @@ import javax.annotation.Nullable;
 
 import static net.minecraft.block.CampfireBlock.LIT;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class Cauldron extends CauldronBlock {
 
 
-	public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_3;
-	public VoxelShape blockshape = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 2.0D, 12.0D);
+	public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_CAULDRON;
+	public VoxelShape blockshape = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 2.0D, 12.0D);
 
 	public Cauldron() {
-		super(Properties.create(Material.GLASS).sound(SoundType.STONE).hardnessAndResistance(2.0f));
-		this.setDefaultState(this.stateContainer.getBaseState().with(LEVEL, Integer.valueOf(0)));
+		super(Properties.of(Material.GLASS).sound(SoundType.STONE).strength(2.0f));
+		this.registerDefaultState(this.getStateDefinition().getOwner().defaultBlockState().setValue(LEVEL, Integer.valueOf(0)));
 
 	}
 
-	public static boolean isOpaque(VoxelShape shape) {
-		return false;
-	}
 
 	@OnlyIn(Dist.CLIENT)
 	private static void spawnParticles(World world, BlockPos worldIn, int intensity) {
-		Random random = world.rand;
+		Random random = world.random;
 
 		for (Direction direction : Direction.values()) {
-			BlockPos blockpos = worldIn.offset(direction);
-			if (!world.getBlockState(blockpos).isOpaqueCube(world, blockpos)) {
+			BlockPos blockpos = worldIn.offset(direction.getNormal());
+			if (!world.getBlockState(blockpos).isSolidRender(world, blockpos)) {
 				Direction.Axis direction$axis = direction.getAxis();
-				double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double) direction.getXOffset() : (double) random.nextFloat();
-				double d2 = direction$axis == Direction.Axis.Y ? 0.5D + 0.5625D * (double) direction.getYOffset() : (double) random.nextFloat();
-				double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double) direction.getZOffset() : (double) random.nextFloat();
+				double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double) direction.getStepX() : (double) random.nextFloat();
+				double d2 = direction$axis == Direction.Axis.Y ? 0.5D + 0.5625D * (double) direction.getStepY() : (double) random.nextFloat();
+				double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double) direction.getStepZ() : (double) random.nextFloat();
 
 
 				if (intensity == 3) {
@@ -85,18 +84,13 @@ public class Cauldron extends CauldronBlock {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (placer instanceof ServerPlayerEntity) {
-			if (!(worldIn.getBlockState(pos.down()).getBlock() instanceof CampfireBlock) && (state.getBlock() instanceof Cauldron)) {
+	public void onPlace(BlockState state,World worldIn, BlockPos pos,  BlockState state2, boolean update) {
+			if (!(worldIn.getBlockState(pos.below()).getBlock() instanceof CampfireBlock) && (state.getBlock() instanceof Cauldron)) {
 				worldIn.destroyBlock(pos, true);
-
-			} else {
-
 			}
-
-			super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		}
+			super.onPlace(state,worldIn, pos,  state2, true);
 	}
+
 
 	@Override
 	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
@@ -105,7 +99,7 @@ public class Cauldron extends CauldronBlock {
 	}
 
 	@Override
-	public PushReaction getPushReaction(BlockState state) {
+	public PushReaction getPistonPushReaction(BlockState state) {
 
 		return PushReaction.DESTROY;
 	}
@@ -115,17 +109,17 @@ public class Cauldron extends CauldronBlock {
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
 											 Hand handIn, BlockRayTraceResult p_225533_6_) {
-		if (!worldIn.isRemote()) {
+		if (!worldIn.isClientSide) {
 			ServerPlayerEntity player2 = (ServerPlayerEntity) player;
-			ItemStack itemstack = player2.getHeldItem(handIn);
-			TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
+			ItemStack itemstack = player2.getItemInHand(handIn);
+			TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getBlockEntity(pos);
 			if (itemstack.isEmpty()) {
 				cauldron.resetAll();
 				return ActionResultType.PASS;
 			} else {
-				int i = state.get(LEVEL);
+				int i = state.getValue(LEVEL);
 				if (i == 3) {
 					return ActionResultType.PASS;
 				}
@@ -134,7 +128,7 @@ public class Cauldron extends CauldronBlock {
 				Cauldron cauldronBlock = (Cauldron) worldIn.getBlockState(pos).getBlock();
 				if (item == Items.POTION) {
 
-					List<EffectInstance> effects = PotionUtils.getEffectsFromStack(itemstack);
+					List<EffectInstance> effects = PotionUtils.getAllEffects(itemstack.getTag());
 					if (effects.isEmpty()) {
 						return ActionResultType.PASS;
 					}
@@ -147,16 +141,16 @@ public class Cauldron extends CauldronBlock {
 							cauldron.INPUT_A.add(e);
 						}
 						ItemStack itemstack3 = new ItemStack(Items.GLASS_BOTTLE);
-						player2.setHeldItem(handIn, itemstack3);
+						player2.setItemInHand(handIn, itemstack3);
 						cauldronBlock.setWaterLevel(worldIn, pos, state, 1);
 						return ActionResultType.SUCCESS;
 					}
-					if (!(cauldron.INPUT_A.isEmpty()) && (cauldron.INPUT_B.isEmpty() == true)) {
+					if (!(cauldron.INPUT_A.isEmpty()) && (cauldron.INPUT_B.isEmpty())) {
 						for (EffectInstance e : effects) {
 							cauldron.INPUT_B.add(e);
 						}
 						ItemStack itemstack3 = new ItemStack(Items.GLASS_BOTTLE);
-						player2.setHeldItem(handIn, itemstack3);
+						player2.setItemInHand(handIn, itemstack3);
 						cauldron.goForReady();
 
 						cauldronBlock.setWaterLevel(worldIn, pos, state, 2);
@@ -174,9 +168,9 @@ public class Cauldron extends CauldronBlock {
 				if ((item == Items.GLASS_BOTTLE) && (cauldron.isComplete())) {
 					ItemStack itemstack2 = new ItemStack(Items.POTION);
 					Collection<EffectInstance> effects = cauldron.getOutput();
-					PotionUtils.appendEffects(itemstack2, effects);
-					itemstack2.setDisplayName((ITextComponent) TextComponentHelper.createComponentTranslation(player2, "Blended Potion", new Object()));
-					player2.setHeldItem(handIn, itemstack2.copy());
+					PotionUtils.setCustomEffects(itemstack2, effects);
+					itemstack2.setHoverName((ITextComponent) TextComponentHelper.createComponentTranslation(player2, "Blended Potion", new Object()));
+					player2.setItemInHand(handIn, itemstack2.copy());
 					cauldronBlock.setWaterLevel(worldIn, pos, state, i - 1);
 					cauldron.resetAll();
 				}
@@ -194,8 +188,8 @@ public class Cauldron extends CauldronBlock {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		if (((TileEntityCauldron) worldIn.getTileEntity(pos)).isComplete()) {
-			spawnParticles(worldIn, pos, stateIn.get(LEVEL));
+		if (((TileEntityCauldron) worldIn.getBlockEntity(pos)).isComplete()) {
+			spawnParticles(worldIn, pos, stateIn.getValue(LEVEL));
 		}
 
 	}

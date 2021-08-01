@@ -12,7 +12,7 @@ public class ClientProxy implements CommonProxy {
     @Override
     public World getClientWorld() {
 
-        return Minecraft.getInstance().world;
+        return Minecraft.getInstance().level;
     }
 
     @Override

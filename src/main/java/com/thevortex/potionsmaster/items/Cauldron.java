@@ -6,10 +6,12 @@ import com.thevortex.potionsmaster.init.ModItems;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.item.Item.Properties;
+
 public class Cauldron extends BlockItem {
 
     public Cauldron(Properties properties) {
-        super(ModBlocks.CAULDRON, properties.maxStackSize(1));
+        super(ModBlocks.CAULDRON, properties.stacksTo(1));
     }
 
     @Override

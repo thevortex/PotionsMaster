@@ -23,26 +23,26 @@ public class AllthemodiumPotionEffect extends Effect {
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
 
         return true;
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.ALLTHEMODIUM.toString());
             BlockData ALLTHEMODIUM = bdUUID.getBlockData();
-            if ((ALLTHEMODIUM.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.ALLTHEMODIUMSIGHT) == null))) {
+            if ((!ALLTHEMODIUM.isDrawing()) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.ALLTHEMODIUMSIGHT) == null))) {
                 ALLTHEMODIUM.setDrawing(true);
             }
-            if (Controller.drawOres() == false) {
+            if (!Controller.drawOres()) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 

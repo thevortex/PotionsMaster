@@ -10,11 +10,13 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class Pestle extends Item {
 
     public Pestle(Properties properties) {
 
-        super(properties.maxStackSize(1));
+        super(properties.stacksTo(1));
 
     }
 
@@ -30,7 +32,7 @@ public class Pestle extends Item {
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (itemstack.getItem() == ModItems.PESTLE) {
             return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
         } else {

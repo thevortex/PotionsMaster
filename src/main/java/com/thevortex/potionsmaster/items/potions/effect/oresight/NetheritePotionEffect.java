@@ -24,26 +24,26 @@ public class NetheritePotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.NETHERITE.toString());
             BlockData NETHERITE = bdUUID.getBlockData();
-            if ((!NETHERITE.isDrawing()) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.NETHERITESIGHT) == null))) {
+            if ((!NETHERITE.isDrawing()) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.NETHERITESIGHT) == null))) {
                 NETHERITE.setDrawing(true);
             }
             if (!Controller.drawOres()) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

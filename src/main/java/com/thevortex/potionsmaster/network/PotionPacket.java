@@ -17,12 +17,12 @@ public class PotionPacket {
     }
 
     public static void encode(PotionPacket msg, PacketBuffer buf) {
-        buf.writeString(msg.potionName);
+        buf.writeUtf(msg.potionName);
 
     }
 
     public static PotionPacket decode(PacketBuffer buf) {
-        return new PotionPacket(buf.readString());
+        return new PotionPacket(buf.readUtf());
     }
 
     public static class Handler {

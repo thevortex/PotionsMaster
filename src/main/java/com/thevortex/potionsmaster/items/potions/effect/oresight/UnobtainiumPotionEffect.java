@@ -27,26 +27,26 @@ public class UnobtainiumPotionEffect extends Effect {
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
 
         return true;
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.UNOBTAINIUM.toString());
             BlockData UNOBTAINIUM = bdUUID.getBlockData();
-            if ((UNOBTAINIUM.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.UNOBTAINIUMSIGHT) == null))) {
+            if ((UNOBTAINIUM.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.UNOBTAINIUMSIGHT) == null))) {
                 UNOBTAINIUM.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

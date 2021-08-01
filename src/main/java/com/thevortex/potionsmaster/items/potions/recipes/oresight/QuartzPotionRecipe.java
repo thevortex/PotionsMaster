@@ -21,7 +21,7 @@ public class QuartzPotionRecipe extends BrewingRecipe {
 
     @Override
     public boolean isInput(ItemStack input) {
-        return (PotionUtils.getPotionFromItem(input) == Potions.MUNDANE);
+        return (PotionUtils.getPotion(input) == Potions.MUNDANE);
     }
 
     @Override
@@ -36,8 +36,7 @@ public class QuartzPotionRecipe extends BrewingRecipe {
     }
 
     public ItemStack getOutput() {
-        return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ModPotions.QUARTZ_SIGHT);
-
+        return PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.QUARTZ_SIGHT);
     }
 
 }

@@ -18,8 +18,8 @@ public class BlockBreak {
     public static void on(BreakEvent event) {
         if (event.getState().getBlock() == Blocks.CAMPFIRE) {
             BlockPos pos = event.getPos();
-            if (event.getWorld().getBlockState(pos.up()).getBlock() instanceof Cauldron) {
-                event.getWorld().destroyBlock(pos.up(), true);
+            if (event.getWorld().getBlockState(pos.above()).getBlock() instanceof Cauldron) {
+                event.getWorld().destroyBlock(pos.above(), true);
             }
         }
     }

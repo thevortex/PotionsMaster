@@ -28,26 +28,26 @@ public class CrimsonIronPotionEffect extends Effect {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
 
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
         if (entityLivingBaseIn instanceof ClientPlayerEntity) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.CRIMSONIRON.toString());
             BlockData CRIMSONIRON = bdUUID.getBlockData();
-            if ((CRIMSONIRON.isDrawing() != true) && (!(entityLivingBaseIn.getActivePotionEffect(ModPotionEffects.CRIMSONIRONSIGHT) == null))) {
+            if ((CRIMSONIRON.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.CRIMSONIRONSIGHT) == null))) {
                 CRIMSONIRON.setDrawing(true);
             }
             if (Controller.drawOres() == false) {
                 Controller.toggleDrawOres();
             }
 
-            super.performEffect(entityLivingBaseIn, amplifier);
+            super.applyEffectTick(entityLivingBaseIn, amplifier);
         }
     }
 }

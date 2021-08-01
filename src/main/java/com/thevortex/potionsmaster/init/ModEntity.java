@@ -15,7 +15,7 @@ public class ModEntity {
 
     public static void init(Register<TileEntityType<?>> event) {
 
-        TILE_CAULDRON = TileEntityType.Builder.create(TileEntityCauldron::new, ModBlocks.CAULDRON).build(null);
+        TILE_CAULDRON = TileEntityType.Builder.of(TileEntityCauldron::new, ModBlocks.CAULDRON).build(null);
 
         TILE_CAULDRON.setRegistryName(location("cauldron"));
 
