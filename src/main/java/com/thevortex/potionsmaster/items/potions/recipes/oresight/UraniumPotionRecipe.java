@@ -4,12 +4,13 @@ package com.thevortex.potionsmaster.items.potions.recipes.oresight;
 import com.thevortex.potionsmaster.init.ModItems;
 import com.thevortex.potionsmaster.init.ModPotions;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.brewing.BrewingRecipe;
+
 
 public class UraniumPotionRecipe extends BrewingRecipe {
 

@@ -1,8 +1,6 @@
 package com.thevortex.potionsmaster.items.powders.base;
 
-import net.minecraft.item.Item;
-
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item;
 
 public class AllthemodiumPowder extends Item {
 

@@ -1,26 +1,29 @@
 package com.thevortex.potionsmaster.render.util.xray;
 
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.ChunkSection;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import com.mojang.math.Vector3d;
 import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockInfo;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.WorldRegion;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 
 public class RenderEnqueue implements Runnable {
 	private final WorldRegion box;
@@ -62,7 +65,7 @@ public class RenderEnqueue implements Runnable {
 			double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) / Controller.getRadius()) * 255);
 
 			// the block was added to the world, let's add it to the drawing buffer
-			Render.ores.add(new BlockInfo(pos, data.getColor().getColor(), alpha));
+			Render.ores.add(new BlockInfo(new Vec3i(pos.getX(),pos.getY(),pos.getZ()), data.getColor().getColor(), alpha));
 		}
 	}
 
@@ -84,9 +87,9 @@ public class RenderEnqueue implements Runnable {
 
 		}
 
-		final World world = PotionsMaster.proxy.getClientPlayer().level;
+		final Level world = PotionsMaster.proxy.getClientPlayer().level;
 
-		final PlayerEntity player = PotionsMaster.proxy.getClientPlayer();
+		final LocalPlayer player = PotionsMaster.proxy.getClientPlayer();
 
 		final List<BlockInfo> renderQueue = new ArrayList<>();
 
@@ -109,8 +112,8 @@ public class RenderEnqueue implements Runnable {
 					continue; // We won't find anything interesting in unloaded chunks
 				}
 
-				Chunk chunk = world.getChunk(chunkX, chunkZ);
-				ChunkSection[] extendsList = chunk.getSections();
+				LevelChunk chunk = world.getChunk(chunkX, chunkZ);
+				LevelChunkSection[] extendsList = chunk.getSections();
 
 				// Pre-compute the extend bounds on Z
 				int z = chunkZ << 4;
@@ -119,7 +122,7 @@ public class RenderEnqueue implements Runnable {
 
 				// Loop on the extends around the player's layer (6 down, 2 up)
 				for (int curExtend = box.minChunkY; curExtend <= box.maxChunkY; curExtend++) {
-					ChunkSection ebs = extendsList[curExtend];
+					LevelChunkSection ebs = extendsList[curExtend];
 					if (ebs == null) // happens quite often!
 						continue;
 
@@ -232,7 +235,7 @@ public class RenderEnqueue implements Runnable {
 				}
 			}
 		}
-		renderQueue.sort((t, t1) -> Double.compare(t1.distSqr(new Vector3i(player.getX(),player.getY(),player.getZ())), t.distSqr(new Vector3i(player.getX(),player.getY(),player.getZ()))));
+		renderQueue.sort((t, t1) -> Double.compare(t1.distSqr(new Vec3i(player.getX(),player.getY(),player.getZ())), t.distSqr(new Vec3i(player.getX(),player.getY(),player.getZ()))));
 
 		Render.ores.clear();
 		Render.ores.addAll(renderQueue); // Add all our found blocks to the Render.ores list. To be use by Render when drawing.

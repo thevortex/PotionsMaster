@@ -1,13 +1,13 @@
 package com.thevortex.potionsmaster.render.util.xray;
 
 
+import com.mojang.math.Vector3d;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.WorldRegion;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.vector.Vector3i;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -26,7 +26,7 @@ public class Controller {
 		add(Blocks.DIRT);
 	}};
 
-	private static Vector3i lastPlayerPos = null;
+	private static Vector3d lastPlayerPos = null;
 
 
 	// Thread management
@@ -76,13 +76,13 @@ public class Controller {
 		}
 
 		return lastPlayerPos == null
-				|| lastPlayerPos.getX() != PotionsMaster.proxy.getClientPlayer().getX()
-				|| lastPlayerPos.getZ() != PotionsMaster.proxy.getClientPlayer().getZ();
+				|| lastPlayerPos.x != PotionsMaster.proxy.getClientPlayer().getX()
+				|| lastPlayerPos.z != PotionsMaster.proxy.getClientPlayer().getZ();
 	}
 
 	private static void updatePlayerPosition() {
 
-		lastPlayerPos = new Vector3i(PotionsMaster.proxy.getClientPlayer().position().x,PotionsMaster.proxy.getClientPlayer().position().y,PotionsMaster.proxy.getClientPlayer().position().z);
+		lastPlayerPos = new Vector3d(PotionsMaster.proxy.getClientPlayer().position().x,PotionsMaster.proxy.getClientPlayer().position().y,PotionsMaster.proxy.getClientPlayer().position().z);
 	}
 
 	public static synchronized void requestBlockFinder(boolean force) {

@@ -2,14 +2,13 @@ package com.thevortex.potionsmaster.items.powders.calcinated;
 
 import com.thevortex.potionsmaster.init.ModItems;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
-import net.minecraft.world.World;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ActivatedCharcoal extends Item {
 
@@ -20,12 +19,12 @@ public class ActivatedCharcoal extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 
-        if ((entityLiving instanceof PlayerEntity) && (stack.getItem() == ModItems.ACTIVATEDCHARCOAL)) {
-            PlayerEntity player = (PlayerEntity) entityLiving;
-            if (player.hasEffect(Effects.WITHER)) {
-                player.removeEffect(Effects.WITHER);
+        if ((entityLiving instanceof Player) && (stack.getItem() == ModItems.ACTIVATEDCHARCOAL)) {
+            Player player = (Player) entityLiving;
+            if (player.hasEffect(MobEffects.WITHER)) {
+                player.removeEffect(MobEffects.WITHER);
             }
         }
         return super.finishUsingItem(stack, worldIn, entityLiving);

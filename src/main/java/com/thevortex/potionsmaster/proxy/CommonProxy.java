@@ -1,19 +1,22 @@
 package com.thevortex.potionsmaster.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+
+
 
 public interface CommonProxy {
 
     void init();
 
-    World getClientWorld();
+    Level getClientWorld();
 
-    ServerWorld getWorld();
+    ServerLevel getWorld();
 
-    PlayerEntity getClientPlayer();
+    LocalPlayer getClientPlayer();
 
     Minecraft getMinecraft();
 }

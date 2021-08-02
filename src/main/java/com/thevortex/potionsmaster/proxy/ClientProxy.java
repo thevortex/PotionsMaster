@@ -1,22 +1,24 @@
 package com.thevortex.potionsmaster.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+
+
+
 
 public class ClientProxy implements CommonProxy {
 
     @Override
-    public World getClientWorld() {
+    public Level getClientWorld() {
 
         return Minecraft.getInstance().level;
     }
 
     @Override
-    public PlayerEntity getClientPlayer() {
+    public LocalPlayer getClientPlayer() {
         return Minecraft.getInstance().player;
     }
 
@@ -32,7 +34,7 @@ public class ClientProxy implements CommonProxy {
     }
 
     @Override
-    public ServerWorld getWorld() {
+    public ServerLevel getWorld() {
         throw new IllegalStateException("Only run this on the server!");
 
     }

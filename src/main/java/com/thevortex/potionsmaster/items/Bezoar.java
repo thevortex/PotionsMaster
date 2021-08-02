@@ -1,15 +1,13 @@
 package com.thevortex.potionsmaster.items;
 
 import com.thevortex.potionsmaster.init.ModItems;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
-import net.minecraft.world.World;
-
-import net.minecraft.item.Item.Properties;
 
 public class Bezoar extends Item {
 
@@ -20,12 +18,12 @@ public class Bezoar extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 
-        if ((entityLiving instanceof PlayerEntity) && (stack.getItem() == ModItems.BEZOAR)) {
-            PlayerEntity player = (PlayerEntity) entityLiving;
-            if (player.hasEffect(Effects.POISON)) {
-                player.removeEffect(Effects.POISON);
+        if ((entityLiving instanceof Player) && (stack.getItem() == ModItems.BEZOAR)) {
+            Player player = (Player) entityLiving;
+            if (player.hasEffect(MobEffects.POISON)) {
+                player.removeEffect(MobEffects.POISON);
             }
         }
         return super.finishUsingItem(stack, worldIn, entityLiving);

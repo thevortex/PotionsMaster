@@ -9,12 +9,6 @@ import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.reference.Reference;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tags.*;
-import net.minecraft.util.ResourceLocation;
 
 
 public class BlockStoreBuilder {

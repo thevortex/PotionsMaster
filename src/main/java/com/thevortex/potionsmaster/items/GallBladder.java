@@ -1,15 +1,13 @@
 package com.thevortex.potionsmaster.items;
 
 import com.thevortex.potionsmaster.init.ModItems;
-
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
-import net.minecraft.world.World;
-
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class GallBladder extends Item {
 
@@ -19,12 +17,12 @@ public class GallBladder extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 
-        if ((entityLiving instanceof PlayerEntity) && (stack.getItem() == ModItems.GALLBLADDER)) {
-            PlayerEntity player = (PlayerEntity) entityLiving;
-            if (player.hasEffect(Effects.DIG_SLOWDOWN)) {
-                player.removeEffect(Effects.DIG_SLOWDOWN);
+        if ((entityLiving instanceof Player) && (stack.getItem() == ModItems.GALLBLADDER)) {
+            Player player = (Player) entityLiving;
+            if (player.hasEffect(MobEffects.DIG_SLOWDOWN)) {
+                player.removeEffect(MobEffects.DIG_SLOWDOWN);
             }
         }
         return super.finishUsingItem(stack, worldIn, entityLiving);

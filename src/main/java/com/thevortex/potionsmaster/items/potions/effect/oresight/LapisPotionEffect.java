@@ -8,16 +8,16 @@ import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStore.BlockDataWithUUID;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
 
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class LapisPotionEffect extends Effect {
+public class LapisPotionEffect extends MobEffect {
 
-    public LapisPotionEffect(EffectType typeIn, int liquidColorIn) {
+    public LapisPotionEffect(MobEffectCategory typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,7 @@ public class LapisPotionEffect extends Effect {
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
-        if (entityLivingBaseIn instanceof ClientPlayerEntity) {
+        if (entityLivingBaseIn instanceof AbstractClientPlayer) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.LAPIS.toString());
             BlockData LAPIS = bdUUID.getBlockData();
             if ((LAPIS.isDrawing() != true) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.LAPISSIGHT) == null))) {

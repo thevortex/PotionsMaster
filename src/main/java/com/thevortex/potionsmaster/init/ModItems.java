@@ -2,22 +2,21 @@ package com.thevortex.potionsmaster.init;
 
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.items.Bezoar;
-import com.thevortex.potionsmaster.items.Cauldron;
 import com.thevortex.potionsmaster.items.GallBladder;
 import com.thevortex.potionsmaster.items.Mortar;
 import com.thevortex.potionsmaster.items.Pestle;
-import com.thevortex.potionsmaster.items.feathers.RedFeather;
 import com.thevortex.potionsmaster.items.powders.base.*;
 import com.thevortex.potionsmaster.items.powders.calcinated.*;
 import com.thevortex.potionsmaster.reference.Reference;
 
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.registries.ObjectHolder;
+
 
 public class ModItems {
     @ObjectHolder("potionsmaster:charcoal_powder")
@@ -132,11 +131,6 @@ public class ModItems {
     public static Item ENDER_POWDER;
 
 
-    @ObjectHolder("potionsmaster:red_feather")
-    public static Item RED_FEATHER;
-
-    @ObjectHolder("potionsmaster:item_cauldron")
-    public static Item ITEM_CAULDRON;
 
     @ObjectHolder("potionsmaster:item_mortar")
     public static Item ITEM_MORTAR;
@@ -144,75 +138,72 @@ public class ModItems {
     public static Item ACTIVATEDCHARCOAL;
 
     public static void init(Register<Item> event) {
-        ItemGroup group = PotionsMaster.GROUP;
-
-        RED_FEATHER = new RedFeather(new Item.Properties().tab(group)).setRegistryName(location("red_feather"));
 
 
-        CHARCOAL_POWDER = new CharcoalPowder(new Item.Properties().tab(group)).setRegistryName(location("charcoal_powder"));
-        COAL_POWDER = new CoalPowder(new Item.Properties().tab(group)).setRegistryName(location("coal_powder"));
-        DIAMOND_POWDER = new DiamondPowder(new Item.Properties().tab(group)).setRegistryName(location("diamond_powder"));
-        EMERALD_POWDER = new EmeraldPowder(new Item.Properties().tab(group)).setRegistryName(location("emerald_powder"));
-        GOLD_POWDER = new GoldPowder(new Item.Properties().tab(group)).setRegistryName(location("gold_powder"));
-        IRON_POWDER = new IronPowder(new Item.Properties().tab(group)).setRegistryName(location("iron_powder"));
-        LAPIS_POWDER = new LapisPowder(new Item.Properties().tab(group)).setRegistryName(location("lapis_powder"));
-        REDSTONE_POWDER = new RedstonePowder(new Item.Properties().tab(group)).setRegistryName(location("redstone_powder"));
 
-        ALUMINIUM_POWDER = new AluminiumPowder(new Item.Properties().tab(group)).setRegistryName(location("aluminium_powder"));
-        COPPER_POWDER = new CopperPowder(new Item.Properties().tab(group)).setRegistryName(location("copper_powder"));
-        TIN_POWDER = new TinPowder(new Item.Properties().tab(group)).setRegistryName(location("tin_powder"));
-        NICKEL_POWDER = new NickelPowder(new Item.Properties().tab(group)).setRegistryName(location("nickel_powder"));
-        URANIUM_POWDER = new UraniumPowder(new Item.Properties().tab(group)).setRegistryName(location("uranium_powder"));
-        LEAD_POWDER = new LeadPowder(new Item.Properties().tab(group)).setRegistryName(location("lead_powder"));
-        SILVER_POWDER = new SilverPowder(new Item.Properties().tab(group)).setRegistryName(location("silver_powder"));
-        ZINC_POWDER = new ZincPowder(new Item.Properties().tab(group)).setRegistryName(location("zinc_powder"));
-        OSMIUM_POWDER = new OsmiumPowder(new Item.Properties().tab(group)).setRegistryName(location("osmium_powder"));
-        QUARTZ_POWDER = new QuartzPowder(new Item.Properties().tab(group)).setRegistryName(location("quartz_powder"));
-        BISMUTH_POWDER = new BismuthPowder(new Item.Properties().tab(group)).setRegistryName(location("bismuth_powder"));
-        CRIMSONIRON_POWDER = new CrimsonIronPowder(new Item.Properties().tab(group)).setRegistryName(location("crimsoniron_powder"));
-        PLATINUM_POWDER = new PlatinumPowder(new Item.Properties().tab(group)).setRegistryName(location("platinum_powder"));
-        NETHERITE_POWDER = new NetheritePowder(new Item.Properties().tab(group)).setRegistryName(location("netherite_powder"));
+        CHARCOAL_POWDER = new CharcoalPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("charcoal_powder"));
+        COAL_POWDER = new CoalPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("coal_powder"));
+        DIAMOND_POWDER = new DiamondPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("diamond_powder"));
+        EMERALD_POWDER = new EmeraldPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("emerald_powder"));
+        GOLD_POWDER = new GoldPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("gold_powder"));
+        IRON_POWDER = new IronPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("iron_powder"));
+        LAPIS_POWDER = new LapisPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("lapis_powder"));
+        REDSTONE_POWDER = new RedstonePowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("redstone_powder"));
 
-        ALLTHEMODIUM_POWDER = new AllthemodiumPowder(new Item.Properties().tab(group)).setRegistryName(location("allthemodium_powder"));
-        VIBRANIUM_POWDER = new VibraniumPowder(new Item.Properties().tab(group)).setRegistryName(location("vibranium_powder"));
-        UNOBTAINIUM_POWDER = new UnobtainiumPowder(new Item.Properties().tab(group)).setRegistryName(location("unobtainium_powder"));
+        ALUMINIUM_POWDER = new AluminiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("aluminium_powder"));
+        COPPER_POWDER = new CopperPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("copper_powder"));
+        TIN_POWDER = new TinPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("tin_powder"));
+        NICKEL_POWDER = new NickelPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("nickel_powder"));
+        URANIUM_POWDER = new UraniumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("uranium_powder"));
+        LEAD_POWDER = new LeadPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("lead_powder"));
+        SILVER_POWDER = new SilverPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("silver_powder"));
+        ZINC_POWDER = new ZincPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("zinc_powder"));
+        OSMIUM_POWDER = new OsmiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("osmium_powder"));
+        QUARTZ_POWDER = new QuartzPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("quartz_powder"));
+        BISMUTH_POWDER = new BismuthPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("bismuth_powder"));
+        CRIMSONIRON_POWDER = new CrimsonIronPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("crimsoniron_powder"));
+        PLATINUM_POWDER = new PlatinumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("platinum_powder"));
+        NETHERITE_POWDER = new NetheritePowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("netherite_powder"));
 
-        ENDER_POWDER = new EnderPowder(new Item.Properties().tab(group)).setRegistryName(location("ender_powder"));
+        ALLTHEMODIUM_POWDER = new AllthemodiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("allthemodium_powder"));
+        VIBRANIUM_POWDER = new VibraniumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("vibranium_powder"));
+        UNOBTAINIUM_POWDER = new UnobtainiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("unobtainium_powder"));
 
-        CALCINATEDCOAL_POWDER = new CalcinatedCoalPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedcoal_powder"));
-        CALCINATEDDIAMOND_POWDER = new CalcinatedDiamondPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinateddiamond_powder"));
-        CALCINATEDEMERALD_POWDER = new CalcinatedEmeraldPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedemerald_powder"));
-        CALCINATEDGOLD_POWDER = new CalcinatedGoldPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedgold_powder"));
-        CALCINATEDIRON_POWDER = new CalcinatedIronPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatediron_powder"));
-        CALCINATEDLAPIS_POWDER = new CalcinatedLapisPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedlapis_powder"));
-        CALCINATEDREDSTONE_POWDER = new CalcinatedRedstonePowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedredstone_powder"));
-        CALCINATEDNETHERITE_POWDER = new CalcinatedNetheritePowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatednetherite_powder"));
+        ENDER_POWDER = new EnderPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("ender_powder"));
 
-        CALCINATEDALUMINIUM_POWDER = new CalcinatedAluminiumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedaluminium_powder"));
-        CALCINATEDCOPPER_POWDER = new CalcinatedCopperPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedcopper_powder"));
-        CALCINATEDTIN_POWDER = new CalcinatedTinPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedtin_powder"));
-        CALCINATEDNICKEL_POWDER = new CalcinatedNickelPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatednickel_powder"));
-        CALCINATEDURANIUM_POWDER = new CalcinatedUraniumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinateduranium_powder"));
-        CALCINATEDLEAD_POWDER = new CalcinatedLeadPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedlead_powder"));
-        CALCINATEDSILVER_POWDER = new CalcinatedSilverPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedsilver_powder"));
-        CALCINATEDZINC_POWDER = new CalcinatedZincPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedzinc_powder"));
-        CALCINATEDOSMIUM_POWDER = new CalcinatedOsmiumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedosmium_powder"));
-        CALCINATEDQUARTZ_POWDER = new CalcinatedQuartzPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedquartz_powder"));
-        CALCINATEDBISMUTH_POWDER = new CalcinatedBismuthPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedbismuth_powder"));
-        CALCINATEDCRIMSONIRON_POWDER = new CalcinatedCrimsonIronPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedcrimsoniron_powder"));
-        CALCINATEDPLATINUM_POWDER = new CalcinatedPlatinumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedplatinum_powder"));
-        CALCINATEDALLTHEMODIUM_POWDER = new CalcinatedAllthemodiumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedallthemodium_powder"));
-        CALCINATEDVIBRANIUM_POWDER = new CalcinatedVibraniumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedvibranium_powder"));
-        CALCINATEDUNOBTAINIUM_POWDER = new CalcinatedUnobtainiumPowder(new Item.Properties().tab(group)).setRegistryName(location("calcinatedunobtainium_powder"));
+        CALCINATEDCOAL_POWDER = new CalcinatedCoalPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedcoal_powder"));
+        CALCINATEDDIAMOND_POWDER = new CalcinatedDiamondPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinateddiamond_powder"));
+        CALCINATEDEMERALD_POWDER = new CalcinatedEmeraldPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedemerald_powder"));
+        CALCINATEDGOLD_POWDER = new CalcinatedGoldPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedgold_powder"));
+        CALCINATEDIRON_POWDER = new CalcinatedIronPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatediron_powder"));
+        CALCINATEDLAPIS_POWDER = new CalcinatedLapisPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedlapis_powder"));
+        CALCINATEDREDSTONE_POWDER = new CalcinatedRedstonePowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedredstone_powder"));
+        CALCINATEDNETHERITE_POWDER = new CalcinatedNetheritePowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatednetherite_powder"));
 
-        PESTLE = new Pestle(new Item.Properties().tab(group)).setRegistryName(location("pestle"));
-        BEZOAR = new Bezoar(new Item.Properties().tab(group).food(ModFoods.BEZOAR)).setRegistryName(location("bezoar"));
-        ACTIVATEDCHARCOAL = new ActivatedCharcoal(new Item.Properties().tab(group).food(ModFoods.ACTIVATEDCHARCOAL)).setRegistryName(location("activated_charcoal"));
-        GALLBLADDER = new GallBladder(new Item.Properties().tab(group).food(ModFoods.GALLBLADDER)).setRegistryName(location("gallbladder"));
+        CALCINATEDALUMINIUM_POWDER = new CalcinatedAluminiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedaluminium_powder"));
+        CALCINATEDCOPPER_POWDER = new CalcinatedCopperPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedcopper_powder"));
+        CALCINATEDTIN_POWDER = new CalcinatedTinPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedtin_powder"));
+        CALCINATEDNICKEL_POWDER = new CalcinatedNickelPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatednickel_powder"));
+        CALCINATEDURANIUM_POWDER = new CalcinatedUraniumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinateduranium_powder"));
+        CALCINATEDLEAD_POWDER = new CalcinatedLeadPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedlead_powder"));
+        CALCINATEDSILVER_POWDER = new CalcinatedSilverPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedsilver_powder"));
+        CALCINATEDZINC_POWDER = new CalcinatedZincPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedzinc_powder"));
+        CALCINATEDOSMIUM_POWDER = new CalcinatedOsmiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedosmium_powder"));
+        CALCINATEDQUARTZ_POWDER = new CalcinatedQuartzPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedquartz_powder"));
+        CALCINATEDBISMUTH_POWDER = new CalcinatedBismuthPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedbismuth_powder"));
+        CALCINATEDCRIMSONIRON_POWDER = new CalcinatedCrimsonIronPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedcrimsoniron_powder"));
+        CALCINATEDPLATINUM_POWDER = new CalcinatedPlatinumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedplatinum_powder"));
+        CALCINATEDALLTHEMODIUM_POWDER = new CalcinatedAllthemodiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedallthemodium_powder"));
+        CALCINATEDVIBRANIUM_POWDER = new CalcinatedVibraniumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedvibranium_powder"));
+        CALCINATEDUNOBTAINIUM_POWDER = new CalcinatedUnobtainiumPowder(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("calcinatedunobtainium_powder"));
 
-        Item.Properties properties = new Item.Properties().tab(group);
+        PESTLE = new Pestle(new Item.Properties().tab(PotionsMaster.GROUP)).setRegistryName(location("pestle"));
+        BEZOAR = new Bezoar(new Item.Properties().tab(PotionsMaster.GROUP).food(ModFoods.BEZOAR)).setRegistryName(location("bezoar"));
+        ACTIVATEDCHARCOAL = new ActivatedCharcoal(new Item.Properties().tab(PotionsMaster.GROUP).food(ModFoods.ACTIVATEDCHARCOAL)).setRegistryName(location("activated_charcoal"));
+        GALLBLADDER = new GallBladder(new Item.Properties().tab(PotionsMaster.GROUP).food(ModFoods.GALLBLADDER)).setRegistryName(location("gallbladder"));
 
-        ITEM_CAULDRON = new Cauldron(properties).setRegistryName(location("cauldron"));
+        Item.Properties properties = new Item.Properties().tab(PotionsMaster.GROUP);
+
         ITEM_MORTAR = new Mortar(properties).setRegistryName(location("tile_mortar"));
         event.getRegistry().register(ModItems.CHARCOAL_POWDER);
         event.getRegistry().register(ModItems.COAL_POWDER);
@@ -274,9 +265,6 @@ public class ModItems {
         event.getRegistry().register(ModItems.ACTIVATEDCHARCOAL);
 
 
-        event.getRegistry().register(ModItems.RED_FEATHER);
-
-        event.getRegistry().register(ModItems.ITEM_CAULDRON);
         event.getRegistry().register(ModItems.ITEM_MORTAR);
     }
 

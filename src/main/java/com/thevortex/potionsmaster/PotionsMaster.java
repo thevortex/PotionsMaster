@@ -1,10 +1,24 @@
 package com.thevortex.potionsmaster;
 
 import com.thevortex.potionsmaster.items.potions.recipes.oresight.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.fmlserverevents.FMLServerStoppingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.thevortex.potionsmaster.events.BlockBreak;
 import com.thevortex.potionsmaster.events.PotionExpiry;
 import com.thevortex.potionsmaster.init.ModBlocks;
 import com.thevortex.potionsmaster.init.ModEntity;
@@ -20,19 +34,6 @@ import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStoreBuilder;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,8 +44,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+
 
 @SuppressWarnings("deprecation")
 @Mod(Reference.MOD_ID)
@@ -52,7 +54,7 @@ public class PotionsMaster {
 
 	public static final String MOD_ID = Reference.MOD_ID;
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	public static final ItemGroup GROUP = new ItemGroup(MOD_ID) {
+	public static final CreativeModeTab GROUP = new CreativeModeTab(MOD_ID) {
 		public ItemStack makeIcon() {
 			return new ItemStack(Blocks.BREWING_STAND);
 		}
@@ -66,7 +68,6 @@ public class PotionsMaster {
 		FMLJavaModLoadingContext.get().getModEventBus().register(setupMod.class);
 		MinecraftForge.EVENT_BUS.register(PlayerEvents.class);
 		MinecraftForge.EVENT_BUS.register(PotionExpiry.class);
-		MinecraftForge.EVENT_BUS.register(BlockBreak.class);
 		MinecraftForge.EVENT_BUS.addListener(this::onExit);
 		//MinecraftForge.EVENT_BUS.register(PotionRemoved.class);
 	}
@@ -85,7 +86,7 @@ public class PotionsMaster {
 	public static class PlayerEvents {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
-		public void onPlayerLogOut(PlayerLoggedOutEvent event) {
+		public static void onPlayerLogOut(PlayerLoggedOutEvent event) {
 			if (Controller.drawOres()) {
 				Controller.toggleDrawOres();
 			}
@@ -253,14 +254,14 @@ public class PotionsMaster {
 		}
 
 		@SubscribeEvent
-		public static void onEffectsRegistry(final RegistryEvent.Register<Effect> event) {
+		public static void onEffectsRegistry(final RegistryEvent.Register<MobEffect> event) {
 
 			ModPotionEffects.init(event);
 
 		}
 
 		@SubscribeEvent
-		public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
+		public static void onTileEntityRegistry(final RegistryEvent.Register<BlockEntityType<?>> event) {
 			ModEntity.init(event);
 		}
 

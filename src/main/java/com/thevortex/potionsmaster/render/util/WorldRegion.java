@@ -1,6 +1,6 @@
 package com.thevortex.potionsmaster.render.util;
 
-import net.minecraft.util.math.vector.Vector3i;
+import com.mojang.math.Vector3d;
 
 /**
  * A bounding box representing a world 3D area in both world and chunk coords.
@@ -17,13 +17,13 @@ public class WorldRegion {
      * @param pos    a world position
      * @param radius a block radius
      */
-    public WorldRegion(Vector3i pos, int radius) {
-        minX = pos.getX() - radius;
-        maxX = pos.getX() + radius;
-        minY = Math.max(0, pos.getY() - 92);
-        maxY = Math.min(255, pos.getY() + 32);
-        minZ = pos.getZ() - radius;
-        maxZ = pos.getZ() + radius;
+    public WorldRegion(Vector3d pos, int radius) {
+        minX = (int)pos.x - radius;
+        maxX = (int)pos.x + radius;
+        minY = (int)Math.max(0, pos.y - 92);
+        maxY = (int)Math.min(255, pos.y + 32);
+        minZ = (int)pos.z - radius;
+        maxZ = (int)pos.z + radius;
         minChunkX = minX >> 4;
         maxChunkX = maxX >> 4;
         minChunkY = minY >> 4;

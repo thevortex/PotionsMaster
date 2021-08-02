@@ -1,8 +1,9 @@
 package com.thevortex.potionsmaster.render.util;
 
-import net.minecraft.util.math.vector.Vector3i;
 
-public class BlockInfo extends Vector3i {
+import net.minecraft.core.Vec3i;
+
+public class BlockInfo extends Vec3i {
     public int[] color;
     public double alpha;
 
@@ -12,8 +13,8 @@ public class BlockInfo extends Vector3i {
         this.alpha = alpha;
     }
 
-    public BlockInfo(Vector3i pos, int[] color, double alpha) {
-        this(pos.getX(), pos.getY(), pos.getZ(), color, alpha);
+    public BlockInfo(Vec3i pos, int[] color, double alpha) {
+        this((int)pos.getX(), (int)pos.getY(), (int)pos.getZ(), color, alpha);
     }
 
 }

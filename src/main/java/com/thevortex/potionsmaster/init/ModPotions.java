@@ -2,40 +2,39 @@ package com.thevortex.potionsmaster.init;
 
 import com.thevortex.potionsmaster.reference.Reference;
 
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.Potions;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.event.RegistryEvent.Register;
 
+
 public class ModPotions {
-    public static final EffectInstance COALSIGHT = new EffectInstance(ModPotionEffects.COALSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance IRONSIGHT = new EffectInstance(ModPotionEffects.IRONSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance REDSTONESIGHT = new EffectInstance(ModPotionEffects.REDSTONESIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance LAPISSIGHT = new EffectInstance(ModPotionEffects.LAPISSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance GOLDSIGHT = new EffectInstance(ModPotionEffects.GOLDSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance DIAMONDSIGHT = new EffectInstance(ModPotionEffects.DIAMONDSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance EMERALDSIGHT = new EffectInstance(ModPotionEffects.EMERALDSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance COALSIGHT = new MobEffectInstance(ModPotionEffects.COALSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance IRONSIGHT = new MobEffectInstance(ModPotionEffects.IRONSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance REDSTONESIGHT = new MobEffectInstance(ModPotionEffects.REDSTONESIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance LAPISSIGHT = new MobEffectInstance(ModPotionEffects.LAPISSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance GOLDSIGHT = new MobEffectInstance(ModPotionEffects.GOLDSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance DIAMONDSIGHT = new MobEffectInstance(ModPotionEffects.DIAMONDSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance EMERALDSIGHT = new MobEffectInstance(ModPotionEffects.EMERALDSIGHT, 6000, 0, false, true, true);
 
-    public static final EffectInstance ALUMINIUMSIGHT = new EffectInstance(ModPotionEffects.ALUMINIUMSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance COPPERSIGHT = new EffectInstance(ModPotionEffects.COPPERSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance TINSIGHT = new EffectInstance(ModPotionEffects.TINSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance NICKELSIGHT = new EffectInstance(ModPotionEffects.NICKELSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance URANIUMSIGHT = new EffectInstance(ModPotionEffects.URANIUMSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance LEADSIGHT = new EffectInstance(ModPotionEffects.LEADSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance SILVERSIGHT = new EffectInstance(ModPotionEffects.SILVERSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance ZINCSIGHT = new EffectInstance(ModPotionEffects.ZINCSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance OSMIUMSIGHT = new EffectInstance(ModPotionEffects.OSMIUMSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance QUARTZSIGHT = new EffectInstance(ModPotionEffects.QUARTZSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance BISMUTHSIGHT = new EffectInstance(ModPotionEffects.BISMUTHSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance CRIMSONIRONSIGHT = new EffectInstance(ModPotionEffects.CRIMSONIRONSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance PLATINUMSIGHT = new EffectInstance(ModPotionEffects.PLATINUMSIGHT, 6000, 0, false, true, true);
-    public static final EffectInstance NETHERITESIGHT = new EffectInstance(ModPotionEffects.NETHERITESIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance ALUMINIUMSIGHT = new MobEffectInstance(ModPotionEffects.ALUMINIUMSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance COPPERSIGHT = new MobEffectInstance(ModPotionEffects.COPPERSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance TINSIGHT = new MobEffectInstance(ModPotionEffects.TINSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance NICKELSIGHT = new MobEffectInstance(ModPotionEffects.NICKELSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance URANIUMSIGHT = new MobEffectInstance(ModPotionEffects.URANIUMSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance LEADSIGHT = new MobEffectInstance(ModPotionEffects.LEADSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance SILVERSIGHT = new MobEffectInstance(ModPotionEffects.SILVERSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance ZINCSIGHT = new MobEffectInstance(ModPotionEffects.ZINCSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance OSMIUMSIGHT = new MobEffectInstance(ModPotionEffects.OSMIUMSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance QUARTZSIGHT = new MobEffectInstance(ModPotionEffects.QUARTZSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance BISMUTHSIGHT = new MobEffectInstance(ModPotionEffects.BISMUTHSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance CRIMSONIRONSIGHT = new MobEffectInstance(ModPotionEffects.CRIMSONIRONSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance PLATINUMSIGHT = new MobEffectInstance(ModPotionEffects.PLATINUMSIGHT, 6000, 0, false, true, true);
+    public static final MobEffectInstance NETHERITESIGHT = new MobEffectInstance(ModPotionEffects.NETHERITESIGHT, 6000, 0, false, true, true);
 
-    public static final EffectInstance ALLTHEMODIUMSIGHT = new EffectInstance(ModPotionEffects.ALLTHEMODIUMSIGHT, 3000, 0, false, true, true);
-    public static final EffectInstance VIBRANIUMSIGHT = new EffectInstance(ModPotionEffects.VIBRANIUMSIGHT, 3000, 0, false, true, true);
-    public static final EffectInstance UNOBTAINIUMSIGHT = new EffectInstance(ModPotionEffects.UNOBTAINIUMSIGHT, 3000, 0, false, true, true);
+    public static final MobEffectInstance ALLTHEMODIUMSIGHT = new MobEffectInstance(ModPotionEffects.ALLTHEMODIUMSIGHT, 3000, 0, false, true, true);
+    public static final MobEffectInstance VIBRANIUMSIGHT = new MobEffectInstance(ModPotionEffects.VIBRANIUMSIGHT, 3000, 0, false, true, true);
+    public static final MobEffectInstance UNOBTAINIUMSIGHT = new MobEffectInstance(ModPotionEffects.UNOBTAINIUMSIGHT, 3000, 0, false, true, true);
 
 
     public static final Potion COAL_SIGHT = new Potion("coal_sight", COALSIGHT).setRegistryName(location("coal_sight"));

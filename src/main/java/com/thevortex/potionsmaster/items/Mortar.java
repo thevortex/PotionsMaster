@@ -3,10 +3,9 @@ package com.thevortex.potionsmaster.items;
 import com.thevortex.potionsmaster.init.ModBlocks;
 import com.thevortex.potionsmaster.init.ModItems;
 
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 
 public class Mortar extends BlockItem {
 

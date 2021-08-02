@@ -1,9 +1,8 @@
 package com.thevortex.potionsmaster.reference;
 
-import net.minecraft.block.Block;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
+
 
 public class Ores {
 

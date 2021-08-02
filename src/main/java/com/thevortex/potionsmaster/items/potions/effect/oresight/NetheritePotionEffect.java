@@ -7,18 +7,18 @@ import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStore.BlockDataWithUUID;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 
-public class NetheritePotionEffect extends Effect {
+public class NetheritePotionEffect extends MobEffect {
 
-    public NetheritePotionEffect(EffectType typeIn, int liquidColorIn) {
-        super(EffectType.BENEFICIAL, liquidColorIn);
+    public NetheritePotionEffect(MobEffectCategory typeIn, int liquidColorIn) {
+        super(MobEffectCategory.BENEFICIAL, liquidColorIn);
 
     }
 
@@ -33,7 +33,7 @@ public class NetheritePotionEffect extends Effect {
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
-        if (entityLivingBaseIn instanceof ClientPlayerEntity) {
+        if (entityLivingBaseIn instanceof AbstractClientPlayer) {
             BlockDataWithUUID bdUUID = store.getStoreByReference(Ores.NETHERITE.toString());
             BlockData NETHERITE = bdUUID.getBlockData();
             if ((!NETHERITE.isDrawing()) && (!(entityLivingBaseIn.getEffect(ModPotionEffects.NETHERITESIGHT) == null))) {

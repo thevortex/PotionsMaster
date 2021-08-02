@@ -6,8 +6,8 @@ import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 
 import com.thevortex.potionsmaster.render.util.xray.Controller;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class PotionPacket {
     private String potionName;
@@ -16,12 +16,12 @@ public class PotionPacket {
         this.potionName = potion;
     }
 
-    public static void encode(PotionPacket msg, PacketBuffer buf) {
+    public static void encode(PotionPacket msg, FriendlyByteBuf buf) {
         buf.writeUtf(msg.potionName);
 
     }
 
-    public static PotionPacket decode(PacketBuffer buf) {
+    public static PotionPacket decode(FriendlyByteBuf buf) {
         return new PotionPacket(buf.readUtf());
     }
 
