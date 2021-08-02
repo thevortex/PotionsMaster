@@ -8,7 +8,7 @@ import com.mojang.math.Matrix4f;
 public class Util {
 
 
-    public static void renderBlock(PoseStack stack, VertexConsumer buffer, BlockInfo blockinfo, int opacity) {
+    public static void renderBlock(PoseStack stack, BufferBuilder buffer, BlockInfo blockinfo, int opacity) {
         if (blockinfo == null)
             return;
         final float size = 1.0f;
