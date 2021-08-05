@@ -3,47 +3,75 @@ package com.thevortex.potionsmaster.render.util.xray;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
+import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockInfo;
-import com.thevortex.potionsmaster.render.util.Util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.MouseHandler;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.RenderProperties;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.client.model.pipeline.IVertexProducer;
-import net.minecraftforge.client.model.pipeline.VertexBufferConsumer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Render {
-    private static final int GL_FRONT_AND_BACK = 1032;
-    private static final int GL_LINE = 6913;
-    private static final int GL_FILL = 6914;
-    private static final int GL_LINES = 1;
+    public static class OreList {
+        protected List<BlockInfo> oreList = Collections.synchronizedList(new ArrayList<>());
+
+        public void add(BlockInfo info) {
+            oreList.add(info);
+            INSTANCE.dataAvailable.set(true);
+        }
+
+        public void remove(BlockInfo info) {
+            oreList.remove(info);
+            INSTANCE.dataAvailable.set(true);
+        }
+
+        public boolean isEmpty() {
+            return oreList.isEmpty();
+        }
+
+        public void clear() {
+            oreList.clear();
+            INSTANCE.dataAvailable.set(true);
+        }
+
+        public void addAll(Collection<? extends BlockInfo> list) {
+            oreList.addAll(list);
+            INSTANCE.dataAvailable.set(true);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static final Render INSTANCE = new Render();
+
     private static RenderType XRAY_TYPE = null;
-    public static List<BlockInfo> ores = Collections.synchronizedList(new ArrayList<>()); // this is accessed by threads
+    private VertexBuffer vertexBuf = null;
+    private final AtomicBoolean dataAvailable = new AtomicBoolean(false);
+    public static OreList ores = new OreList();
 
     public static RenderType buildRenderType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         var compositeState = RenderType.CompositeState.builder()
-                .setShaderState(new RenderStateShard.ShaderStateShard(GameRenderer::getPositionColorShader))
+                .setShaderState(new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeLinesShader))
                 .setDepthTestState(new RenderStateShard.DepthTestStateShard("always",GL11.GL_ALWAYS))
+                .setCullState(new RenderStateShard.CullStateShard(false))
                 .setTransparencyState(new RenderStateShard.TransparencyStateShard("xray",() -> {
                     RenderSystem.enableBlend();
                     RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -55,15 +83,30 @@ public class Render {
                         Integer.TYPE, RenderType.CompositeState.class);
                 fn.setAccessible(true);
 
-        return (RenderType) fn.invoke(null,"xray",DefaultVertexFormat.POSITION_COLOR,VertexFormat.Mode.LINES,256,compositeState);
+        return (RenderType) fn.invoke(null,"xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,256,compositeState);
 
     }
+
     @OnlyIn(Dist.CLIENT)
-    public static void drawOres(RenderWorldLastEvent event) {
+    public synchronized void rebuildBuffer() {
+        var stack = new PoseStack();
+        var builder = new BufferBuilder(XRAY_TYPE.bufferSize() * ores.oreList.size());
+        builder.begin(XRAY_TYPE.mode(), XRAY_TYPE.format());
+        for (var b : ores.oreList) {
+            if (b != null) {
+                renderShape(stack,builder,Shapes.block(),b.getX(),b.getY(),b.getZ(),
+                        b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,1.0F);
+            }
+        }
+        builder.end();
+        var vbuf = new VertexBuffer();
+        vbuf.upload(builder);
+        if (vertexBuf != null) vertexBuf.close();
+        vertexBuf = vbuf;
+    }
 
-        Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-        PoseStack stack = event.getMatrixStack();
-
+    @OnlyIn(Dist.CLIENT)
+    public void drawOres(RenderWorldLastEvent event) {
         if (XRAY_TYPE == null) {
             try {
                 XRAY_TYPE = buildRenderType();
@@ -72,28 +115,27 @@ public class Render {
                 e.printStackTrace();
             }
         }
+        if (dataAvailable.get()) {
+            rebuildBuffer();
+            dataAvailable.set(false);
+        }
+        if (vertexBuf == null) return;
+
+        Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        PoseStack stack = event.getMatrixStack();
+
         stack.pushPose();
         stack.translate(-view.x,-view.y,-view.z);
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        var bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-
         Profile.BLOCKS.apply(); // Sets GL state for block drawing
 
-        for(var b : ores) {
+        RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
+        RenderSystem.disableCull();
+        RenderSystem.disableTexture();
+        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(), GameRenderer.getRendertypeLinesShader());
+        RenderSystem.enableCull();
+        RenderSystem.enableTexture();
 
-            var vcon = bufferSource.getBuffer(XRAY_TYPE);
-            if (b == null) {
-                return;
-            }
-            stack.pushPose();
-            //LevelRenderer.renderShape(stack,vcon,Shapes.block(),b.getX()-view.x,b.getY()-view.y,b.getZ()-view.z,b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,1.0F);
-            //renderShape(stack,vcon,Shapes.block(),b.getX()-view.x,b.getY()-view.y,b.getZ()-view.z,b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,1.0F);
-            Util.renderBlock(stack,vcon,b);
-            stack.popPose();
-
-        }
         Profile.BLOCKS.clean();
-        bufferSource.endBatch();
         stack.popPose();
     }
     public static void renderShape(PoseStack pose, VertexConsumer vcon, VoxelShape shape, double x, double y, double z, float r, float g, float b, float a) {

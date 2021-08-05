@@ -50,7 +50,7 @@ public class Events {
 
 			// this is a world pos of the player
 			try {
-				Render.drawOres(event);
+				Render.INSTANCE.drawOres(event);
 			} catch (Throwable ignore) {
 			}
 		}
