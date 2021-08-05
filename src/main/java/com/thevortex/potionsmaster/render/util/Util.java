@@ -57,7 +57,6 @@ public class Util {
         // side 4
         buffer.vertex(x, y, z).color(red, green, blue, opacity).endVertex();
         buffer.vertex(x, y + size, z).color(red, green, blue, opacity).endVertex();
-
     }
 
 
