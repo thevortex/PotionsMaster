@@ -21,6 +21,7 @@ public class BlockStoreBuilder {
 
         list.add(new SimpleBlockData("CoalOre", Ores.COAL.getNamespace() + ":" + Ores.COAL.getPath(), new OutlineColor(82, 82, 82), false, 0));
         list.add(new SimpleBlockData("IronOre", Ores.IRON.getNamespace() + ":" + Ores.IRON.getPath(), new OutlineColor(228, 192, 170), false, 0));
+        list.add(new SimpleBlockData("CopperOre", Ores.COPPER.getNamespace() + ":" + Ores.COPPER.getPath(), new OutlineColor(183, 112, 58), false, 0));
         list.add(new SimpleBlockData("RedstoneOre", Ores.REDSTONE.getNamespace() + ":" + Ores.REDSTONE.getPath(), new OutlineColor(255, 0, 0), false, 0));
         list.add(new SimpleBlockData("LapisOre", Ores.LAPIS.getNamespace() + ":" + Ores.LAPIS.getPath(), new OutlineColor(10, 10, 255), false, 0));
         list.add(new SimpleBlockData("GoldOre", Ores.GOLD.getNamespace() + ":" + Ores.GOLD.getPath(), new OutlineColor(212, 175, 55), false, 0));
@@ -28,7 +29,6 @@ public class BlockStoreBuilder {
         list.add(new SimpleBlockData("EmeraldOre", Ores.EMERALD.getNamespace() + ":" + Ores.EMERALD.getPath(), new OutlineColor(0, 255, 0), false, 0));
 
         list.add(new SimpleBlockData("AluminumOre", Ores.ALUMINIUM.getNamespace() + ":" + Ores.ALUMINIUM.getPath(), new OutlineColor(227, 227, 227), false, 0));
-        list.add(new SimpleBlockData("CopperOre", Ores.COPPER.getNamespace() + ":" + Ores.COPPER.getPath(), new OutlineColor(183, 112, 58), false, 0));
         list.add(new SimpleBlockData("TinOre", Ores.TIN.getNamespace() + ":" + Ores.TIN.getPath(), new OutlineColor(120, 120, 120), false, 0));
         list.add(new SimpleBlockData("SilverOre", Ores.SILVER.getNamespace() + ":" + Ores.SILVER.getPath(), new OutlineColor(164, 224, 231), false, 0));
         list.add(new SimpleBlockData("LeadOre", Ores.LEAD.getNamespace() + ":" + Ores.LEAD.getPath(), new OutlineColor(124, 140, 198), false, 0));

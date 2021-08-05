@@ -6,21 +6,21 @@ import net.minecraft.tags.BlockTags;
 
 public class Ores {
 
-    public static final ResourceLocation DIAMOND = makeWrapperTag("ores/diamond");
-    public static final ResourceLocation LAPIS = makeWrapperTag("ores/lapis");
+    public static final ResourceLocation DIAMOND = vanillaWrapper("diamond_ores");
+    public static final ResourceLocation LAPIS = vanillaWrapper("lapis_ores");
     public static final ResourceLocation ALUMINIUM = makeWrapperTag("ores/aluminum");
-    public static final ResourceLocation COPPER = makeWrapperTag("ores/copper");
+    public static final ResourceLocation COPPER = vanillaWrapper("copper_ores");
     public static final ResourceLocation TIN = makeWrapperTag("ores/tin");
     public static final ResourceLocation LEAD = makeWrapperTag("ores/lead");
     public static final ResourceLocation SILVER = makeWrapperTag("ores/silver");
-    public static final ResourceLocation GOLD = makeWrapperTag("ores/gold");
+    public static final ResourceLocation GOLD = vanillaWrapper("gold_ores");
     public static final ResourceLocation URANIUM = makeWrapperTag("ores/uranium");
     public static final ResourceLocation NICKEL = makeWrapperTag("ores/nickel");
-    public static final ResourceLocation IRON = makeWrapperTag("ores/iron");
+    public static final ResourceLocation IRON = vanillaWrapper("iron_ores");
     public static final ResourceLocation ZINC = makeWrapperTag("ores/zinc");
-    public static final ResourceLocation EMERALD = makeWrapperTag("ores/emerald");
-    public static final ResourceLocation COAL = makeWrapperTag("ores/coal");
-    public static final ResourceLocation REDSTONE = makeWrapperTag("ores/redstone");
+    public static final ResourceLocation EMERALD = vanillaWrapper("emerald_ores");
+    public static final ResourceLocation COAL = vanillaWrapper("coal_ores");
+    public static final ResourceLocation REDSTONE = vanillaWrapper("redstone_ores");
     public static final ResourceLocation OSMIUM = makeWrapperTag("ores/osmium");
     public static final ResourceLocation PLATINUM = makeWrapperTag("ores/platinum");
     public static final ResourceLocation NETHERITE = makeWrapperTag("ores/netherite_scrap");
@@ -34,5 +34,8 @@ public class Ores {
     private static ResourceLocation makeWrapperTag(String tagname) {
         return new ResourceLocation("forge", tagname);
 
+    }
+    private static ResourceLocation vanillaWrapper(String tag){
+        return new ResourceLocation("minecraft", tag);
     }
 }

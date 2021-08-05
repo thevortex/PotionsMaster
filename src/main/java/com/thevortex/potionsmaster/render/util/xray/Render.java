@@ -3,14 +3,28 @@ package com.thevortex.potionsmaster.render.util.xray;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Matrix4f;
 import com.thevortex.potionsmaster.render.util.BlockInfo;
 import com.thevortex.potionsmaster.render.util.Util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BeaconRenderer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.model.pipeline.IVertexProducer;
 import net.minecraftforge.client.model.pipeline.VertexBufferConsumer;
 
 import java.util.ArrayList;
@@ -28,31 +42,29 @@ public class Render {
     @OnlyIn(Dist.CLIENT)
     public static void drawOres(RenderWorldLastEvent event) {
 
-        Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getEntity().getLookAngle();
+        Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+
         PoseStack stack = event.getMatrixStack();
+        stack.pushPose();
+        RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
+        Profile.BLOCKS.apply(); // Sets GL state for block drawing
 
-        try {
+        ores.forEach(b -> {
+            if (b == null) {
+                return;
+            }
+            VertexConsumer vcon = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.LINES);
             stack.pushPose();
-
-            stack.translate(-view.x, -view.y, -view.z); // translate
-            stack.mulPoseMatrix(stack.last().pose());
-
-            Tesselator tessellator = Tesselator.getInstance();
-            BufferBuilder buffer = tessellator.getBuilder();
-            Profile.BLOCKS.apply(); // Sets GL state for block drawing
-            ores.forEach(b -> {
-                if (b == null) {
-                    return;
-                }
-                buffer.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR);
-                Util.renderBlock(stack,buffer, b, (int) b.alpha);
-                tessellator.end();
-            });
-            Profile.BLOCKS.clean();
-        } finally {
+            //Util.renderBlock(stack,vcon,b);
+            LevelRenderer.renderShape(stack,vcon,Shapes.block(),b.getX()-view.x,b.getY()-view.y,b.getZ()-view.z,b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,1.0F);
             stack.popPose();
-        }
+
+        });
+        Profile.BLOCKS.clean();
+        stack.popPose();
     }
+
+
 
     /**
      * OpenGL Profiles used for rendering blocks and entities
@@ -63,22 +75,23 @@ public class Render {
             @Override
             public void apply() {
                 RenderSystem.disableTexture();
+                RenderSystem.disableBlend();
                 RenderSystem.disableDepthTest();
-                RenderSystem.depthMask(false);
-                RenderSystem.polygonMode(GL_FRONT_AND_BACK, GL_LINE);
-                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                RenderSystem.enableBlend();
+                //RenderSystem.polygonMode(GL_FRONT_AND_BACK, GL_LINE);
                 RenderSystem.lineWidth((float) 3.0);
+
+
             }
 
             @Override
             public void clean() {
 
-                RenderSystem.polygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                RenderSystem.disableBlend();
+                //RenderSystem.polygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 RenderSystem.enableDepthTest();
-                RenderSystem.depthMask(true);
+                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+                RenderSystem.enableBlend();
                 RenderSystem.enableTexture();
+
             }
         },
         ENTITIES {
