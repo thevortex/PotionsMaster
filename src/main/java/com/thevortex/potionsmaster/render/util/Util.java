@@ -16,7 +16,8 @@ public class Util {
         float red = (blockinfo.color[0] >> 16 & 0xff) / 255f;
         float green = (blockinfo.color[1] >> 8 & 0xff) / 255f;
         float blue = (blockinfo.color[2] & 0xff) / 255f;
-        float opacity = (float)blockinfo.alpha;
+//        float opacity = (float)blockinfo.alpha;
+        float opacity = 1.0f;
         float x = blockinfo.getX();
         float y = blockinfo.getY();
         float z = blockinfo.getZ();
