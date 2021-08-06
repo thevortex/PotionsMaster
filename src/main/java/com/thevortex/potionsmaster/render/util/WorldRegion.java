@@ -20,8 +20,8 @@ public class WorldRegion {
     public WorldRegion(Vector3d pos, int radius) {
         minX = (int)pos.x - radius;
         maxX = (int)pos.x + radius;
-        minY = (int)Math.max(0, pos.y - 92);
-        maxY = (int)Math.min(255, pos.y + 32);
+        minY = (int)Math.max(0, pos.y - radius);
+        maxY = (int)Math.min(255, pos.y + radius);
         minZ = (int)pos.z - radius;
         maxZ = (int)pos.z + radius;
         minChunkX = minX >> 4;

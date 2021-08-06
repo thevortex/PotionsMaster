@@ -78,12 +78,8 @@ public class Render {
                 },() ->{
                     RenderSystem.disableBlend();
                 })).createCompositeState(true);
-                var fn = RenderType.class.getDeclaredMethod("create",
-                        String.class, VertexFormat.class, VertexFormat.Mode.class,
-                        Integer.TYPE, RenderType.CompositeState.class);
-                fn.setAccessible(true);
 
-        return (RenderType) fn.invoke(null,"xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,256,compositeState);
+        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,256,false,false,compositeState);
 
     }
 
