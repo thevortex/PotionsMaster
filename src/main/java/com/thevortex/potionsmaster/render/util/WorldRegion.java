@@ -17,11 +17,11 @@ public class WorldRegion {
      * @param pos    a world position
      * @param radius a block radius
      */
-    public WorldRegion(Vector3d pos, int radius) {
+    public WorldRegion(Vector3d pos, int radius,int minBuild, int maxBuild) {
         minX = (int)pos.x - radius;
         maxX = (int)pos.x + radius;
-        minY = (int)Math.max(0, pos.y - radius);
-        maxY = (int)Math.min(255, pos.y + radius);
+        minY = (int)Math.max(minBuild,pos.y - 16);
+        maxY = (int)Math.min(maxBuild,pos.y + 16);
         minZ = (int)pos.z - radius;
         maxZ = (int)pos.z + radius;
         minChunkX = minX >> 4;

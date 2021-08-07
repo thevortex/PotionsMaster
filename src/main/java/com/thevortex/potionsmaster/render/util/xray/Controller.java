@@ -5,6 +5,7 @@ import com.mojang.math.Vector3d;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.WorldRegion;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -90,8 +91,8 @@ public class Controller {
 		{
 			updatePlayerPosition(); // since we're about to run, update the last known position
 
-			WorldRegion region = new WorldRegion(lastPlayerPos, getRadius()); // the region to scan for ores
-
+			WorldRegion region = new WorldRegion(lastPlayerPos, getRadius(), PotionsMaster.proxy.getClientWorld().getMinBuildHeight(),PotionsMaster.proxy.getClientWorld().getMaxBuildHeight()); // the region to scan for ores
+			PotionsMaster.LOGGER.info("min " + PotionsMaster.proxy.getClientWorld().getMinBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMinBuildHeight() >> 4) + "max " + PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() >> 4)  );
 			task = executor.submit(new RenderEnqueue(region));
 
 		}

@@ -122,14 +122,14 @@ public class RenderEnqueue implements Runnable {
 
 				// Loop on the extends around the player's layer (6 down, 2 up)
 				for (int curExtend = box.minChunkY; curExtend <= box.maxChunkY; curExtend++) {
-					LevelChunkSection ebs = extendsList[curExtend];
+					LevelChunkSection ebs = extendsList[curExtend + (((chunk.getMaxBuildHeight() - 255) >> 4) + ((chunk.getMinBuildHeight() - 0) >> 4)) ];
 					if (ebs == null) // happens quite often!
 						continue;
 
 					// Pre-compute the extend bounds on Y
 					int y = curExtend << 4;
-					lowBoundY = (y < box.minY) ? box.minY - y : 0;
-					highBoundY = (y + 15 > box.maxY) ? box.maxY - y : 15;
+					lowBoundY = (y < box.minY) ? box.minY - y : (chunk.getMinBuildHeight() >> 4);
+					highBoundY = (y + 15 > box.maxY) ? box.maxY - y : (chunk.getMaxBuildHeight() >> 4);
 
 					// Now that we have an extend, let's check all its blocks
 					for (int i = lowBoundX; i <= highBoundX; i++) {
