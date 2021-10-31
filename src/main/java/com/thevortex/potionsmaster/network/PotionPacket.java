@@ -3,9 +3,11 @@ package com.thevortex.potionsmaster.network;
 import java.util.function.Supplier;
 
 import com.thevortex.potionsmaster.PotionsMaster;
+import com.thevortex.potionsmaster.render.util.BlockInfo;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 
 import com.thevortex.potionsmaster.render.util.xray.Controller;
+import com.thevortex.potionsmaster.render.util.xray.Render;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
@@ -29,7 +31,8 @@ public class PotionPacket {
         public static void handle(final PotionPacket message, Supplier<NetworkEvent.Context> ctx) {
             ctx.get().enqueueWork(() -> {
                 String removed_potion = message.potionName;
-                PotionsMaster.blockStore.getStoreByReference("forge:ores/" + removed_potion).getBlockData().setDrawing(false);
+                BlockStore.BlockDataWithUUID store = PotionsMaster.blockStore.getStoreByReference("forge:ores/" + removed_potion);
+                store.getBlockData().setDrawing(false);
                 if (Controller.drawOres()) {
                     Controller.toggleDrawOres();
                 }

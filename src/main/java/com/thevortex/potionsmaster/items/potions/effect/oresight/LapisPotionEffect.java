@@ -22,11 +22,10 @@ public class LapisPotionEffect extends MobEffect {
         // TODO Auto-generated constructor stub
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
 
+        return duration > 0;
     }
 
     @OnlyIn(Dist.CLIENT)

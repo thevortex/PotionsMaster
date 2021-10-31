@@ -23,13 +23,11 @@ public class VibraniumPotionEffect extends MobEffect {
         super(MobEffectCategory.BENEFICIAL, liquidColorIn);
 
     }
-
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
 
-        return true;
+        return duration > 0;
     }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
