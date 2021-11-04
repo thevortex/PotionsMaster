@@ -6,6 +6,7 @@ import com.thevortex.potionsmaster.init.ModPotionEffects;
 import com.thevortex.potionsmaster.network.PacketHandler;
 import com.thevortex.potionsmaster.network.PotionPacket;
 
+import com.thevortex.potionsmaster.reference.Ores;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
@@ -79,111 +80,111 @@ public class PotionExpiry {
                 && (event.getEntityLiving() instanceof Player)) {
 
             if (event.getPotionEffect().getEffect() == ModPotionEffects.ALLTHEMODIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("allthemodium");
+                PotionPacket pkt = new PotionPacket(Ores.ALLTHEMODIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.VIBRANIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("vibranium");
+                PotionPacket pkt = new PotionPacket(Ores.VIBRANIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.UNOBTAINIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("unobtainium");
+                PotionPacket pkt = new PotionPacket(Ores.UNOBTAINIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.NETHERITESIGHT) {
-                PotionPacket pkt = new PotionPacket("netherite_scrap");
+                PotionPacket pkt = new PotionPacket(Ores.NETHERITE.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.ALUMINIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("aluminum");
+                PotionPacket pkt = new PotionPacket(Ores.ALUMINIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
 
             if (event.getPotionEffect().getEffect() == ModPotionEffects.COALSIGHT) {
-                PotionPacket pkt = new PotionPacket("coal");
+                PotionPacket pkt = new PotionPacket(Ores.COAL.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.COPPERSIGHT) {
-                PotionPacket pkt = new PotionPacket("copper");
+                PotionPacket pkt = new PotionPacket(Ores.COPPER.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.PLATINUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("platinum");
+                PotionPacket pkt = new PotionPacket(Ores.PLATINUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.DIAMONDSIGHT) {
-                PotionPacket pkt = new PotionPacket("diamond");
+                PotionPacket pkt = new PotionPacket(Ores.DIAMOND.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.EMERALDSIGHT) {
-                PotionPacket pkt = new PotionPacket("emerald");
+                PotionPacket pkt = new PotionPacket(Ores.EMERALD.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.GOLDSIGHT) {
-                PotionPacket pkt = new PotionPacket("gold");
+                PotionPacket pkt = new PotionPacket(Ores.GOLD.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.IRONSIGHT) {
-                PotionPacket pkt = new PotionPacket("iron");
+                PotionPacket pkt = new PotionPacket(Ores.IRON.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.LAPISSIGHT) {
-                PotionPacket pkt = new PotionPacket("lapis");
+                PotionPacket pkt = new PotionPacket(Ores.LAPIS.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.LEADSIGHT) {
-                PotionPacket pkt = new PotionPacket("lead");
+                PotionPacket pkt = new PotionPacket(Ores.LEAD.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.NICKELSIGHT) {
-                PotionPacket pkt = new PotionPacket("nickel");
+                PotionPacket pkt = new PotionPacket(Ores.NICKEL.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
 
             if (event.getPotionEffect().getEffect() == ModPotionEffects.QUARTZSIGHT) {
-                PotionPacket pkt = new PotionPacket("quartz");
+                PotionPacket pkt = new PotionPacket(Ores.QUARTZ.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.REDSTONESIGHT) {
-                PotionPacket pkt = new PotionPacket("redstone");
+                PotionPacket pkt = new PotionPacket(Ores.REDSTONE.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.SILVERSIGHT) {
-                PotionPacket pkt = new PotionPacket("silver");
+                PotionPacket pkt = new PotionPacket(Ores.SILVER.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.TINSIGHT) {
-                PotionPacket pkt = new PotionPacket("tin");
+                PotionPacket pkt = new PotionPacket(Ores.TIN.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.URANIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("uranium");
+                PotionPacket pkt = new PotionPacket(Ores.URANIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.ZINCSIGHT) {
-                PotionPacket pkt = new PotionPacket("zinc");
+                PotionPacket pkt = new PotionPacket(Ores.ZINC.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.OSMIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("osmium");
+                PotionPacket pkt = new PotionPacket(Ores.OSMIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
@@ -198,110 +199,111 @@ public class PotionExpiry {
         if ((isOreSightPotion(event.getPotionEffect().getEffect()))
                 && (event.getEntityLiving() instanceof Player)) {
             if (event.getPotionEffect().getEffect() == ModPotionEffects.ALLTHEMODIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("allthemodium");
+                PotionPacket pkt = new PotionPacket(Ores.ALLTHEMODIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.VIBRANIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("vibranium");
+                PotionPacket pkt = new PotionPacket(Ores.VIBRANIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.UNOBTAINIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("unobtainium");
+                PotionPacket pkt = new PotionPacket(Ores.UNOBTAINIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
-            }
-
-            if (event.getPotionEffect().getEffect() == ModPotionEffects.ALUMINIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("aluminum");
-                PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
-
-            }
-            if (event.getPotionEffect().getEffect() == ModPotionEffects.PLATINUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("platinum");
-                PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
-
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.NETHERITESIGHT) {
-                PotionPacket pkt = new PotionPacket("netherite_scrap");
+                PotionPacket pkt = new PotionPacket(Ores.NETHERITE.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
+            if (event.getPotionEffect().getEffect() == ModPotionEffects.ALUMINIUMSIGHT) {
+                PotionPacket pkt = new PotionPacket(Ores.ALUMINIUM.toString());
+                PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
+
+            }
+
             if (event.getPotionEffect().getEffect() == ModPotionEffects.COALSIGHT) {
-                PotionPacket pkt = new PotionPacket("coal");
+                PotionPacket pkt = new PotionPacket(Ores.COAL.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.COPPERSIGHT) {
-                PotionPacket pkt = new PotionPacket("copper");
+                PotionPacket pkt = new PotionPacket(Ores.COPPER.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
-            if (event.getPotionEffect().getEffect() == ModPotionEffects.OSMIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("osmium");
+            if (event.getPotionEffect().getEffect() == ModPotionEffects.PLATINUMSIGHT) {
+                PotionPacket pkt = new PotionPacket(Ores.PLATINUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.DIAMONDSIGHT) {
-                PotionPacket pkt = new PotionPacket("diamond");
+                PotionPacket pkt = new PotionPacket(Ores.DIAMOND.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.EMERALDSIGHT) {
-                PotionPacket pkt = new PotionPacket("emerald");
+                PotionPacket pkt = new PotionPacket(Ores.EMERALD.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.GOLDSIGHT) {
-                PotionPacket pkt = new PotionPacket("gold");
+                PotionPacket pkt = new PotionPacket(Ores.GOLD.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.IRONSIGHT) {
-                PotionPacket pkt = new PotionPacket("iron");
+                PotionPacket pkt = new PotionPacket(Ores.IRON.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.LAPISSIGHT) {
-                PotionPacket pkt = new PotionPacket("lapis");
+                PotionPacket pkt = new PotionPacket(Ores.LAPIS.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.LEADSIGHT) {
-                PotionPacket pkt = new PotionPacket("lead");
+                PotionPacket pkt = new PotionPacket(Ores.LEAD.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.NICKELSIGHT) {
-                PotionPacket pkt = new PotionPacket("nickel");
+                PotionPacket pkt = new PotionPacket(Ores.NICKEL.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
+
             if (event.getPotionEffect().getEffect() == ModPotionEffects.QUARTZSIGHT) {
-                PotionPacket pkt = new PotionPacket("quartz");
+                PotionPacket pkt = new PotionPacket(Ores.QUARTZ.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.REDSTONESIGHT) {
-                PotionPacket pkt = new PotionPacket("redstone");
+                PotionPacket pkt = new PotionPacket(Ores.REDSTONE.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.SILVERSIGHT) {
-                PotionPacket pkt = new PotionPacket("silver");
+                PotionPacket pkt = new PotionPacket(Ores.SILVER.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.TINSIGHT) {
-                PotionPacket pkt = new PotionPacket("tin");
+                PotionPacket pkt = new PotionPacket(Ores.TIN.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.URANIUMSIGHT) {
-                PotionPacket pkt = new PotionPacket("uranium");
+                PotionPacket pkt = new PotionPacket(Ores.URANIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }
             if (event.getPotionEffect().getEffect() == ModPotionEffects.ZINCSIGHT) {
-                PotionPacket pkt = new PotionPacket("zinc");
+                PotionPacket pkt = new PotionPacket(Ores.ZINC.toString());
+                PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
+
+            }
+            if (event.getPotionEffect().getEffect() == ModPotionEffects.OSMIUMSIGHT) {
+                PotionPacket pkt = new PotionPacket(Ores.OSMIUM.toString());
                 PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
 
             }

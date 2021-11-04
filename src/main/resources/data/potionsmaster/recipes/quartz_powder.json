@@ -8,6 +8,9 @@
       "item": "minecraft:quartz"
     },
     {
+      "item":"potionsmaster:ender_powder"
+    },
+    {
       "item": "potionsmaster:tile_mortar"
     }
   ],

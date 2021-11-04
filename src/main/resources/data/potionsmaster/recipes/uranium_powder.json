@@ -8,6 +8,9 @@
       "tag": "forge:ingots/uranium"
     },
     {
+      "item":"potionsmaster:ender_powder"
+    },
+    {
       "item": "potionsmaster:tile_mortar"
     }
   ],

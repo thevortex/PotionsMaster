@@ -60,7 +60,7 @@ public class PotionsMaster {
 		}
 	};
 	public static BlockStore blockStore = new BlockStore();
-	;
+
 	public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
 	public PotionsMaster() {
@@ -68,7 +68,6 @@ public class PotionsMaster {
 		FMLJavaModLoadingContext.get().getModEventBus().register(setupMod.class);
 		MinecraftForge.EVENT_BUS.register(PlayerEvents.class);
 		MinecraftForge.EVENT_BUS.register(PotionExpiry.class);
-		MinecraftForge.EVENT_BUS.addListener(this::onExit);
 		//MinecraftForge.EVENT_BUS.register(PotionRemoved.class);
 	}
 
@@ -76,12 +75,7 @@ public class PotionsMaster {
 		return new ResourceLocation(MOD_ID, pathIn);
 	}
 
-	private void onExit(FMLServerStoppingEvent event) {
-		if ((Controller.drawOres())) {
-			Controller.toggleDrawOres();
-		}
-		Controller.shutdownExecutor();
-	}
+
 
 	public static class PlayerEvents {
 		@OnlyIn(Dist.CLIENT)

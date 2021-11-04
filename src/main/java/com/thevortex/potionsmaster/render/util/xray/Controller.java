@@ -92,7 +92,7 @@ public class Controller {
 			updatePlayerPosition(); // since we're about to run, update the last known position
 
 			WorldRegion region = new WorldRegion(lastPlayerPos, getRadius(), PotionsMaster.proxy.getClientWorld().getMinBuildHeight(),PotionsMaster.proxy.getClientWorld().getMaxBuildHeight()); // the region to scan for ores
-			PotionsMaster.LOGGER.info("min " + PotionsMaster.proxy.getClientWorld().getMinBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMinBuildHeight() >> 4) + "max " + PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() >> 4)  );
+			//PotionsMaster.LOGGER.info("min " + PotionsMaster.proxy.getClientWorld().getMinBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMinBuildHeight() >> 4) + "max " + PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() >> 4)  );
 			task = executor.submit(new RenderEnqueue(region));
 
 		}

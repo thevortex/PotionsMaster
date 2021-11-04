@@ -8,6 +8,9 @@
       "item": "minecraft:lapis_lazuli"
     },
     {
+      "item":"potionsmaster:ender_powder"
+    },
+    {
       "item": "potionsmaster:tile_mortar"
     }
   ],

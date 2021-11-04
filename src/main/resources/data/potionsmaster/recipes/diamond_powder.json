@@ -8,6 +8,9 @@
       "tag": "forge:gems/diamond"
     },
     {
+      "item":"potionsmaster:ender_powder"
+    },
+    {
       "item": "potionsmaster:tile_mortar"
     }
   ],

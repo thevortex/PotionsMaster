@@ -12,9 +12,18 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fmlserverevents.FMLServerStoppingEvent;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public class Events {
+
+	@SubscribeEvent
+	public static void onExit(FMLServerStoppingEvent event) {
+		if ((Controller.drawOres())) {
+			Controller.toggleDrawOres();
+		}
+		Controller.shutdownExecutor();
+	}
 	@SubscribeEvent
 	public static void pickupItem(BlockEvent.BreakEvent event) {
 		RenderEnqueue.checkBlock(event.getPos(), event.getState(), false);

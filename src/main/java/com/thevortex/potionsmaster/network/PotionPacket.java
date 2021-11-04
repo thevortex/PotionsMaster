@@ -9,6 +9,8 @@ import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
 import com.thevortex.potionsmaster.render.util.xray.Render;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class PotionPacket {
@@ -31,13 +33,18 @@ public class PotionPacket {
         public static void handle(final PotionPacket message, Supplier<NetworkEvent.Context> ctx) {
             ctx.get().enqueueWork(() -> {
                 String removed_potion = message.potionName;
-                BlockStore.BlockDataWithUUID store = PotionsMaster.blockStore.getStoreByReference("forge:ores/" + removed_potion);
-                store.getBlockData().setDrawing(false);
+                toggle(removed_potion);
                 if (Controller.drawOres()) {
                     Controller.toggleDrawOres();
                 }
             });
             ctx.get().setPacketHandled(true);
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        private static void toggle(String potion) {
+            BlockStore store = PotionsMaster.blockStore;
+            store.getStoreByReference(potion).getBlockData().setDrawing(false);
         }
     }
 }

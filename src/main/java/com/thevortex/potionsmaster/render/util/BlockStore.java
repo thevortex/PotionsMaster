@@ -43,7 +43,6 @@ public class BlockStore {
                             e.getName(),
                             e.getBlockName(),
                             e.getColor(),
-                            new ItemStack(block, 1),
                             e.isDrawing(),
                             e.getOrder()
                     )
