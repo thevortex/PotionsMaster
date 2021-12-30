@@ -192,7 +192,7 @@ public class RenderEnqueue implements Runnable {
                                 if ((currentState.getBlock().getTags().contains(Ores.REDSTONE)) || (currentState.getBlock().getRegistryName().getPath().contains("redstone_slate_ore"))) {
                                     block = Ores.REDSTONE;
                                 }
-                                if ((currentState.getBlock().getTags().contains(Ores.QUARTZ)) || (currentState.getBlock().getRegistryName().getPath().contains("quartz"))) {
+                                if (currentState.getBlock().getTags().contains(Ores.QUARTZ)) {
                                     block = Ores.QUARTZ;
                                 }
                                 if (currentState.getBlock().getTags().contains(Ores.BISMUTH)) {

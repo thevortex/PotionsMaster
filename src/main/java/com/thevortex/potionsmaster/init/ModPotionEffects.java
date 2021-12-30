@@ -1,6 +1,7 @@
 package com.thevortex.potionsmaster.init;
 
 import com.thevortex.potionsmaster.items.potions.effect.oresight.*;
+import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.reference.Reference;
 
 import net.minecraft.resources.ResourceLocation;
@@ -41,31 +42,31 @@ public class ModPotionEffects {
 
     public static void init(Register<MobEffect> event) {
 
-        COALSIGHT = new CoalPotionEffect(MobEffectCategory.BENEFICIAL, 65793).setRegistryName(location("coalpotioneffect"));
-        IRONSIGHT = new IronPotionEffect(MobEffectCategory.BENEFICIAL, 14991530).setRegistryName(location("ironpotioneffect"));
-        REDSTONESIGHT = new RedStonePotionEffect(MobEffectCategory.BENEFICIAL, 16711680).setRegistryName(location("redstonepotioneffect"));
-        LAPISSIGHT = new LapisPotionEffect(MobEffectCategory.BENEFICIAL, 658175).setRegistryName(location("lapispotioneffect"));
-        GOLDSIGHT = new GoldPotionEffect(MobEffectCategory.BENEFICIAL, 13938487).setRegistryName(location("goldpotioneffect"));
-        DIAMONDSIGHT = new DiamondPotionEffect(MobEffectCategory.BENEFICIAL, 4053987).setRegistryName(location("diamondpotioneffect"));
-        EMERALDSIGHT = new EmeraldPotionEffect(MobEffectCategory.BENEFICIAL, 65280).setRegistryName(location("emeraldpotioneffect"));
+        COALSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.COAL.toString(), 65793).setRegistryName(location("coalpotioneffect"));
+        IRONSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.IRON.toString(), 14991530).setRegistryName(location("ironpotioneffect"));
+        REDSTONESIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.REDSTONE.toString() ,16711680).setRegistryName(location("redstonepotioneffect"));
+        LAPISSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.LAPIS.toString(), 658175).setRegistryName(location("lapispotioneffect"));
+        GOLDSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.GOLD.toString(),13938487).setRegistryName(location("goldpotioneffect"));
+        DIAMONDSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.DIAMOND.toString(),4053987).setRegistryName(location("diamondpotioneffect"));
+        EMERALDSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.EMERALD.toString(),65280).setRegistryName(location("emeraldpotioneffect"));
 
-        ALUMINIUMSIGHT = new AluminiumPotionEffect(MobEffectCategory.BENEFICIAL, 14935011).setRegistryName(location("aluminiumpotioneffect"));
-        COPPERSIGHT = new CopperPotionEffect(MobEffectCategory.BENEFICIAL, 12021818).setRegistryName(location("copperpotioneffect"));
-        TINSIGHT = new TinPotionEffect(MobEffectCategory.BENEFICIAL, 7895160).setRegistryName(location("tinpotioneffect"));
-        NICKELSIGHT = new NickelPotionEffect(MobEffectCategory.BENEFICIAL, 11118980).setRegistryName(location("nickelpotioneffect"));
-        URANIUMSIGHT = new UraniumPotionEffect(MobEffectCategory.BENEFICIAL, 8316792).setRegistryName(location("uraniumpotioneffect"));
-        LEADSIGHT = new LeadPotionEffect(MobEffectCategory.BENEFICIAL, 8162502).setRegistryName(location("leadpotioneffect"));
-        SILVERSIGHT = new SilverPotionEffect(MobEffectCategory.BENEFICIAL, 10805479).setRegistryName(location("silverpotioneffect"));
-        ZINCSIGHT = new ZincPotionEffect(MobEffectCategory.BENEFICIAL, 11908469).setRegistryName(location("zincpotioneffect"));
-        OSMIUMSIGHT = new OsmiumPotionEffect(MobEffectCategory.BENEFICIAL, 12634589).setRegistryName(location("osmiumpotioneffect"));
-        QUARTZSIGHT = new QuartzPotionEffect(MobEffectCategory.BENEFICIAL, 8162502).setRegistryName(location("quartzpotioneffect"));
-        BISMUTHSIGHT = new BismuthPotionEffect(MobEffectCategory.BENEFICIAL, 10805479).setRegistryName(location("bismuthpotioneffect"));
-        CRIMSONIRONSIGHT = new CrimsonIronPotionEffect(MobEffectCategory.BENEFICIAL, 11908469).setRegistryName(location("crimsonironpotioneffect"));
-        PLATINUMSIGHT = new PlatinumPotionEffect(MobEffectCategory.BENEFICIAL, 12634589).setRegistryName(location("platinumpotioneffect"));
-        NETHERITESIGHT = new NetheritePotionEffect(MobEffectCategory.BENEFICIAL, 16753920).setRegistryName(location("netheritepotioneffect"));
-        ALLTHEMODIUMSIGHT = new AllthemodiumPotionEffect(MobEffectCategory.BENEFICIAL, 16701786).setRegistryName(location("allthemodiumpotioneffect"));
-        VIBRANIUMSIGHT = new VibraniumPotionEffect(MobEffectCategory.BENEFICIAL, 2547336).setRegistryName(location("vibraniumpotioneffect"));
-        UNOBTAINIUMSIGHT = new UnobtainiumPotionEffect(MobEffectCategory.BENEFICIAL, 13718243).setRegistryName(location("unobtainiumpotioneffect"));
+        ALUMINIUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.ALUMINIUM.toString(),14935011).setRegistryName(location("aluminiumpotioneffect"));
+        COPPERSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.COPPER.toString(),12021818).setRegistryName(location("copperpotioneffect"));
+        TINSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.TIN.toString(),7895160).setRegistryName(location("tinpotioneffect"));
+        NICKELSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.NICKEL.toString(),11118980).setRegistryName(location("nickelpotioneffect"));
+        URANIUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.URANIUM.toString(),8316792).setRegistryName(location("uraniumpotioneffect"));
+        LEADSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.LEAD.toString(),8162502).setRegistryName(location("leadpotioneffect"));
+        SILVERSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.SILVER.toString(),10805479).setRegistryName(location("silverpotioneffect"));
+        ZINCSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.ZINC.toString(),11908469).setRegistryName(location("zincpotioneffect"));
+        OSMIUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.OSMIUM.toString(),12634589).setRegistryName(location("osmiumpotioneffect"));
+        QUARTZSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.QUARTZ.toString(),8162502).setRegistryName(location("quartzpotioneffect"));
+        BISMUTHSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.BISMUTH.toString(),10805479).setRegistryName(location("bismuthpotioneffect"));
+        CRIMSONIRONSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.CRIMSONIRON.toString(),11908469).setRegistryName(location("crimsonironpotioneffect"));
+        PLATINUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.PLATINUM.toString(),12634589).setRegistryName(location("platinumpotioneffect"));
+        NETHERITESIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.NETHERITE.toString(),16753920).setRegistryName(location("netheritepotioneffect"));
+        ALLTHEMODIUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.ALLTHEMODIUM.toString(), 16701786).setRegistryName(location("allthemodiumpotioneffect"));
+        VIBRANIUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.VIBRANIUM.toString(),2547336).setRegistryName(location("vibraniumpotioneffect"));
+        UNOBTAINIUMSIGHT = new OreSightEffect(MobEffectCategory.BENEFICIAL, Ores.UNOBTAINIUM.toString(),13718243).setRegistryName(location("unobtainiumpotioneffect"));
 
 
         event.getRegistry().register(ModPotionEffects.COALSIGHT);

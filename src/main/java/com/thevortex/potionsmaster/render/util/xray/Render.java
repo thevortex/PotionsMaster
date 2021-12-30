@@ -16,7 +16,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.event.TickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
@@ -102,7 +103,7 @@ public class Render {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void drawOres(RenderWorldLastEvent event) {
+    public void drawOres(RenderLevelLastEvent event) {
         if (XRAY_TYPE == null) {
             try {
                 XRAY_TYPE = buildRenderType();
@@ -118,7 +119,7 @@ public class Render {
         if (vertexBuf == null) return;
 
         Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-        PoseStack stack = event.getMatrixStack();
+        PoseStack stack = event.getPoseStack();
 
         stack.pushPose();
         stack.translate(-view.x,-view.y,-view.z);
