@@ -1,10 +1,10 @@
-import org.apache.commons.lang3.time.DateFormatUtils
+
 
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
 
-        jcenter()
+
         mavenCentral()
     }
     dependencies {
@@ -93,7 +93,6 @@ minecraft {
 repositories{
     maven {url='https://dist.creeper.host/Sponge/maven'}
 
-    jcenter()
     mavenCentral()
 }
 dependencies {

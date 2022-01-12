@@ -15,8 +15,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.thevortex.potionsmaster.events.PotionExpiry;
 import com.thevortex.potionsmaster.init.ModBlocks;
@@ -52,7 +50,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class PotionsMaster {
 
 	public static final String MOD_ID = Reference.MOD_ID;
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+	//public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final CreativeModeTab GROUP = new CreativeModeTab(MOD_ID) {
 		public ItemStack makeIcon() {
 			return new ItemStack(Blocks.BREWING_STAND);

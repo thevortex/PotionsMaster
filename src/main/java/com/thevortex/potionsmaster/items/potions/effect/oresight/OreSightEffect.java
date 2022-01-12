@@ -35,15 +35,16 @@ public class OreSightEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         BlockStore store = PotionsMaster.blockStore;
-        if (entityLivingBaseIn instanceof AbstractClientPlayer) {
+        if ((entityLivingBaseIn instanceof AbstractClientPlayer)) {
 
                 BlockDataWithUUID bdUUID = store.getStoreByReference(this.effectType);
                 BlockData oreSight = bdUUID.getBlockData();
-                if (!oreSight.isDrawing()) {
+                if (!oreSight.isDrawing() && entityLivingBaseIn.getEffect(this) != null) {
                     oreSight.setDrawing(true);
-                }
-                if (!Controller.drawOres()) {
-                    Controller.toggleDrawOres();
+
+                    if (!Controller.drawOres()) {
+                        Controller.toggleDrawOres();
+                    }
                 }
             }
             super.applyEffectTick(entityLivingBaseIn, amplifier);
