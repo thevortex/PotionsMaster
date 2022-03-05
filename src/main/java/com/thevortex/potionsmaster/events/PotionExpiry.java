@@ -35,12 +35,7 @@ public class PotionExpiry {
             sendAll((Player)event.getEntity());
         }
     }
-    @SubscribeEvent
-    public static void onPlayerTeleport(EntityTeleportEvent event) {
-        if(event.getEntity() instanceof Player) {
-            sendAll((Player)event.getEntity());
-        }
-    }
+
     private static void sendAll(Player player) {
             PotionPacket pkt = new PotionPacket(Ores.ALLTHEMODIUM.toString());
             PacketHandler.sendTo(pkt, (ServerPlayer) player);

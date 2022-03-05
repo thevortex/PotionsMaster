@@ -69,7 +69,7 @@ public class Render {
     public static RenderType buildRenderType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         var compositeState = RenderType.CompositeState.builder()
                 .setShaderState(new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeLinesShader))
-                .setDepthTestState(new RenderStateShard.DepthTestStateShard("always",GL11.GL_ALWAYS))
+                //.setDepthTestState(new RenderStateShard.DepthTestStateShard("always",GL11.GL_ALWAYS))
                 .setCullState(new RenderStateShard.CullStateShard(false))
                 .setTransparencyState(new RenderStateShard.TransparencyStateShard("xray",() -> {
                     RenderSystem.enableBlend();
@@ -126,10 +126,13 @@ public class Render {
         RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
         RenderSystem.disableCull();
         RenderSystem.disableTexture();
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
         vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(), GameRenderer.getRendertypeLinesShader());
         RenderSystem.enableCull();
         RenderSystem.enableTexture();
-
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(true);
         Profile.BLOCKS.clean();
         stack.popPose();
     }
@@ -162,7 +165,6 @@ public class Render {
                 RenderSystem.disableDepthTest();
                 RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
                 RenderSystem.enableBlend();
-                //RenderSystem.polygonMode(GL_FRONT_AND_BACK, GL_LINE);
                 RenderSystem.lineWidth(3.0f);
 
 
@@ -170,10 +172,7 @@ public class Render {
 
             @Override
             public void clean() {
-
-                //RenderSystem.polygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 RenderSystem.enableTexture();
-
             }
         },
         ENTITIES {
