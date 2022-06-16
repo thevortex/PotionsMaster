@@ -1,11 +1,10 @@
 package com.thevortex.potionsmaster.items.powders.calcinated;
 
-import com.thevortex.potionsmaster.init.ModItems;
 
-
+import com.thevortex.potionsmaster.init.ModRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,11 +24,11 @@ public class ActivatedCharcoal extends Item {
         super(properties.stacksTo(16));
 
     }
-
+/*
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 
-        if ((entityLiving instanceof Player) && (stack.getItem() == ModItems.ACTIVATEDCHARCOAL)) {
+        if ((entityLiving instanceof Player) && (stack.getItem() == ModRegistry.ACTIVATEDCHARCOAL.get())) {
             Player player = (Player) entityLiving;
             if (player.hasEffect(MobEffects.WITHER)) {
                 player.removeEffect(MobEffects.WITHER);
@@ -44,7 +43,9 @@ public class ActivatedCharcoal extends Item {
         tooltip.add(this.getTooltip("quick.snack").withStyle(ChatFormatting.GREEN));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
-    protected TranslatableComponent getTooltip(String key){
-        return new TranslatableComponent(key);
+    protected Component#TranslatableComponent getTooltip(String key){
+        return new Component#TranslatableContents(key);
     }
+
+ */
 }

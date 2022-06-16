@@ -1,9 +1,9 @@
 package com.thevortex.potionsmaster;
 
+import com.thevortex.potionsmaster.init.*;
 import com.thevortex.potionsmaster.items.potions.recipes.oresight.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,11 +17,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import com.thevortex.potionsmaster.events.PotionExpiry;
-import com.thevortex.potionsmaster.init.ModBlocks;
-import com.thevortex.potionsmaster.init.ModEntity;
-import com.thevortex.potionsmaster.init.ModItems;
-import com.thevortex.potionsmaster.init.ModPotionEffects;
-import com.thevortex.potionsmaster.init.ModPotions;
 import com.thevortex.potionsmaster.network.PacketHandler;
 import com.thevortex.potionsmaster.proxy.ClientProxy;
 import com.thevortex.potionsmaster.proxy.CommonProxy;
@@ -35,7 +30,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -61,6 +55,11 @@ public class PotionsMaster {
 	public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
 	public PotionsMaster() {
+		ModRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.MOBEFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
 		BlockStoreBuilder.init();
 		FMLJavaModLoadingContext.get().getModEventBus().register(setupMod.class);
 		MinecraftForge.EVENT_BUS.register(PlayerEvents.class);
@@ -100,163 +99,135 @@ public class PotionsMaster {
 
 
 		private static void registerPotions() {
+
 			BrewingRecipeRegistry.addRecipe(new CoalPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDCOAL_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDCOAL_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.COAL_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new IronPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDIRON_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDIRON_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.IRON_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new RedStonePotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDREDSTONE_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDREDSTONE_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.REDSTONE_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new LapisPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDLAPIS_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDLAPIS_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.LAPIS_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new GoldPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDGOLD_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDGOLD_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.GOLD_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new DiamondPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDDIAMOND_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDDIAMOND_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.DIAMOND_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new EmeraldPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDEMERALD_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDEMERALD_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.EMERALD_SIGHT)));
 
 			BrewingRecipeRegistry.addRecipe(new AluminiumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDALUMINIUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDALUMINIUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.ALUMINIUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new CopperPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDCOPPER_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDCOPPER_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.COPPER_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new TinPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDTIN_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDTIN_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.TIN_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new NickelPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDNICKEL_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDNICKEL_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.NICKEL_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new UraniumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDURANIUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDURANIUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.URANIUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new LeadPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDLEAD_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDLEAD_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.LEAD_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new SilverPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDSILVER_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDSILVER_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SILVER_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new ZincPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDZINC_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDZINC_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.ZINC_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new OsmiumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDOSMIUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDOSMIUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.OSMIUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new QuartzPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDQUARTZ_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDQUARTZ_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.QUARTZ_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new BismuthPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDBISMUTH_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDBISMUTH_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.BISMUTH_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new CrimsonIronPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDCRIMSONIRON_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDCRIMSONIRON_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.CRIMSONIRON_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new PlatinumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDPLATINUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDPLATINUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.PLATINUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new AllthemodiumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDALLTHEMODIUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDALLTHEMODIUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.ALLTHEMODIUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new VibraniumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDVIBRANIUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDVIBRANIUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.VIBRANIUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new UnobtainiumPotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDUNOBTAINIUM_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDUNOBTAINIUM_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.UNOBTAINIUM_SIGHT)));
 			BrewingRecipeRegistry.addRecipe(new NetheritePotionRecipe(
 					Ingredient
 							.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)),
-					Ingredient.of(ModItems.CALCINATEDNETHERITE_POWDER),
+					Ingredient.of(ModRegistry.CALCINATEDNETHERITE_POWDER.get()),
 					PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.NETHERITE_SIGHT)));
+
+
 		}
 
 	}
 
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = MOD_ID)
-	public static class RegistryEvents {
 
-		@SubscribeEvent
-		public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
-			ModBlocks.init(event);
-		}
-
-		@SubscribeEvent
-		public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-
-			ModItems.init(event);
-		}
-
-		@SubscribeEvent
-		public static void onPotionsRegistry(final RegistryEvent.Register<Potion> event) {
-			ModPotions.init(event);
-		}
-
-		@SubscribeEvent
-		public static void onEffectsRegistry(final RegistryEvent.Register<MobEffect> event) {
-
-			ModPotionEffects.init(event);
-
-		}
-
-		@SubscribeEvent
-		public static void onTileEntityRegistry(final RegistryEvent.Register<BlockEntityType<?>> event) {
-			ModEntity.init(event);
-		}
-
-	}
 
 
 }

@@ -1,8 +1,5 @@
 package com.thevortex.potionsmaster.events;
 
-import java.util.Collection;
-
-import com.thevortex.potionsmaster.init.ModPotionEffects;
 import com.thevortex.potionsmaster.items.potions.effect.oresight.OreSightEffect;
 import com.thevortex.potionsmaster.network.PacketHandler;
 import com.thevortex.potionsmaster.network.PotionPacket;
@@ -11,12 +8,10 @@ import com.thevortex.potionsmaster.reference.Ores;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.living.PotionEvent.PotionExpiryEvent;
 import net.minecraftforge.event.entity.living.PotionEvent.PotionRemoveEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerRespawnEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -113,7 +108,7 @@ public class PotionExpiry {
     }
 
     private static boolean isOreSightPotion(MobEffect potion) {
-        return (potion.getRegistryName().getNamespace().contains("potionsmaster"));
+        return (potion.getClass().isInstance(OreSightEffect.class));
     }
 
 }

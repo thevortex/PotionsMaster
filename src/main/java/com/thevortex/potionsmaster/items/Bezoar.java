@@ -1,9 +1,8 @@
 package com.thevortex.potionsmaster.items;
 
-import com.thevortex.potionsmaster.init.ModItems;
+import com.thevortex.potionsmaster.init.ModRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +27,7 @@ public class Bezoar extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 
-        if ((entityLiving instanceof Player) && (stack.getItem() == ModItems.BEZOAR)) {
+        if ((entityLiving instanceof Player) && (stack.getItem() == ModRegistry.BEZOAR.get())) {
             Player player = (Player) entityLiving;
             if (player.hasEffect(MobEffects.POISON)) {
                 player.removeEffect(MobEffects.POISON);
@@ -36,6 +35,7 @@ public class Bezoar extends Item {
         }
         return super.finishUsingItem(stack, worldIn, entityLiving);
     }
+    /*
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn){
@@ -46,4 +46,6 @@ public class Bezoar extends Item {
     protected TranslatableComponent getTooltip(String key){
         return new TranslatableComponent(key);
     }
+
+     */
 }

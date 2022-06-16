@@ -1,9 +1,9 @@
 package com.thevortex.potionsmaster.items.potions.recipes.oresight;
 
 
-import com.thevortex.potionsmaster.init.ModItems;
 import com.thevortex.potionsmaster.init.ModPotions;
 
+import com.thevortex.potionsmaster.init.ModRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -29,7 +29,7 @@ public class EmeraldPotionRecipe extends BrewingRecipe {
     @Override
     public boolean isIngredient(ItemStack ingredient) {
         // TODO Auto-generated method stub
-        return (ingredient.getItem().asItem() == ModItems.CALCINATEDEMERALD_POWDER);
+        return (ingredient.getItem().asItem() == ModRegistry.CALCINATEDEMERALD_POWDER.get());
     }
 
     @Override

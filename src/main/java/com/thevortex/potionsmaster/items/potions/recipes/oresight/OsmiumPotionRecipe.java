@@ -1,8 +1,8 @@
 package com.thevortex.potionsmaster.items.potions.recipes.oresight;
 
-import com.thevortex.potionsmaster.init.ModItems;
 import com.thevortex.potionsmaster.init.ModPotions;
 
+import com.thevortex.potionsmaster.init.ModRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -25,7 +25,7 @@ public class OsmiumPotionRecipe extends BrewingRecipe {
 
     @Override
     public boolean isIngredient(ItemStack ingredient) {
-        return (ingredient.getItem().asItem() == ModItems.CALCINATEDOSMIUM_POWDER);
+        return (ingredient.getItem().asItem() == ModRegistry.CALCINATEDOSMIUM_POWDER.get());
     }
 
     @Override

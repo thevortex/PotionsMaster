@@ -21,10 +21,7 @@ import net.minecraftforge.event.TickEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -93,11 +90,14 @@ public class Render {
                         b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,1.0F);
             }
         }
-        builder.end();
+
         var vbuf = new VertexBuffer();
-        vbuf.upload(builder);
+        vbuf.bind();
+        vbuf.upload(builder.end());
+        vbuf.unbind();
         if (vertexBuf != null) vertexBuf.close();
         vertexBuf = vbuf;
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -128,7 +128,9 @@ public class Render {
         RenderSystem.disableTexture();
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
+        vertexBuf.bind();
         vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(), GameRenderer.getRendertypeLinesShader());
+        vertexBuf.unbind();
         RenderSystem.enableCull();
         RenderSystem.enableTexture();
         RenderSystem.enableDepthTest();
