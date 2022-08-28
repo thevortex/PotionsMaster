@@ -3,16 +3,16 @@ package com.thevortex.potionsmaster.render.util.xray;
 
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.reference.Reference;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.level.ChunkEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -53,12 +53,12 @@ public class Events {
 
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
-	public static void onWorldRenderLast(RenderLevelLastEvent event) // Called when drawing the world.
+	public static void onWorldRenderLast(RenderLevelStageEvent event) // Called when drawing the world.
 	{
-
-		if ((Controller.drawOres()) && (PotionsMaster.proxy.getMinecraft().player != null)) {
-
-
+		if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
+			return;
+		}
+		if ((Controller.drawOres()) && (Minecraft.getInstance().player != null) && (Minecraft.getInstance().level != null)) {
 			// this is a world pos of the player
 			try {
 				Render.INSTANCE.drawOres(event);

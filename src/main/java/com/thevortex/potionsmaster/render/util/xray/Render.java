@@ -17,6 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -101,7 +102,7 @@ public class Render {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void drawOres(RenderLevelLastEvent event) {
+    public void drawOres(RenderLevelStageEvent event) {
         if (XRAY_TYPE == null) {
             try {
                 XRAY_TYPE = buildRenderType();

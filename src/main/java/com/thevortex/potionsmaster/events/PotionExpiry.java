@@ -1,5 +1,6 @@
 package com.thevortex.potionsmaster.events;
 
+import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.items.potions.effect.oresight.OreSightEffect;
 import com.thevortex.potionsmaster.network.PacketHandler;
 import com.thevortex.potionsmaster.network.PotionPacket;
@@ -8,8 +9,7 @@ import com.thevortex.potionsmaster.reference.Ores;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.PotionEvent.PotionExpiryEvent;
-import net.minecraftforge.event.entity.living.PotionEvent.PotionRemoveEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerRespawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -82,33 +82,39 @@ public class PotionExpiry {
 
     }
     @SubscribeEvent
-    public static void onpotionExpired(PotionExpiryEvent event) {
-        if (event.getPotionEffect() == null) {
+    public static void onpotionExpired(MobEffectEvent event) {
+        if(!(event.getEntity() instanceof ServerPlayer)) { return; }
+        PotionsMaster.LOGGER.debug(event.getEffectInstance().getEffect() + " removed");
+
+        if (event.getEffectInstance() == null) {
             return;
         }
-        if ((isOreSightPotion(event.getPotionEffect().getEffect()))
-                && (event.getEntityLiving() instanceof Player)) {
-            OreSightEffect effect = (OreSightEffect) event.getPotionEffect().getEffect();
+        if ((isOreSightPotion(event.getEffectInstance().getEffect()))
+                && (event.getEntity() instanceof Player)) {
+            PotionsMaster.LOGGER.debug(event.getEffectInstance().getEffect().getDisplayName());
+            OreSightEffect effect = (OreSightEffect) event.getEffectInstance().getEffect();
             PotionPacket pkt = new PotionPacket(effect.getEffectType());
-            PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
+            PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntity());
         }
     }
 
     @SubscribeEvent
-    public static void onpotionRemoved(PotionRemoveEvent event) {
-        if (event.getPotionEffect() == null) {
+    public static void onpotionRemoved(MobEffectEvent event) {
+        if(!(event.getEntity() instanceof ServerPlayer)) { return; }
+        if (event.getEffectInstance() == null) {
             return;
         }
-        if ((isOreSightPotion(event.getPotionEffect().getEffect()))
-                && (event.getEntityLiving() instanceof Player)) {
-            OreSightEffect effect = (OreSightEffect) event.getPotionEffect().getEffect();
+        if ((isOreSightPotion(event.getEffectInstance().getEffect()))
+                && (event.getEntity() instanceof Player)) {
+            PotionsMaster.LOGGER.debug(event.getEffectInstance().getEffect().getDisplayName() + " removed");
+            OreSightEffect effect = (OreSightEffect) event.getEffectInstance().getEffect();
             PotionPacket pkt = new PotionPacket(effect.getEffectType());
-            PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntityLiving());
+            PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntity());
         }
     }
 
     private static boolean isOreSightPotion(MobEffect potion) {
-        return (potion.getClass().isInstance(OreSightEffect.class));
+        return (potion instanceof OreSightEffect);
     }
 
 }

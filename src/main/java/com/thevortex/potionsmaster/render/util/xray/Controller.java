@@ -5,6 +5,7 @@ import com.mojang.math.Vector3d;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.WorldRegion;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -42,7 +43,7 @@ public class Controller {
 
 
 	public static boolean drawOres() {
-		return drawOres && (PotionsMaster.proxy.getClientWorld() != null) && (PotionsMaster.proxy.getClientPlayer() != null);
+		return drawOres && (Minecraft.getInstance().level != null) && (Minecraft.getInstance().player != null);
 	}
 
 	public static void toggleDrawOres() {
@@ -71,19 +72,20 @@ public class Controller {
 
 
 	private static boolean playerHasMoved() {
-		if ((PotionsMaster.proxy.getClientWorld() == null) && (Controller.drawOres)) {
+		if ((Minecraft.getInstance().player == null) && (Controller.drawOres)) {
 			toggleDrawOres();
 			return false;
 		}
 
 		return lastPlayerPos == null
-				|| lastPlayerPos.x != PotionsMaster.proxy.getClientPlayer().getX()
-				|| lastPlayerPos.z != PotionsMaster.proxy.getClientPlayer().getZ();
+				|| lastPlayerPos.x != Minecraft.getInstance().player.getX()
+				|| lastPlayerPos.y != Minecraft.getInstance().player.getY()
+				|| lastPlayerPos.z != Minecraft.getInstance().player.getZ();
 	}
 
 	private static void updatePlayerPosition() {
 
-		lastPlayerPos = new Vector3d(PotionsMaster.proxy.getClientPlayer().position().x,PotionsMaster.proxy.getClientPlayer().position().y,PotionsMaster.proxy.getClientPlayer().position().z);
+		lastPlayerPos = new Vector3d(Minecraft.getInstance().player.position().x,Minecraft.getInstance().player.position().y,Minecraft.getInstance().player.position().z);
 	}
 
 	public static synchronized void requestBlockFinder(boolean force) {
@@ -91,7 +93,7 @@ public class Controller {
 		{
 			updatePlayerPosition(); // since we're about to run, update the last known position
 
-			WorldRegion region = new WorldRegion(lastPlayerPos, getRadius(), PotionsMaster.proxy.getClientWorld().getMinBuildHeight(),PotionsMaster.proxy.getClientWorld().getMaxBuildHeight()); // the region to scan for ores
+			WorldRegion region = new WorldRegion(lastPlayerPos, getRadius(), Minecraft.getInstance().level.getMinBuildHeight(),Minecraft.getInstance().level.getMaxBuildHeight()); // the region to scan for ores
 			//PotionsMaster.LOGGER.info("min " + PotionsMaster.proxy.getClientWorld().getMinBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMinBuildHeight() >> 4) + "max " + PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() >> 4)  );
 			task = executor.submit(new RenderEnqueue(region));
 

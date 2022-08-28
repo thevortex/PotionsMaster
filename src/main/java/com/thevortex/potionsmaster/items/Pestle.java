@@ -14,12 +14,12 @@ public class Pestle extends Item {
     }
 
     @Override
-    public boolean hasContainerItem(ItemStack stack) {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return (stack.getItem() == ModRegistry.PESTLE.get());
     }
 
     @Override
-    public ItemStack getContainerItem(ItemStack itemStack) {
+    public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
 
         return new ItemStack(this);
     }
