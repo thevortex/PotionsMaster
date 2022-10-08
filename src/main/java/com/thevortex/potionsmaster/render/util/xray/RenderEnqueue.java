@@ -68,7 +68,8 @@ public class RenderEnqueue implements Runnable {
 			double alpha = Math.max(0, ((Controller.getRadius() - Minecraft.getInstance().player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) / Controller.getRadius()) * 255);
 
 			// the block was added to the world, let's add it to the drawing buffer
-			Render.ores.add(new BlockInfo(new Vec3i(pos.getX(),pos.getY(),pos.getZ()), data.getColor().getColor(), alpha));
+			//Render.ores.add(new BlockInfo(new Vec3i(pos.getX(),pos.getY(),pos.getZ()), data.getColor().getColor(), alpha));
+			Render.ores.add(new BlockInfo(new Vec3i(pos.getX(),pos.getY(),pos.getZ()), data.getColor().getColor(), 1.0f));
 		}
 	}
 
@@ -92,7 +93,7 @@ public class RenderEnqueue implements Runnable {
 
 		final Level world = Minecraft.getInstance().level;
 
-		final LocalPlayer player = Minecraft.getInstance().player;
+		final Player player = Minecraft.getInstance().player;
 
 		final List<BlockInfo> renderQueue = new ArrayList<>();
 
@@ -103,13 +104,13 @@ public class RenderEnqueue implements Runnable {
 		TagKey<Block> block;
 		BlockStore.BlockDataWithUUID dataWithUUID;
 		// Loop on chunks (x, z)
-		for (int chunkX = box.minChunkX; chunkX <= box.maxChunkX; chunkX++) {
+		for (int chunkX = player.chunkPosition().x; chunkX <= box.maxChunkX; chunkX++) {
 			// Pre-compute the extend bounds on X
 			int x = chunkX << 4; // lowest x coord of the chunk in block/world coordinates
 			lowBoundX = (x < box.minX) ? box.minX - x : 0; // lower bound for x within the extend
 			highBoundX = (x + 15 > box.maxX) ? box.maxX - x : 15;// and higher bound. Basically, we clamp it to fit the radius.
 
-			for (int chunkZ = box.minChunkZ; chunkZ <= box.maxChunkZ; chunkZ++) {
+			for (int chunkZ = player.chunkPosition().z; chunkZ <= box.maxChunkZ; chunkZ++) {
 				// Time to getStore the chunk (16x256x16) and split it into 16 vertical extends (16x16x16)
 				if (!world.hasChunk(chunkX, chunkZ)) {
 					continue; // We won't find anything interesting in unloaded chunks
@@ -229,7 +230,7 @@ public class RenderEnqueue implements Runnable {
 								//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
 								double alpha = Math.max(0, Controller.getRadius() - Minecraft.getInstance().player.distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 4));
 								// Push the block to the render queue
-								renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor().getColor(), alpha));
+								renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor().getColor(), 1.0F));
 							}
 						}
 					}

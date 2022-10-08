@@ -47,7 +47,7 @@ public class Events {
 
 		if (event.phase == TickEvent.Phase.END) {
 
-			Controller.requestBlockFinder(false);
+			Controller.requestBlockFinder(true);
 		}
 	}
 
@@ -55,7 +55,7 @@ public class Events {
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderLevelStageEvent event) // Called when drawing the world.
 	{
-		if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
+		if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_WEATHER) {
 			return;
 		}
 		if ((Controller.drawOres()) && (Minecraft.getInstance().player != null) && (Minecraft.getInstance().level != null)) {

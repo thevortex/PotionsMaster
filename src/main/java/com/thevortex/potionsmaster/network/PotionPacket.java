@@ -33,7 +33,7 @@ public class PotionPacket {
         public static void handle(final PotionPacket message, Supplier<NetworkEvent.Context> ctx) {
             ctx.get().enqueueWork(() -> {
                 String removed_potion = message.potionName;
-                toggle(removed_potion);
+               toggle(removed_potion);
 
             });
             ctx.get().setPacketHandled(true);

@@ -16,7 +16,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent;
 import org.lwjgl.opengl.GL11;
@@ -76,7 +75,7 @@ public class Render {
                     RenderSystem.disableBlend();
                 })).createCompositeState(true);
 
-        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,256,false,false,compositeState);
+        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,1024,false,false,compositeState);
 
     }
 
@@ -130,8 +129,9 @@ public class Render {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         vertexBuf.bind();
+        assert GameRenderer.getRendertypeLinesShader() != null;
         vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(), GameRenderer.getRendertypeLinesShader());
-        vertexBuf.unbind();
+        VertexBuffer.unbind();
         RenderSystem.enableCull();
         RenderSystem.enableTexture();
         RenderSystem.enableDepthTest();
@@ -149,8 +149,8 @@ public class Render {
             f = f / f3;
             f1 = f1 / f3;
             f2 = f2 / f3;
-            vcon.vertex(posestack$pose.pose(), (float)(x1 + x), (float)(y1 + y), (float)(z1 + z)).color(r, g, b, a).normal(posestack$pose.normal(), f, f1, f2).endVertex();
-            vcon.vertex(posestack$pose.pose(), (float)(x2 + x), (float)(y2 + y), (float)(z2 + z)).color(r, g, b, a).normal(posestack$pose.normal(), f, f1, f2).endVertex();
+            vcon.vertex(posestack$pose.pose(), (float)(x1 + x), (float)(y1 + y), (float)(z1 + z)).color(r, g, b, 1.0f).normal(posestack$pose.normal(), f, f1, f2).endVertex();
+            vcon.vertex(posestack$pose.pose(), (float)(x2 + x), (float)(y2 + y), (float)(z2 + z)).color(r, g, b, 1.0f).normal(posestack$pose.normal(), f, f1, f2).endVertex();
 
         });
     }

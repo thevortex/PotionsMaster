@@ -93,7 +93,7 @@ public class Controller {
 		{
 			updatePlayerPosition(); // since we're about to run, update the last known position
 
-			WorldRegion region = new WorldRegion(lastPlayerPos, getRadius(), Minecraft.getInstance().level.getMinBuildHeight(),Minecraft.getInstance().level.getMaxBuildHeight()); // the region to scan for ores
+			WorldRegion region = new WorldRegion(new Vector3d(Minecraft.getInstance().player.position().x,Minecraft.getInstance().player.position().y,Minecraft.getInstance().player.position().z), getRadius(), Minecraft.getInstance().level.getMinBuildHeight(),Minecraft.getInstance().level.getMaxBuildHeight()); // the region to scan for ores
 			//PotionsMaster.LOGGER.info("min " + PotionsMaster.proxy.getClientWorld().getMinBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMinBuildHeight() >> 4) + "max " + PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() + " >> 4 = "+ (PotionsMaster.proxy.getClientWorld().getMaxBuildHeight() >> 4)  );
 			task = executor.submit(new RenderEnqueue(region));
 
