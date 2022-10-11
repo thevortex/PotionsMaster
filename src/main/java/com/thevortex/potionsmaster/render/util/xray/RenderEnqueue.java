@@ -142,7 +142,12 @@ public class RenderEnqueue implements Runnable {
                                 // Reject blacklisted blocks
                                 //if( Controller.blackList.contains(currentState.getBlock()) )
                                 //	continue;
-                                block = currentState.getTags().findFirst().get();
+
+                                final Optional<TagKey<Block>> firstTag = currentState.getTags().findFirst();
+                                if (!firstTag.isPresent())
+                                    continue;
+
+                                block = firstTag.get();
 
                                 if (currentState.is(Ores.DIAMOND)) {
                                     block = Ores.DIAMOND;
