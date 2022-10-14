@@ -128,7 +128,7 @@ public class Render {
         Profile.BLOCKS.apply(); // Sets GL state for block drawing
 
         RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
-        RenderSystem.clearColor(0,0,0,0);
+        RenderSystem.clearColor(0,0,0,1.0f);
         RenderSystem.disableCull();
         RenderSystem.disableTexture();
         RenderSystem.disableDepthTest();
@@ -138,6 +138,7 @@ public class Render {
         ShaderInstance thisRenderer =  GameRenderer.getRendertypeLinesShader() ;
         assert thisRenderer != null;
         thisRenderer.COLOR_MODULATOR.set(0.0f);
+
         vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(),thisRenderer);
 
         VertexBuffer.unbind();
@@ -158,8 +159,8 @@ public class Render {
             f = f / f3;
             f1 = f1 / f3;
             f2 = f2 / f3;
-            vcon.vertex(posestack$pose.pose(), (float)(x1 + x), (float)(y1 + y), (float)(z1 + z)).color(r, g, b, a).normal(posestack$pose.normal(), f, f1, f2).endVertex();
-            vcon.vertex(posestack$pose.pose(), (float)(x2 + x), (float)(y2 + y), (float)(z2 + z)).color(r, g, b, a).normal(posestack$pose.normal(), f, f1, f2).endVertex();
+            vcon.vertex(posestack$pose.pose(), (float)(x1 + x), (float)(y1 + y), (float)(z1 + z)).color(r, g, b, a).normal(posestack$pose.normal(), f, f1, f2).color(r,g,b,a).endVertex();
+            vcon.vertex(posestack$pose.pose(), (float)(x2 + x), (float)(y2 + y), (float)(z2 + z)).color(r, g, b, a).normal(posestack$pose.normal(), f, f1, f2).color(r,g,b,a).endVertex();
 
         });
     }

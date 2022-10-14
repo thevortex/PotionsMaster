@@ -34,9 +34,7 @@ public class PotionPacket {
             ctx.get().enqueueWork(() -> {
                 String removed_potion = message.potionName;
                 toggle(removed_potion);
-                if (Controller.drawOres()) {
-                    Controller.toggleDrawOres();
-                }
+
             });
             ctx.get().setPacketHandled(true);
         }
