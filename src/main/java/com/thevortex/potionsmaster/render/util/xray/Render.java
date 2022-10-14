@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -78,7 +78,7 @@ public class Render {
                     RenderSystem.disableBlend();
                 })).createCompositeState(true);
 
-        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,256,false,false,compositeState);
+        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,512,false,false,compositeState);
 
     }
 
@@ -90,19 +90,19 @@ public class Render {
         for (var b : ores.oreList) {
             if (b != null) {
                 renderShape(stack,builder,Shapes.block(),b.getX(),b.getY(),b.getZ(),
-                        b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,1.0F);
+                        b.color[0]/255.0F,b.color[1]/255.0F,b.color[2]/255.0F,(float)b.alpha);
             }
         }
-        builder.end();
         var vbuf = new VertexBuffer();
         vbuf.bind();
-        vbuf.upload(builder);
+        vbuf.upload(builder.end());
+
         if (vertexBuf != null) vertexBuf.close();
         vertexBuf = vbuf;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void drawOres(RenderLevelLastEvent event) {
+    public void drawOres(RenderLevelStageEvent event) {
         if (XRAY_TYPE == null) {
             try {
                 XRAY_TYPE = buildRenderType();
@@ -125,11 +125,17 @@ public class Render {
         Profile.BLOCKS.apply(); // Sets GL state for block drawing
 
         RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
+        RenderSystem.clearColor(0,0,0,0);
         RenderSystem.disableCull();
         RenderSystem.disableTexture();
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
-        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(), GameRenderer.getRendertypeLinesShader());
+        vertexBuf.bind();
+        assert GameRenderer.getRendertypeLinesShader() != null;
+        GameRenderer.getRendertypeLinesShader().COLOR_MODULATOR.set(0.0f);
+        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(),GameRenderer.getRendertypeLinesShader());
+
+        VertexBuffer.unbind();
         RenderSystem.enableCull();
         RenderSystem.enableTexture();
         RenderSystem.enableDepthTest();
