@@ -117,7 +117,10 @@ public class Render {
         }
         if (vertexBuf == null) return;
 
-        Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        Minecraft thisInstance = Minecraft.getInstance();
+        
+        Vec3 view = thisInstance.gameRenderer.getMainCamera().getPosition();
+        
         PoseStack stack = event.getPoseStack();
 
         stack.pushPose();
@@ -131,9 +134,11 @@ public class Render {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         vertexBuf.bind();
-        assert GameRenderer.getRendertypeLinesShader() != null;
-        GameRenderer.getRendertypeLinesShader().COLOR_MODULATOR.set(0.0f);
-        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(),GameRenderer.getRendertypeLinesShader());
+        
+        ShaderInstance thisRenderer =  GameRenderer.getRendertypeLinesShader() ;
+        assert thisRenderer != null;
+        thisRenderer.COLOR_MODULATOR.set(0.0f);
+        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(),thisRenderer);
 
         VertexBuffer.unbind();
         RenderSystem.enableCull();
