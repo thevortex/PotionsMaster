@@ -78,7 +78,7 @@ public class Render {
                     RenderSystem.disableBlend();
                 })).createCompositeState(true);
 
-        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,512,false,false,compositeState);
+        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.DEBUG_LINES,512,false,false,compositeState);
 
     }
 
@@ -128,26 +128,25 @@ public class Render {
         Profile.BLOCKS.apply(); // Sets GL state for block drawing
 
         RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
-        RenderSystem.clearColor(0,0,0,1.0f);
         RenderSystem.disableCull();
         RenderSystem.disableTexture();
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         vertexBuf.bind();
         
-        ShaderInstance thisRenderer =  GameRenderer.getRendertypeLinesShader() ;
+        ShaderInstance thisRenderer =  GameRenderer.getPositionColorShader() ;
         assert thisRenderer != null;
         thisRenderer.COLOR_MODULATOR.set(0.0f);
-
-        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix(),thisRenderer);
+        vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix().copy(),thisRenderer);
 
         VertexBuffer.unbind();
         RenderSystem.enableCull();
         RenderSystem.enableTexture();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
-        Profile.BLOCKS.clean();
+
         stack.popPose();
+        Profile.BLOCKS.clean();
     }
     public static void renderShape(PoseStack pose, VertexConsumer vcon, VoxelShape shape, double x, double y, double z, float r, float g, float b, float a) {
         PoseStack.Pose posestack$pose = pose.last();
@@ -174,10 +173,11 @@ public class Render {
         BLOCKS {
             @Override
             public void apply() {
-                RenderSystem.disableTexture();
-                RenderSystem.disableDepthTest();
-                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                RenderSystem.enableBlend();
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                GL11.glEnable(GL11.GL_LINE_SMOOTH);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
+
                 RenderSystem.lineWidth(3.0f);
 
 
@@ -185,7 +185,9 @@ public class Render {
 
             @Override
             public void clean() {
-                RenderSystem.enableTexture();
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
+                GL11.glDisable(GL11.GL_BLEND);
+                GL11.glDisable(GL11.GL_LINE_SMOOTH);
             }
         },
         ENTITIES {

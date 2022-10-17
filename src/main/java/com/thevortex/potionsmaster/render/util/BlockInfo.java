@@ -10,7 +10,7 @@ public class BlockInfo extends Vec3i {
     public BlockInfo(int x, int y, int z, int[] color, double alpha) {
         super(x, y, z);
         this.color = color;
-        this.alpha = 1;
+        this.alpha = alpha;
     }
 
     public BlockInfo(Vec3i pos, int[] color, double alpha) {

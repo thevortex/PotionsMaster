@@ -55,7 +55,7 @@ public class Events {
 	public static void onWorldRenderLast(RenderLevelStageEvent event) // Called when drawing the world.
 	{
 
-		if ((Controller.drawOres()) && (PotionsMaster.proxy.getMinecraft().player != null) && (event.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES)) {
+		if ((Controller.drawOres()) && (PotionsMaster.proxy.getMinecraft().player != null) && (event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS)) {
 
 
 			// this is a world pos of the player
