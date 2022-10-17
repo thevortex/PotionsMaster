@@ -78,7 +78,7 @@ public class Render {
                     RenderSystem.disableBlend();
                 })).createCompositeState(true);
 
-        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.DEBUG_LINES,512,false,false,compositeState);
+        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR,VertexFormat.Mode.DEBUG_LINES,512,false,false,compositeState);
 
     }
 
@@ -137,6 +137,7 @@ public class Render {
         ShaderInstance thisRenderer =  GameRenderer.getPositionColorShader() ;
         assert thisRenderer != null;
         thisRenderer.COLOR_MODULATOR.set(0.0f);
+
         vertexBuf.drawWithShader(stack.last().pose(), event.getProjectionMatrix().copy(),thisRenderer);
 
         VertexBuffer.unbind();
@@ -177,8 +178,8 @@ public class Render {
                 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 GL11.glEnable(GL11.GL_LINE_SMOOTH);
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
+                GL11.glLineWidth(3.0F);
 
-                RenderSystem.lineWidth(3.0f);
 
 
             }

@@ -19,7 +19,7 @@ public class BlockStoreBuilder {
     public static void init() {
 
 
-        list.add(new BlockData("CoalOre", Ores.COAL.toString(), new OutlineColor(82, 82, 82), false, 0));
+        list.add(new BlockData("CoalOre", Ores.COAL.toString(), new OutlineColor(32, 32, 32), false, 0));
         list.add(new BlockData("IronOre", Ores.IRON.toString(), new OutlineColor(228, 192, 170), false, 0));
         list.add(new BlockData("CopperOre", Ores.COPPER.toString(), new OutlineColor(183, 112, 58), false, 0));
         list.add(new BlockData("RedstoneOre", Ores.REDSTONE.toString(), new OutlineColor(255, 0, 0), false, 0));
