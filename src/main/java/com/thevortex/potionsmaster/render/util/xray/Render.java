@@ -99,6 +99,7 @@ public class Render {
 
         if (vertexBuf != null) vertexBuf.close();
         vertexBuf = vbuf;
+        VertexBuffer.unbind();
     }
 
     @OnlyIn(Dist.CLIENT)
