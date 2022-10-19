@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 
 public class Controller {
 	// Radius +/- around the player to search. So 8 is 8 on left and right of player plus under the player. So 17x17 area.
-	private static final int[] distanceList = new int[]{8, 16, 32, 48, 64, 80, 128, 256};
+	private static final int[] distanceList = new int[]{8, 16, 24, 32, 48, 64, 80, 128, 256};
 
 	public static ArrayList blackList = new ArrayList<Block>() {{
 		add(Blocks.AIR);
