@@ -15,6 +15,7 @@ import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockInfo;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.WorldRegion;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -64,7 +65,7 @@ public class RenderEnqueue implements Runnable {
 			if (data == null)
 				return;
 
-			double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) / Controller.getRadius()) * 255);
+			double alpha = Math.max(0, ((Controller.getRadius() - Minecraft.getInstance().player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) / Controller.getRadius()) * 255);
 
 			// the block was added to the world, let's add it to the drawing buffer
 			Render.ores.add(new BlockInfo(new Vec3i(pos.getX(),pos.getY(),pos.getZ()), data.getColor().getColor(), alpha));
@@ -89,9 +90,9 @@ public class RenderEnqueue implements Runnable {
 
 		}
 
-		final Level world = PotionsMaster.proxy.getClientPlayer().level;
+		final Level world = Minecraft.getInstance().player.level;
 
-		final LocalPlayer player = PotionsMaster.proxy.getClientPlayer();
+		final LocalPlayer player = Minecraft.getInstance().player;
 
 		final List<BlockInfo> renderQueue = new ArrayList<>();
 
@@ -225,8 +226,8 @@ public class RenderEnqueue implements Runnable {
 									continue;
 
 								// Calculate distance from player to block. Fade out further away blocks
-								//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
-								double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 4));
+								//double alpha = Math.max(0, ((Controller.getRadius() - Minecraft.getInstance().player.getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
+								double alpha = Math.max(0, Controller.getRadius() - Minecraft.getInstance().player.distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 4));
 								// Push the block to the render queue
 								renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor().getColor(), alpha));
 							}
@@ -239,5 +240,6 @@ public class RenderEnqueue implements Runnable {
 
 		Render.ores.clear();
 		Render.ores.addAll(renderQueue); // Add all our found blocks to the Render.ores list. To be use by Render when drawing.
+
 	}
 }

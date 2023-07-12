@@ -78,7 +78,7 @@ public class Render {
                     RenderSystem.disableBlend();
                 })).createCompositeState(true);
 
-        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,256,false,false,compositeState);
+        return RenderType.create("xray",DefaultVertexFormat.POSITION_COLOR_NORMAL,VertexFormat.Mode.LINES,512,false,false,compositeState);
 
     }
 
@@ -98,6 +98,7 @@ public class Render {
         vbuf.upload(builder);
         if (vertexBuf != null) vertexBuf.close();
         vertexBuf = vbuf;
+
     }
 
     @OnlyIn(Dist.CLIENT)

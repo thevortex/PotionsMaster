@@ -7,6 +7,8 @@ import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStore.BlockDataWithUUID;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
+import com.thevortex.potionsmaster.render.util.xray.Render;
+import com.thevortex.potionsmaster.render.util.xray.RenderEnqueue;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -41,12 +43,15 @@ public class OreSightEffect extends MobEffect {
 
                 BlockDataWithUUID bdUUID = store.getStoreByReference(this.effectType);
                 BlockData oreSight = bdUUID.getBlockData();
+
                 if (!oreSight.isDrawing() && entityLivingBaseIn.getEffect(this) != null) {
                     oreSight.setDrawing(true);
                     if (!Controller.drawOres()) {
                         Controller.toggleDrawOres();
                     }
                 }
+                Controller.requestBlockFinder(true);
+
             }
             super.applyEffectTick(entityLivingBaseIn, amplifier);
 
