@@ -95,6 +95,7 @@ public class Render {
         }
         builder.end();
         var vbuf = new VertexBuffer();
+        vbuf.bind();
         vbuf.upload(builder);
         if (vertexBuf != null) vertexBuf.close();
         vertexBuf = vbuf;
