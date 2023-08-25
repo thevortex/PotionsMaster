@@ -1,7 +1,17 @@
 package com.thevortex.potionsmaster;
 
+import com.thevortex.potionsmaster.events.PotionExpiry;
+import com.thevortex.potionsmaster.init.ModPotions;
 import com.thevortex.potionsmaster.init.ModRegistry;
 import com.thevortex.potionsmaster.items.potions.recipes.oresight.*;
+import com.thevortex.potionsmaster.network.PacketHandler;
+import com.thevortex.potionsmaster.proxy.ClientProxy;
+import com.thevortex.potionsmaster.proxy.CommonProxy;
+import com.thevortex.potionsmaster.proxy.ServerProxy;
+import com.thevortex.potionsmaster.reference.Reference;
+import com.thevortex.potionsmaster.render.util.BlockStore;
+import com.thevortex.potionsmaster.render.util.BlockStoreBuilder;
+import com.thevortex.potionsmaster.render.util.xray.Controller;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,16 +26,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import com.thevortex.potionsmaster.events.PotionExpiry;
-import com.thevortex.potionsmaster.init.ModPotions;
-import com.thevortex.potionsmaster.network.PacketHandler;
-import com.thevortex.potionsmaster.proxy.ClientProxy;
-import com.thevortex.potionsmaster.proxy.CommonProxy;
-import com.thevortex.potionsmaster.proxy.ServerProxy;
-import com.thevortex.potionsmaster.reference.Reference;
-import com.thevortex.potionsmaster.render.util.BlockStore;
-import com.thevortex.potionsmaster.render.util.BlockStoreBuilder;
-import com.thevortex.potionsmaster.render.util.xray.Controller;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -46,11 +46,7 @@ public class PotionsMaster {
 
 	public static final String MOD_ID = Reference.MOD_ID;
 	//public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	public static final CreativeModeTab GROUP = new CreativeModeTab(MOD_ID) {
-		public ItemStack makeIcon() {
-			return new ItemStack(Blocks.BREWING_STAND);
-		}
-	};
+
 	public static BlockStore blockStore = new BlockStore();
 
 	public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);

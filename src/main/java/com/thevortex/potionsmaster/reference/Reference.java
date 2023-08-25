@@ -12,5 +12,7 @@ public class Reference {
     public static final String PREFIX_MOD = MOD_ID + ":";
 
     public static final String PREFIX_TEX = PREFIX_MOD + "/textures/";
-
+    public static String tab() {
+        return String.format("itemGroup.%s", MOD_ID);
+    }
 }

@@ -1,6 +1,7 @@
 package com.thevortex.potionsmaster.render.util;
 
-import com.mojang.math.Vector3d;
+
+import org.joml.Vector3d;
 
 /**
  * A bounding box representing a world 3D area in both world and chunk coords.
@@ -17,7 +18,7 @@ public class WorldRegion {
      * @param pos    a world position
      * @param radius a block radius
      */
-    public WorldRegion(Vector3d pos, int radius,int minBuild, int maxBuild) {
+    public WorldRegion(Vector3d pos, int radius, int minBuild, int maxBuild) {
         minX = (int)pos.x - radius;
         maxX = (int)pos.x + radius;
         minY = (int)Math.max(minBuild,pos.y - 16);

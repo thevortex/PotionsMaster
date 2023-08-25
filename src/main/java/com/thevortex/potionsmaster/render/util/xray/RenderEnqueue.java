@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.mojang.math.Vector3d;
 import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockData;
@@ -90,7 +89,7 @@ public class RenderEnqueue implements Runnable {
 
 		}
 
-		final Level world = PotionsMaster.proxy.getClientPlayer().level;
+		final Level world = PotionsMaster.proxy.getClientPlayer().level();
 
 		final LocalPlayer player = PotionsMaster.proxy.getClientPlayer();
 
@@ -241,7 +240,7 @@ public class RenderEnqueue implements Runnable {
 				}
 			}
 		}
-		renderQueue.sort((t, t1) -> Double.compare(t1.distSqr(new Vec3i(player.getX(),player.getY(),player.getZ())), t.distSqr(new Vec3i(player.getX(),player.getY(),player.getZ()))));
+		renderQueue.sort((t, t1) -> Double.compare(t1.distSqr(new Vec3i(player.getBlockX(), player.getBlockY(),player.getBlockZ())), t.distSqr(new Vec3i(player.getBlockX(), player.getBlockY(),player.getBlockZ()))));
 
 		Render.ores.clear();
 		Render.ores.addAll(renderQueue); // Add all our found blocks to the Render.ores list. To be use by Render when drawing.
