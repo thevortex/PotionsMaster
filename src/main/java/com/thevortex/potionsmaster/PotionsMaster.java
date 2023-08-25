@@ -56,6 +56,8 @@ public class PotionsMaster {
 		ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ModRegistry.MOBEFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ModRegistry.POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.CREATIVE_TABS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
 		BlockStoreBuilder.init();
 
 		FMLJavaModLoadingContext.get().getModEventBus().register(setupMod.class);
