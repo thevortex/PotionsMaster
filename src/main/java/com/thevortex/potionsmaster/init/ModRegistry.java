@@ -172,7 +172,7 @@ public class ModRegistry {
     public static List<DeferredHolder<Potion,Potion>> registerPotions() {
         List<DeferredHolder<Potion,Potion>> list = new ArrayList<>();
         for(String potionName : EffectsListParsed.keySet()) {
-            DeferredHolder<Potion,Potion> potion = createPotion(potionName, () -> new Potion(potionName + "_sight_potion", new MobEffectInstance(EffectsListParsed.get(potionName).getDelegate())));
+            DeferredHolder<Potion,Potion> potion = createPotion(potionName, () -> new Potion(potionName + "_sight_potion", new MobEffectInstance(EffectsListParsed.get(potionName).getDelegate(),500)));
             list.add(potion);
         }
         return list;
