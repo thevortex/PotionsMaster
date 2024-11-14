@@ -10,16 +10,21 @@ import com.thevortex.potionsmaster.proxy.ClientProxy;
 import com.thevortex.potionsmaster.proxy.CommonProxy;
 import com.thevortex.potionsmaster.proxy.ServerProxy;
 import com.thevortex.potionsmaster.reference.Reference;
+import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStoreBuilder;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
@@ -93,6 +98,12 @@ public class PotionsMaster {
 		}
 
 		private static void registerPotions(RegisterBrewingRecipesEvent event) {
+			for (String name : ModRegistry.EffectsListParsed.keySet()) {
+				event.getBuilder().addRecipe(Ingredient.of(getPotion(Potions.MUNDANE)),
+				 Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("potionsmaster", "calcinated_" + name + "_oresight_powder")))),
+				  PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name)));
+			}
+
 		/* 	event.getBuilder().addRecipe(new CoalPotionRecipe(
 					Ingredient.of(getPotion(Potions.MUNDANE)),
 					Ingredient.of(ModRegistry.CALCINATEDCOAL_POWDER.get()),

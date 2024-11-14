@@ -104,7 +104,8 @@ public class ModRegistry {
     public static final DeferredItem<CalcinatedPowder> CALCINATEDUNOBTAINIUM_POWDER = ITEMS.register("calcinatedunobtainium_powder", () -> new CalcinatedPowder(new Item.Properties()));; */
     public static final DeferredItem<Item> ENDER_POWDER = ITEMS.register("ender_powder", () ->  new Item(new Item.Properties()));
 
-    private static HashMap<String, DeferredHolder<MobEffect,MobEffect>> EffectsListParsed = new HashMap<>();
+    public static HashMap<String, DeferredHolder<MobEffect,MobEffect>> EffectsListParsed = new HashMap<>();
+    public static HashMap<String, DeferredHolder<Potion,Potion>> PotionsListParsed = new HashMap<>();
     public static final List<DeferredHolder<Item,Item>> BaseItemList = registerBaseItems();
     public static final List<DeferredHolder<Item,Item>> CalcinatedItemList = registerCalcinatedItems();
     public static final List<DeferredHolder<MobEffect,MobEffect>> EffectList = registerEffects();
@@ -174,6 +175,7 @@ public class ModRegistry {
         for(String potionName : EffectsListParsed.keySet()) {
             DeferredHolder<Potion,Potion> potion = createPotion(potionName, () -> new Potion(potionName + "_sight_potion", new MobEffectInstance(EffectsListParsed.get(potionName).getDelegate(),500)));
             list.add(potion);
+            PotionsListParsed.put(potionName,potion);
         }
         return list;
     }
