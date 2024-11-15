@@ -19,6 +19,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -141,97 +142,32 @@ public class RenderEnqueue implements Runnable {
                                 //if( Controller.blackList.contains(currentState.getBlock()) )
                                 //	continue;
 
-                                final Optional<TagKey<Block>> firstTag = currentState.getTags().findFirst();
+                                final Optional<TagKey<Block>> firstTag = currentState.getTags().filter(tag -> tag.toString().contains("ores/")).findFirst();
                                 if (!firstTag.isPresent())
                                     continue;
 
                                 block = firstTag.get();
+								
+                                for(BlockData data: PotionsMaster.blockStore.getStore().values()) {
+									PotionsMaster.LOGGER.debug("Checking block: " + block.location().toString() + " " + data.getoreTag());
+									if (block.location().toString().contains(data.getoreTag())) {
+										double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 2));
+										dataWithUUID = PotionsMaster.blockStore.getStoreByReference(data.getoreTag());
+										PotionsMaster.LOGGER.debug("Adding block to render queue: " + block.toString() + " " + dataWithUUID.getBlockData().getEntryName());
+										
+										if (dataWithUUID.getBlockData() == null || !dataWithUUID.getBlockData().isDrawing()) // fail safe
+										continue;
 
-                                if (currentState.is(Ores.DIAMOND)) {
-                                    block = Ores.DIAMOND;
-                                }
-                                if (currentState.is(Ores.LAPIS)) {
-                                    block = Ores.LAPIS;
-                                }
-                                if (currentState.is(Ores.ALUMINIUM)) {
-                                    block = Ores.ALUMINIUM;
-                                }
-                                if (currentState.is(Ores.COPPER)) {
-                                    block = Ores.COPPER;
-                                }
-                                if (currentState.is(Ores.TIN)) {
-                                    block = Ores.TIN;
-                                }
-                                if (currentState.is(Ores.LEAD)) {
-                                    block = Ores.LEAD;
-                                }
-                                if (currentState.is(Ores.SILVER)) {
-                                    block = Ores.SILVER;
-                                }
-                                if (currentState.is(Ores.GOLD)) {
-                                    block = Ores.GOLD;
-                                }
-                                if (currentState.is(Ores.URANIUM)) {
-                                    block = Ores.URANIUM;
-                                }
-                                if (currentState.is(Ores.NICKEL)) {
-                                    block = Ores.NICKEL;
-                                }
-                                if (currentState.is(Ores.IRON)) {
-                                    block = Ores.IRON;
-                                }
-                                if (currentState.is(Ores.OSMIUM)) {
-                                    block = Ores.OSMIUM;
-                                }
-                                if (currentState.is(Ores.ZINC)) {
-                                    block = Ores.ZINC;
-                                }
-                                if (currentState.is(Ores.EMERALD)) {
-                                    block = Ores.EMERALD;
-                                }
-                                if (currentState.is(Ores.COAL)) {
-                                    block = Ores.COAL;
-                                }
-                                if (currentState.is(Ores.REDSTONE)) {
-                                    block = Ores.REDSTONE;
-                                }
-                                if (currentState.is(Ores.QUARTZ)) {
-                                    block = Ores.QUARTZ;
-                                }
-                                if (currentState.is(Ores.BISMUTH)) {
-                                    block = Ores.BISMUTH;
-                                }
-                                if (currentState.is(Ores.CRIMSONIRON)) {
-                                    block = Ores.CRIMSONIRON;
-                                }
-                                if (currentState.is(Ores.PLATINUM)) {
-                                    block = Ores.PLATINUM;
-                                }
-                                if (currentState.is(Ores.NETHERITE)) {
-                                    block = Ores.NETHERITE;
-                                }
-                                if (currentState.is(Ores.ALLTHEMODIUM)) {
-                                    block = Ores.ALLTHEMODIUM;
-                                }
-                                if (currentState.is(Ores.VIBRANIUM)) {
-                                    block = Ores.VIBRANIUM;
-								}
-								if (currentState.is(Ores.UNOBTAINIUM)) {
-									block = Ores.UNOBTAINIUM;
+										// Calculate distance from player to block. Fade out further away blocks
+										//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
+								
+										// Push the block to the render queue
+										PotionsMaster.LOGGER.debug("Adding block to render queue: " + x + i + " " + y + j + " " + z + k + " " + dataWithUUID.getBlockData().getColor() + " " + alpha);
+										renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor(), 1.0f));
+									}
 								}
 
-								dataWithUUID = Controller.getBlockStore().getStoreByReference(block.toString());
-								if (dataWithUUID == null)
-									continue;
-
-								if (dataWithUUID.getBlockData() == null || !dataWithUUID.getBlockData().isDrawing()) // fail safe
-									continue;
-
-								// Calculate distance from player to block. Fade out further away blocks
-								//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
-								double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 2));
-								// Push the block to the render queue
-								renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor(), 1.0f));
+								
 							}
 						}
 					}

@@ -1,6 +1,11 @@
 package com.thevortex.potionsmaster.render.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+
+import com.google.gson.stream.JsonReader;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.init.ModRegistry;
 import com.thevortex.potionsmaster.items.potions.effect.oresight.OreSightEffect;
@@ -22,7 +29,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.item.Item;
+import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+
+import javax.annotation.Nullable;
 
 
 public class BlockStoreBuilder {
@@ -31,53 +41,46 @@ public class BlockStoreBuilder {
     public static ArrayList<BlockData> list = new ArrayList<BlockData>();
 
 
-    public static List<BlockData> scanFolder(String folderPath) {
+    public static List<BlockData> scanFolder(Path folderPath) {
         List<BlockData> blockDataList = new ArrayList<>();
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(folderPath), "*.json")) {
+        File folderFile = folderPath.toFile();
+        if (!folderFile.exists()) {
+            boolean result = folderFile.mkdirs();
+            if (!result) {
+                PotionsMaster.LOGGER.error("Couldn't create folder {}", folderPath);
+            }
+        }
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath, "*.json")) {
             for (Path entry : stream) {
                 BlockData blockData = readJsonFile(entry);
                 blockDataList.add(blockData);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            PotionsMaster.LOGGER.error("Failed to read config folder", e);
         }
         return blockDataList;
     }
 
-    private static BlockData readJsonFile(Path filePath) {
-        BlockData blockData = null;
-        try {
-            String content = new String(Files.readAllBytes(filePath), StandardCharsets.UTF_8);
-            JsonObject jsonObject = new Gson().fromJson(content, JsonObject.class);
-            for (String key : jsonObject.keySet()) {
-                blockData = new BlockData(
-                    jsonObject.get("entryname").getAsString(),
-                    jsonObject.get("oretag").getAsString(),
-                    jsonObject.get("color").getAsInt(),
-                    jsonObject.get("drawing").getAsBoolean(),
-                    jsonObject.get("order").getAsInt()
-                );
-            
-            }
-            
+    private static @Nullable BlockData readJsonFile(Path filePath) {
+        try (Reader reader = new FileReader(filePath.toFile())) {
+            return new Gson().fromJson(reader, BlockData.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            PotionsMaster.LOGGER.error("Failed to read JSON file", e);
         }
-        return blockData;
+        return null;
     }
 
-    public static void loadPotions(String folderPath) {
+    public static void loadPotions(Path folderPath) {
         
         List<BlockData> blockDataList = scanFolder(folderPath);
-        for (BlockData blockData : blockDataList) {
-            list.add(blockData);
-        }
+        list.addAll(blockDataList);
         PotionsMaster.blockStore.setStore(list);
     }
 
     public static void init() {
-
-        loadPotions("./config/potionsmaster/");
+        Path folderPath = FMLPaths.CONFIGDIR.get().resolve(PotionsMaster.MOD_ID);
+        loadPotions(folderPath);
         
 /* 
         list.add(new BlockData("CoalOre", Ores.COAL.toString(), new OutlineColor(32, 32, 32), false, 0));

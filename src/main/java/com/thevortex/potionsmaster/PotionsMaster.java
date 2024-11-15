@@ -10,16 +10,24 @@ import com.thevortex.potionsmaster.proxy.ClientProxy;
 import com.thevortex.potionsmaster.proxy.CommonProxy;
 import com.thevortex.potionsmaster.proxy.ServerProxy;
 import com.thevortex.potionsmaster.reference.Reference;
+import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStoreBuilder;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
@@ -29,6 +37,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 
@@ -91,8 +100,16 @@ public class PotionsMaster {
 		public static void setup(final FMLCommonSetupEvent event) {
 			proxy.init();
 		}
-
+		private static TagKey<Item> getTagKey(String name) {
+			return ItemTags.create(ResourceLocation.fromNamespaceAndPath(MOD_ID, name));
+		}
 		private static void registerPotions(RegisterBrewingRecipesEvent event) {
+			for (String name : ModRegistry.EffectsListParsed.keySet()) {
+				event.getBuilder().addRecipe(Ingredient.of(getPotion(Potions.MUNDANE)),
+				 Ingredient.of(getTagKey("calcinated/" + name)),
+				  PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name)));
+			}
+
 		/* 	event.getBuilder().addRecipe(new CoalPotionRecipe(
 					Ingredient.of(getPotion(Potions.MUNDANE)),
 					Ingredient.of(ModRegistry.CALCINATEDCOAL_POWDER.get()),
