@@ -106,8 +106,8 @@ public class ModRegistry {
 
     public static HashMap<String, DeferredHolder<MobEffect,MobEffect>> EffectsListParsed = new HashMap<>();
     public static HashMap<String, DeferredHolder<Potion,Potion>> PotionsListParsed = new HashMap<>();
-    public static final List<DeferredHolder<Item,Item>> BaseItemList = registerBaseItems();
-    public static final List<DeferredHolder<Item,Item>> CalcinatedItemList = registerCalcinatedItems();
+    //public static final List<DeferredHolder<Item,Item>> BaseItemList = registerBaseItems();
+    //public static final List<DeferredHolder<Item,Item>> CalcinatedItemList = registerCalcinatedItems();
     public static final List<DeferredHolder<MobEffect,MobEffect>> EffectList = registerEffects();
     public static final List<DeferredHolder<Potion,Potion>> PotionList = registerPotions();
 
@@ -120,15 +120,7 @@ public class ModRegistry {
 
 
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("creative_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable(Reference.tab()))
-            .icon(Items.BREWING_STAND::getDefaultInstance)
-            .displayItems((parameters, output) -> ITEMS.getEntries().stream()
-                    .map(DeferredHolder::get)
-                    .map(Item::getDefaultInstance)
-                    .forEach(output::accept))
-            .build()
-    );
+    
 
     public static DeferredHolder<Item,Item> createBasePowder(String name, Supplier<BasePowder> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
@@ -173,10 +165,20 @@ public class ModRegistry {
     public static List<DeferredHolder<Potion,Potion>> registerPotions() {
         List<DeferredHolder<Potion,Potion>> list = new ArrayList<>();
         for(String potionName : EffectsListParsed.keySet()) {
-            DeferredHolder<Potion,Potion> potion = createPotion(potionName, () -> new Potion(potionName + "_sight_potion", new MobEffectInstance(EffectsListParsed.get(potionName).getDelegate(),500)));
+            DeferredHolder<Potion,Potion> potion = createPotion(potionName, () -> new Potion(potionName + "_sight_potion", new MobEffectInstance(EffectsListParsed.get(potionName).getDelegate(),2500,0,false,true,false)));
             list.add(potion);
             PotionsListParsed.put(potionName,potion);
         }
         return list;
     }
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("creative_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable(Reference.tab()))
+            .icon(Items.BREWING_STAND::getDefaultInstance)
+            .displayItems((parameters, output) -> ITEMS.getEntries().stream()
+                    .map(DeferredHolder::get)
+                    .map(Item::getDefaultInstance)
+                    .forEach(output::accept))
+            .build()
+    );
 }
