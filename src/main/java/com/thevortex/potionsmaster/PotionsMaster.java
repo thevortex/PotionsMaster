@@ -65,7 +65,6 @@ public class PotionsMaster {
 		eventBus.register(setupMod.class);
 		eventBus.addListener(PacketHandler::register);
 
-		NeoForge.EVENT_BUS.register(PlayerEvents.class);
 		NeoForge.EVENT_BUS.register(PotionExpiry.class);
 		NeoForge.EVENT_BUS.addListener(setupMod::registerPotions);
 
@@ -81,7 +80,7 @@ public class PotionsMaster {
 	}
 
 
-
+	@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT, modid = MOD_ID)
 	public static class PlayerEvents {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent

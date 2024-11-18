@@ -149,11 +149,11 @@ public class RenderEnqueue implements Runnable {
                                 block = firstTag.get();
 								
                                 for(BlockData data: PotionsMaster.blockStore.getStore().values()) {
-									PotionsMaster.LOGGER.debug("Checking block: " + block.location().toString() + " " + data.getoreTag());
+									//PotionsMaster.LOGGER.debug("Checking block: " + block.location().toString() + " " + data.getoreTag());
 									if (block.location().toString().contains(data.getoreTag())) {
 										double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 2));
 										dataWithUUID = PotionsMaster.blockStore.getStoreByReference(data.getoreTag());
-										PotionsMaster.LOGGER.debug("Adding block to render queue: " + block.toString() + " " + dataWithUUID.getBlockData().getEntryName());
+										//PotionsMaster.LOGGER.debug("Adding block to render queue: " + block.toString() + " " + dataWithUUID.getBlockData().getEntryName());
 										
 										if (dataWithUUID.getBlockData() == null || !dataWithUUID.getBlockData().isDrawing()) // fail safe
 										continue;
@@ -162,7 +162,7 @@ public class RenderEnqueue implements Runnable {
 										//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
 								
 										// Push the block to the render queue
-										PotionsMaster.LOGGER.debug("Adding block to render queue: " + x + i + " " + y + j + " " + z + k + " " + dataWithUUID.getBlockData().getColor() + " " + alpha);
+										//PotionsMaster.LOGGER.debug("Adding block to render queue: " + x + i + " " + y + j + " " + z + k + " " + dataWithUUID.getBlockData().getColor() + " " + alpha);
 										renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor(), 1.0f));
 									}
 								}
