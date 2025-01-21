@@ -1,20 +1,31 @@
 package com.thevortex.potionsmaster.render.util.xray;
 
 
+import javax.swing.text.html.parser.Entity;
+
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.reference.Reference;
+import com.thevortex.potionsmaster.render.util.BlockData;
+
+import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.event.entity.EntityEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ChunkEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 
 @EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public class Events {
+
+
+	
 
 	@SubscribeEvent
 	public static void onExit(ServerStoppingEvent event) {

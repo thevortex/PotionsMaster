@@ -20,6 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -39,6 +40,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 
 
@@ -91,6 +93,31 @@ public class PotionsMaster {
 			Controller.shutdownExecutor();
 		}
 
+	}
+	@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = MOD_ID)
+	public static class DeathEvents {
+		@SubscribeEvent
+		public static void onDeath(LivingDeathEvent event) {
+			if (event.getEntity() instanceof Player) {
+				if ((Controller.drawOres())) {
+					for(BlockData data : PotionsMaster.blockStore.getStore().values()) {
+						data.setDrawing(false);
+					}
+					Controller.toggleDrawOres();
+				}
+			}
+		}
+	}
+	@SubscribeEvent
+	public static void onDeath(LivingDeathEvent event) {
+		if (event.getEntity() instanceof Player) {
+			if ((Controller.drawOres())) {
+				for(BlockData data : PotionsMaster.blockStore.getStore().values()) {
+					data.setDrawing(false);
+				}
+				Controller.toggleDrawOres();
+			}
+		}
 	}
 
 	@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = MOD_ID)

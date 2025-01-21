@@ -7,7 +7,7 @@
   ],
   "key": {
     "W": {
-      "tag": "c:ingots/brick"
+      "tag": "c:bricks"
     },
     "o": {
       "item": "minecraft:stone"
