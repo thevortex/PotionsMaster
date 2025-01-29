@@ -25,7 +25,7 @@ import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 public class Events {
 
 
-	
+	protected static int counter;
 
 	@SubscribeEvent
 	public static void onExit(ServerStoppingEvent event) {
@@ -34,6 +34,8 @@ public class Events {
 		}
 		Controller.shutdownExecutor();
 	}
+
+	
 	@SubscribeEvent
 	public static void pickupItem(BlockEvent.BreakEvent event) {
 		RenderEnqueue.checkBlock(event.getPos(), event.getState(), false);
@@ -51,23 +53,35 @@ public class Events {
 
 
 	@SubscribeEvent
-	public static void tickEnd(ClientTickEvent.Post event) {
-
-		Controller.requestBlockFinder(false);
+	public static void tickEnd(ClientTickEvent.Post event) {		
+		counter++;
+		if ((counter > 40) && (Controller.drawOres())) {
+			counter = 0;
+			Controller.requestBlockFinder(false);
+		}
+		
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderLevelStageEvent event) // Called when drawing the world.
 	{
-
+		
 		if ((Controller.drawOres()) && (PotionsMaster.proxy.getMinecraft().player != null) && (event.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES)) {
-
-
-			// this is a world pos of the player
-			try {
-				Render.INSTANCE.drawOres(event);
-			} catch (Throwable ignore) {
+			if(PotionsMaster.proxy.getMinecraft().player.getActiveEffects().stream().iterator().hasNext()) {
+				boolean pmPot = false;
+				if(PotionsMaster.proxy.getMinecraft().player.getActiveEffects().stream().iterator().next().getEffect().getRegisteredName().contains("potionsmaster")) {
+					pmPot = true;
+				}
+				if(!pmPot) {
+					Controller.toggleDrawOres();
+					return;
+				}
+				// this is a world pos of the player
+				try {
+					Render.INSTANCE.drawOres(event);
+				} catch (Throwable ignore) {
+				}
 			}
 		}
 	}

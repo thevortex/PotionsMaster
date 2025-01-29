@@ -1,7 +1,10 @@
 package com.thevortex.potionsmaster.network;
 
 import com.thevortex.potionsmaster.PotionsMaster;
+import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockStore;
+import com.thevortex.potionsmaster.render.util.xray.Controller;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -41,6 +44,9 @@ public record PotionPacket(String potionName) implements CustomPacketPayload {
         private static void toggle(String potion) {
             BlockStore store = PotionsMaster.blockStore;
             store.getStoreByReference(potion).getBlockData().setDrawing(false);
+            if(store.getStore().values().stream().noneMatch(BlockData::isDrawing)) {
+                Controller.toggleDrawOres();
+            }
         }
     }
 }
