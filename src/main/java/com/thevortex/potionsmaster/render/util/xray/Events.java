@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public class Events {
+	protected static int counter = 0;
 
 	@SubscribeEvent
 	public static void onExit(ServerStoppingEvent event) {
@@ -43,12 +44,15 @@ public class Events {
 
 	@SubscribeEvent
 	public static void tickEnd(TickEvent.ClientTickEvent event) {
-
 		if (event.phase == TickEvent.Phase.END) {
-
-			Controller.requestBlockFinder(false);
+			counter++;
+			if ((counter > 40) && (Controller.drawOres())) {
+				counter = 0;
+				Controller.requestBlockFinder(false);
+			}
 		}
 	}
+		
 
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent

@@ -54,6 +54,7 @@ public class Controller {
 
 		} else {
 			shutdownExecutor();
+			drawOres = false;
 		}
 	}
 

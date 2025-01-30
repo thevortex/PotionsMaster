@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.render.util.BlockInfo;
 import com.thevortex.potionsmaster.render.util.BlockStore;
+import com.thevortex.potionsmaster.render.util.BlockData;
 
 import com.thevortex.potionsmaster.render.util.xray.Controller;
 import com.thevortex.potionsmaster.render.util.xray.Render;
@@ -43,6 +44,9 @@ public class PotionPacket {
         private static void toggle(String potion) {
             BlockStore store = PotionsMaster.blockStore;
             store.getStoreByReference(potion).getBlockData().setDrawing(false);
+            if(store.getStore().values().stream().noneMatch(BlockData::isDrawing)) {
+                Controller.toggleDrawOres();
+            }
         }
     }
 }
