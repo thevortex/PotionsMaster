@@ -27,12 +27,7 @@ public class PotionExpiry {
         }
     }
 
-    @SubscribeEvent
-    public static void onPlayerRespawn(PlayerRespawnEvent event) {
-        if(event.getEntity() instanceof Player player) {
-            sendAll(player);
-        }
-    }
+   
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if(event.getEntity() instanceof Player player) {
