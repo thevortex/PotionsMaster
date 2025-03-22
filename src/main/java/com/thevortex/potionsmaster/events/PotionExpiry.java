@@ -70,18 +70,6 @@ public class PotionExpiry {
         }
     }
 
-    @SubscribeEvent
-    public static void onpotionRemoved(MobEffectEvent.Expired event) {
-        if (event.getEffectInstance() == null) {
-            return;
-        }
-        if ((isOreSightPotion(event.getEffectInstance().getEffect()))
-                && (event.getEntity() instanceof Player)) {
-            OreSightEffect effect = (OreSightEffect) event.getEffectInstance().getEffect().value();
-            PotionPacket pkt = new PotionPacket(effect.getEffectType());
-            PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntity());
-        }
-    }
 
     private static boolean isOreSightPotion(Holder<MobEffect> potion) {
         return potion.getKey().location().getNamespace().contains("potionsmaster");

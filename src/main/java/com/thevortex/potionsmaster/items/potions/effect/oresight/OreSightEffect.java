@@ -40,7 +40,7 @@ public class OreSightEffect extends MobEffect {
                 BlockData oreSight = bdUUID.getBlockData();
                 if (!oreSight.isDrawing() /*&& entityLivingBaseIn.getEffect(this) != null TODO: Check can probably get removed*/) {
                     oreSight.setDrawing(true);
-                    if (!Controller.drawOres()) {
+                    if (Controller.drawOres == false) {
                         Controller.toggleDrawOres();
                     }
                 }

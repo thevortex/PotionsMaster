@@ -1,6 +1,8 @@
 package com.thevortex.potionsmaster.render.util.xray;
 
 
+import java.util.Collection;
+
 import javax.swing.text.html.parser.Entity;
 
 import com.thevortex.potionsmaster.PotionsMaster;
@@ -8,6 +10,7 @@ import com.thevortex.potionsmaster.reference.Reference;
 import com.thevortex.potionsmaster.render.util.BlockData;
 
 import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -70,9 +73,13 @@ public class Events {
 		if ((Controller.drawOres()) && (PotionsMaster.proxy.getMinecraft().player != null) && (event.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES)) {
 			if(PotionsMaster.proxy.getMinecraft().player.getActiveEffects().stream().iterator().hasNext()) {
 				boolean pmPot = false;
-				if(PotionsMaster.proxy.getMinecraft().player.getActiveEffects().stream().iterator().next().getEffect().getRegisteredName().contains("potionsmaster")) {
-					pmPot = true;
+				Collection<MobEffectInstance> effects = PotionsMaster.proxy.getMinecraft().player.getActiveEffects();
+				for(MobEffectInstance effect : effects) {
+					if(effect.getEffect().getRegisteredName().contains("potionsmaster")) {
+						pmPot = true;
+					}
 				}
+				
 				if(!pmPot) {
 					Controller.toggleDrawOres();
 					return;

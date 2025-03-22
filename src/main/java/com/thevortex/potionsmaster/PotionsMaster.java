@@ -94,31 +94,8 @@ public class PotionsMaster {
 		}
 
 	}
-	@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = MOD_ID)
-	public static class DeathEvents {
-		@SubscribeEvent
-		public static void onDeath(LivingDeathEvent event) {
-			if (event.getEntity() instanceof Player) {
-				if ((Controller.drawOres())) {
-					for(BlockData data : PotionsMaster.blockStore.getStore().values()) {
-						data.setDrawing(false);
-					}
-					Controller.toggleDrawOres();
-				}
-			}
-		}
-	}
-	@SubscribeEvent
-	public static void onDeath(LivingDeathEvent event) {
-		if (event.getEntity() instanceof Player) {
-			if ((Controller.drawOres())) {
-				for(BlockData data : PotionsMaster.blockStore.getStore().values()) {
-					data.setDrawing(false);
-				}
-				Controller.toggleDrawOres();
-			}
-		}
-	}
+
+
 
 	@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = MOD_ID)
 	public static class setupMod {
@@ -136,103 +113,7 @@ public class PotionsMaster {
 				  PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name)));
 			}
 
-		/* 	event.getBuilder().addRecipe(new CoalPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDCOAL_POWDER.get()),
-					getPotion(ModRegistry.COAL_SIGHT)));
-			event.getBuilder().addRecipe(new IronPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDIRON_POWDER.get()),
-					getPotion(ModRegistry.IRON_SIGHT)));
-			event.getBuilder().addRecipe(new RedStonePotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDREDSTONE_POWDER.get()),
-					getPotion(ModRegistry.REDSTONE_SIGHT)));
-			event.getBuilder().addRecipe(new LapisPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDLAPIS_POWDER.get()),
-					getPotion(ModRegistry.LAPIS_SIGHT)));
-			event.getBuilder().addRecipe(new GoldPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDGOLD_POWDER.get()),
-					getPotion(ModRegistry.GOLD_SIGHT)));
-			event.getBuilder().addRecipe(new DiamondPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDDIAMOND_POWDER.get()),
-					getPotion(ModRegistry.DIAMOND_SIGHT)));
-			event.getBuilder().addRecipe(new EmeraldPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDEMERALD_POWDER.get()),
-					getPotion(ModRegistry.EMERALD_SIGHT)));
-
-			event.getBuilder().addRecipe(new AluminiumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDALUMINIUM_POWDER.get()),
-					getPotion(ModRegistry.ALUMINIUM_SIGHT)));
-			event.getBuilder().addRecipe(new CopperPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDCOPPER_POWDER.get()),
-					getPotion(ModRegistry.COPPER_SIGHT)));
-			event.getBuilder().addRecipe(new TinPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDTIN_POWDER.get()),
-					getPotion(ModRegistry.TIN_SIGHT)));
-			event.getBuilder().addRecipe(new NickelPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDNICKEL_POWDER.get()),
-					getPotion(ModRegistry.NICKEL_SIGHT)));
-			event.getBuilder().addRecipe(new UraniumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDURANIUM_POWDER.get()),
-					getPotion(ModRegistry.URANIUM_SIGHT)));
-			event.getBuilder().addRecipe(new LeadPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDLEAD_POWDER.get()),
-					getPotion(ModRegistry.LEAD_SIGHT)));
-			event.getBuilder().addRecipe(new SilverPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDSILVER_POWDER.get()),
-					getPotion(ModRegistry.SILVER_SIGHT)));
-			event.getBuilder().addRecipe(new ZincPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDZINC_POWDER.get()),
-					getPotion(ModRegistry.ZINC_SIGHT)));
-			event.getBuilder().addRecipe(new OsmiumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDOSMIUM_POWDER.get()),
-					getPotion(ModRegistry.OSMIUM_SIGHT)));
-			event.getBuilder().addRecipe(new QuartzPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDQUARTZ_POWDER.get()),
-					getPotion(ModRegistry.QUARTZ_SIGHT)));
-			event.getBuilder().addRecipe(new BismuthPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDBISMUTH_POWDER.get()),
-					getPotion(ModRegistry.BISMUTH_SIGHT)));
-			event.getBuilder().addRecipe(new CrimsonIronPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDCRIMSONIRON_POWDER.get()),
-					getPotion(ModRegistry.CRIMSONIRON_SIGHT)));
-			event.getBuilder().addRecipe(new PlatinumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDPLATINUM_POWDER.get()),
-					getPotion(ModRegistry.PLATINUM_SIGHT)));
-			event.getBuilder().addRecipe(new AllthemodiumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDALLTHEMODIUM_POWDER.get()),
-					getPotion(ModRegistry.ALLTHEMODIUM_SIGHT)));
-			event.getBuilder().addRecipe(new VibraniumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDVIBRANIUM_POWDER.get()),
-					getPotion(ModRegistry.VIBRANIUM_SIGHT)));
-			event.getBuilder().addRecipe(new UnobtainiumPotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDUNOBTAINIUM_POWDER.get()),
-					getPotion(ModRegistry.UNOBTAINIUM_SIGHT)));
-			event.getBuilder().addRecipe(new NetheritePotionRecipe(
-					Ingredient.of(getPotion(Potions.MUNDANE)),
-					Ingredient.of(ModRegistry.CALCINATEDNETHERITE_POWDER.get()),
-					getPotion(ModRegistry.NETHERITE_SIGHT)));*/
+		
 		}
 		
 		private static ItemStack getPotion(Holder<Potion> potion) {

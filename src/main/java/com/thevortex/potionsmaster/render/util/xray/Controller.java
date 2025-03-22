@@ -33,7 +33,7 @@ public class Controller {
 	private static Future task;
 	private static ExecutorService executor;
 	// Draw states
-	private static boolean drawOres = false; // Off by default
+	public static boolean drawOres = false; // Off by default
 
 	public static BlockStore getBlockStore() {
 		return PotionsMaster.blockStore;
