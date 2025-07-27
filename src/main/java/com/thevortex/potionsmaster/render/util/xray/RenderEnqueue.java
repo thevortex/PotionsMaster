@@ -142,7 +142,7 @@ public class RenderEnqueue implements Runnable {
                                 //if( Controller.blackList.contains(currentState.getBlock()) )
                                 //	continue;
 
-                                final Optional<TagKey<Block>> firstTag = currentState.getTags().filter(tag -> tag.toString().contains("ores/")).findFirst();
+                                final Optional<TagKey<Block>> firstTag = currentState.getTags().filter(tag -> tag.toString().contains("ores/")).findAny();
                                 if (!firstTag.isPresent())
                                     continue;
 

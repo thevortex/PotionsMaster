@@ -7,6 +7,7 @@ import com.thevortex.potionsmaster.network.PotionPacket;
 import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.render.util.BlockData;
 
+import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -30,7 +31,7 @@ public class PotionExpiry {
    
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if(event.getEntity() instanceof Player player) {
+        if(event.getEntity() instanceof RemotePlayer player) {
             sendAll(player);
         }
     }
@@ -63,7 +64,7 @@ public class PotionExpiry {
             return;
         }
         if ((isOreSightPotion(event.getEffectInstance().getEffect()))
-                && (event.getEntity() instanceof Player)) {
+                && (event.getEntity() instanceof ServerPlayer)) {
             OreSightEffect effect = (OreSightEffect) event.getEffectInstance().getEffect().value();
             PotionPacket pkt = new PotionPacket(effect.getEffectType());
             PacketHandler.sendTo(pkt, (ServerPlayer) event.getEntity());
