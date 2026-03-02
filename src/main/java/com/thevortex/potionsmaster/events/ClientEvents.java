@@ -64,15 +64,19 @@ public class ClientEvents {
     public static void onRegisterSprites(net.neoforged.neoforge.client.event.RegisterSpriteSourceTypesEvent event) {
         PotionsMaster.LOGGER.info("=== Registering Sprite Source Types ===");
         // Register our custom sprite source type for dynamic effect icons
-        // Use the register method from the event
         com.thevortex.potionsmaster.client.DynamicEffectSpriteSource.registerSpriteSourceType(event);
         PotionsMaster.LOGGER.info("=== Sprite Source Types Registration Complete ===");
     }
 
     @SubscribeEvent
+    public static void onRegisterClientReloadListeners(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
+        PotionsMaster.LOGGER.info("=== Registering Language Reload Listener ===");
+        event.registerReloadListener(new com.thevortex.potionsmaster.client.DynamicLanguageProvider());
+        PotionsMaster.LOGGER.info("=== Language Reload Listener Registered ===");
+    }
+
+    @SubscribeEvent
     public static void onTextureAtlasStitch(net.neoforged.neoforge.client.event.TextureAtlasStitchedEvent event) {
-
-
         // After mob_effect atlas is stitched, verify our sprites were added
         if (event.getAtlas().location().equals(ResourceLocation.withDefaultNamespace("textures/atlas/mob_effects.png"))) {
             PotionsMaster.LOGGER.info("Mob effects atlas stitched - dynamic effect icons should be available");
