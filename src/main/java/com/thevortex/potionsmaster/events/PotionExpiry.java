@@ -4,10 +4,8 @@ import com.thevortex.potionsmaster.PotionsMaster;
 import com.thevortex.potionsmaster.items.potions.effect.oresight.OreSightEffect;
 import com.thevortex.potionsmaster.network.PacketHandler;
 import com.thevortex.potionsmaster.network.PotionPacket;
-import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.render.util.BlockData;
 
-import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -17,7 +15,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerRespawnEvent;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
 public class PotionExpiry {
@@ -31,7 +28,7 @@ public class PotionExpiry {
    
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if(event.getEntity() instanceof RemotePlayer player) {
+        if(event.getEntity() instanceof Player player) {
             sendAll(player);
         }
     }

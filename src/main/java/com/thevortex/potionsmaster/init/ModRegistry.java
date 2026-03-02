@@ -106,8 +106,8 @@ public class ModRegistry {
 
     public static HashMap<String, DeferredHolder<MobEffect,MobEffect>> EffectsListParsed = new HashMap<>();
     public static HashMap<String, DeferredHolder<Potion,Potion>> PotionsListParsed = new HashMap<>();
-    //public static final List<DeferredHolder<Item,Item>> BaseItemList = registerBaseItems();
-    //public static final List<DeferredHolder<Item,Item>> CalcinatedItemList = registerCalcinatedItems();
+    public static final List<DeferredHolder<Item,Item>> BaseItemList = registerBaseItems();
+    public static final List<DeferredHolder<Item,Item>> CalcinatedItemList = registerCalcinatedItems();
     public static final List<DeferredHolder<MobEffect,MobEffect>> EffectList = registerEffects();
     public static final List<DeferredHolder<Potion,Potion>> PotionList = registerPotions();
 
