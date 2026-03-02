@@ -20,11 +20,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -38,9 +36,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 
 
@@ -104,17 +100,33 @@ public class PotionsMaster {
 		public static void setup(final FMLCommonSetupEvent event) {
 			proxy.init();
 		}
-		private static TagKey<Item> getTagKey(String name) {
-			return ItemTags.create(ResourceLocation.fromNamespaceAndPath(MOD_ID, name));
-		}
-		private static void registerPotions(RegisterBrewingRecipesEvent event) {
+
+		public static void registerPotions(RegisterBrewingRecipesEvent event) {
+			PotionsMaster.LOGGER.info("=== Registering Brewing Recipes ===");
+
 			for (String name : ModRegistry.EffectsListParsed.keySet()) {
-				event.getBuilder().addRecipe(Ingredient.of(getPotion(Potions.MUNDANE)),
-				 Ingredient.of(getTagKey("calcinated/" + name)),
-				  PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name)));
+				// Create the calcinated tag key for this ore
+				TagKey<Item> calcinatedTagKey = ItemTags.create(
+					ResourceLocation.fromNamespaceAndPath(MOD_ID, "calcinated/" + name)
+				);
+
+				// Get the actual calcinated powder item
+				Item calcinatedPowder = BuiltInRegistries.ITEM.get(
+					ResourceLocation.fromNamespaceAndPath(MOD_ID, "calcinated_" + name + "_oresight_powder")
+				);
+
+				// Register the brewing recipe using the calcinated powder item directly
+				if (calcinatedPowder != Items.AIR) {
+					event.getBuilder().addRecipe(
+						Ingredient.of(getPotion(Potions.MUNDANE)),
+						Ingredient.of(calcinatedPowder),
+						PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name))
+					);
+					PotionsMaster.LOGGER.info("Registered brewing recipe for: " + name);
+				}
 			}
 
-		
+			PotionsMaster.LOGGER.info("=== Brewing Recipes Registration Complete ===");
 		}
 		
 		private static ItemStack getPotion(Holder<Potion> potion) {
