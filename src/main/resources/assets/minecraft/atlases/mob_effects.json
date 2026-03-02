@@ -1,0 +1,13 @@
+{
+  "sources": [
+    {
+      "type": "directory",
+      "source": "mob_effect",
+      "prefix": "mob_effect/"
+    },
+    {
+      "type": "potionsmaster:dynamic_effect"
+    }
+  ]
+}
+
