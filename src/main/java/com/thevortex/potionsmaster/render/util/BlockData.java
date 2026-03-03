@@ -10,13 +10,15 @@ public class BlockData {
     private int color;
     private boolean drawing;
     private int order;
+    private String recipeItem;
 
-    public BlockData(String entryname, String oretag, int color, boolean drawing, int order) {
+    public BlockData(String entryname, String oretag, int color, boolean drawing, int order, String recipeItem) {
         this.entryname = entryname;
         this.oretag = oretag;
         this.color = color;
         this.drawing = drawing;
         this.order = order;
+        this.recipeItem = recipeItem;
     }
 
     public String getEntryName() {
@@ -45,6 +47,10 @@ public class BlockData {
 
     public int getOrder() {
         return order;
+    }
+
+    public String getrecipeItem() {
+        return recipeItem;
     }
 }
 

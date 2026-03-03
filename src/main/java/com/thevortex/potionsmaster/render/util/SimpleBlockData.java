@@ -10,13 +10,15 @@ public class SimpleBlockData {
 
     private int color;
     private boolean drawing;
+    private String recipeItem;
 
-    public SimpleBlockData(String name, String oreTag, int color, boolean drawing, int order) {
+    public SimpleBlockData(String name, String oreTag, int color, boolean drawing, int order, String recipeItem) {
         this.name = name;
         this.oreTag = oreTag;
         this.color = color;
         this.drawing = drawing;
         this.order = order;
+        this.recipeItem = recipeItem;
     }
 
     public String getName() {
@@ -41,5 +43,9 @@ public class SimpleBlockData {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getrecipeItem() {
+        return recipeItem;
     }
 }

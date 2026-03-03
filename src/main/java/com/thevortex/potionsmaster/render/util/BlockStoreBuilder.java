@@ -82,36 +82,23 @@ public class BlockStoreBuilder {
         Path folderPath = FMLPaths.CONFIGDIR.get().resolve(PotionsMaster.MOD_ID);
         loadPotions(folderPath);
         
-/* 
-        list.add(new BlockData("CoalOre", Ores.COAL.toString(), new OutlineColor(32, 32, 32), false, 0));
-        list.add(new BlockData("IronOre", Ores.IRON.toString(), new OutlineColor(228, 192, 170), false, 0));
-        list.add(new BlockData("CopperOre", Ores.COPPER.toString(), new OutlineColor(183, 112, 58), false, 0));
-        list.add(new BlockData("RedstoneOre", Ores.REDSTONE.toString(), new OutlineColor(255, 0, 0), false, 0));
-        list.add(new BlockData("LapisOre", Ores.LAPIS.toString(), new OutlineColor(10, 10, 255), false, 0));
-        list.add(new BlockData("GoldOre", Ores.GOLD.toString(), new OutlineColor(212, 175, 55), false, 0));
-        list.add(new BlockData("DiamondOre", Ores.DIAMOND.toString(), new OutlineColor(61, 219, 227), false, 0));
-        list.add(new BlockData("EmeraldOre", Ores.EMERALD.toString(), new OutlineColor(0, 255, 0), false, 0));
+        // If no config files exist, use default ore list so recipes can be generated
+        if (list.isEmpty()) {
+            PotionsMaster.LOGGER.info("No ore config files found, using default ore list");
+            list.add(new BlockData("coal", "#c:ores/coal", 0xFF202020, false, 0,"minecraft:coal"));
+            list.add(new BlockData("emerald", "#c:ores/emerald", 0xFF00FF00, false, 0,"minecraft:emerald"));
+            list.add(new BlockData("lapis", "#c:ores/lapis", 0xFF0000FF, false, 0,"minecraft:lapis_lazuli"));
+            list.add(new BlockData("redstone", "#c:ores/redstone", 0xFFFF0000, false, 0,"minecraft:redstone"));
+            list.add(new BlockData("diamond", "#c:ores/diamond", 0xFF3DDBE3, false, 0,"minecraft:diamond"));
+            list.add(new BlockData("iron", "#c:ores/iron", 0xFFE4C0AA, false, 0,"minecraft:raw_iron"));
+            list.add(new BlockData("gold", "#c:ores/gold", 0xFFD4AF37, false, 0,"minecraft:raw_gold"));
+            list.add(new BlockData("netherite", "#c:ores/ancient_debris", 0xFFFFA500, false, 0,"minecraft:netherite_scrap"));
+            list.add(new BlockData("quartz", "#c:ores/nether_quartz", 0xFFFFFFFF, false, 0,"minecraft:quartz"));
+            list.add(new BlockData("copper", "#c:ores/copper", 0xFFB7703A, false, 0,"minecraft:raw_copper"));
+        }
 
-        list.add(new BlockData("AluminumOre", Ores.ALUMINIUM.toString(), new OutlineColor(227, 227, 227), false, 0));
-        list.add(new BlockData("TinOre", Ores.TIN.toString(), new OutlineColor(120, 120, 120), false, 0));
-        list.add(new BlockData("SilverOre", Ores.SILVER.toString(), new OutlineColor(164, 224, 231), false, 0));
-        list.add(new BlockData("LeadOre", Ores.LEAD.toString(), new OutlineColor(124, 140, 198), false, 0));
-        list.add(new BlockData("NickelOre", Ores.NICKEL.toString(), new OutlineColor(169, 169, 132), false, 0));
-        list.add(new BlockData("UraniumOre", Ores.URANIUM.toString(), new OutlineColor(126, 231, 120), false, 0));
-        list.add(new BlockData("ZincOre", Ores.ZINC.toString(), new OutlineColor(181, 181, 117), false, 0));
-        list.add(new BlockData("OsmiumOre", Ores.OSMIUM.toString(), new OutlineColor(192, 201, 221), false, 0));
-        list.add(new BlockData("BismuthOre", Ores.BISMUTH.toString(), new OutlineColor(181, 181, 181), false, 0));
-        list.add(new BlockData("CrimsonIronOre", Ores.CRIMSONIRON.toString(), new OutlineColor(255, 192, 170), false, 0));
-        list.add(new BlockData("NetherQuartzOre", Ores.QUARTZ.toString(), new OutlineColor(255, 255, 255), false, 0));
-        list.add(new BlockData("PlatinumOre", Ores.PLATINUM.toString(), new OutlineColor(181, 181, 255), false, 0));
-        list.add(new BlockData("NetheriteOre", Ores.NETHERITE.toString(), new OutlineColor(255, 165, 0), false, 0));
-        list.add(new BlockData("AllthemodiumOre", Ores.ALLTHEMODIUM.toString(), new OutlineColor(254, 217, 90), false, 0));
-        list.add(new BlockData("VibraniumOre", Ores.VIBRANIUM.toString(), new OutlineColor(38, 222, 136), false, 0));
-        list.add(new BlockData("UnobtainiumOre", Ores.UNOBTAINIUM.toString(), new OutlineColor(209, 82, 227), false, 0));
-
-*/
-    
-
+        PotionsMaster.blockStore.setStore(list);
+        PotionsMaster.LOGGER.info("BlockStore initialized with " + list.size() + " ores");
     }
 
 

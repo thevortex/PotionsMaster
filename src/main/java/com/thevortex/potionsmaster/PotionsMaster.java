@@ -10,7 +10,6 @@ import com.thevortex.potionsmaster.proxy.ClientProxy;
 import com.thevortex.potionsmaster.proxy.CommonProxy;
 import com.thevortex.potionsmaster.proxy.ServerProxy;
 import com.thevortex.potionsmaster.reference.Reference;
-import com.thevortex.potionsmaster.render.util.BlockData;
 import com.thevortex.potionsmaster.render.util.BlockStore;
 import com.thevortex.potionsmaster.render.util.BlockStoreBuilder;
 import com.thevortex.potionsmaster.render.util.xray.Controller;
@@ -18,8 +17,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,6 +35,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
+
 
 
 @SuppressWarnings("deprecation")
@@ -62,10 +60,8 @@ public class PotionsMaster {
 
 		eventBus.register(setupMod.class);
 		eventBus.addListener(PacketHandler::register);
-
 		NeoForge.EVENT_BUS.register(PotionExpiry.class);
 		NeoForge.EVENT_BUS.addListener(setupMod::registerPotions);
-
 		if (dist.isClient()) {
 			PotionsMaster.proxy = new ClientProxy();
 		} else {
@@ -77,6 +73,43 @@ public class PotionsMaster {
 		return ResourceLocation.fromNamespaceAndPath(MOD_ID, pathIn);
 	}
 
+	@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = MOD_ID)
+	public static class setupMod {
+		@SubscribeEvent
+		public static void setup(final FMLCommonSetupEvent event) {
+			proxy.init();
+		}
+
+
+		public static void registerPotions(RegisterBrewingRecipesEvent event) {
+			PotionsMaster.LOGGER.info("=== Registering Brewing Recipes ===");
+
+			for (String name : ModRegistry.EffectsListParsed.keySet()) {
+				// Get the actual calcinated powder item
+				Item calcinatedPowder = BuiltInRegistries.ITEM.get(
+						ResourceLocation.fromNamespaceAndPath(MOD_ID, "calcinated_" + name + "_oresight_powder")
+				);
+
+				// Register the brewing recipe using the calcinated powder item directly
+				if (calcinatedPowder != Items.AIR) {
+					event.getBuilder().addRecipe(
+							Ingredient.of(getPotion(Potions.MUNDANE)),
+							Ingredient.of(calcinatedPowder),
+							PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name))
+					);
+					PotionsMaster.LOGGER.info("Registered brewing recipe for: " + name);
+				}
+			}
+
+			PotionsMaster.LOGGER.info("=== Brewing Recipes Registration Complete ===");
+		}
+
+		private static ItemStack getPotion(Holder<Potion> potion) {
+			ItemStack itemstack = Items.POTION.getDefaultInstance();
+			itemstack.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
+			return itemstack;
+		}
+	}
 
 	@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT, modid = MOD_ID)
 	public static class PlayerEvents {
@@ -88,54 +121,8 @@ public class PotionsMaster {
 			}
 			Controller.shutdownExecutor();
 		}
-
-
 	}
 
-
-
-	@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = MOD_ID)
-	public static class setupMod {
-		@SubscribeEvent
-		public static void setup(final FMLCommonSetupEvent event) {
-			proxy.init();
-		}
-
-		public static void registerPotions(RegisterBrewingRecipesEvent event) {
-			PotionsMaster.LOGGER.info("=== Registering Brewing Recipes ===");
-
-			for (String name : ModRegistry.EffectsListParsed.keySet()) {
-				// Create the calcinated tag key for this ore
-				TagKey<Item> calcinatedTagKey = ItemTags.create(
-					ResourceLocation.fromNamespaceAndPath(MOD_ID, "calcinated/" + name)
-				);
-
-				// Get the actual calcinated powder item
-				Item calcinatedPowder = BuiltInRegistries.ITEM.get(
-					ResourceLocation.fromNamespaceAndPath(MOD_ID, "calcinated_" + name + "_oresight_powder")
-				);
-
-				// Register the brewing recipe using the calcinated powder item directly
-				if (calcinatedPowder != Items.AIR) {
-					event.getBuilder().addRecipe(
-						Ingredient.of(getPotion(Potions.MUNDANE)),
-						Ingredient.of(calcinatedPowder),
-						PotionContents.createItemStack(Items.POTION, ModRegistry.PotionsListParsed.get(name))
-					);
-					PotionsMaster.LOGGER.info("Registered brewing recipe for: " + name);
-				}
-			}
-
-			PotionsMaster.LOGGER.info("=== Brewing Recipes Registration Complete ===");
-		}
-		
-		private static ItemStack getPotion(Holder<Potion> potion) {
-			ItemStack itemstack = Items.POTION.getDefaultInstance();
-			itemstack.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
-			return itemstack;
-		}
-
-	}
 
 
 

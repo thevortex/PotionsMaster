@@ -43,7 +43,8 @@ public class BlockStore {
                             e.getoreTag(),
                             e.getColor(),
                             e.isDrawing(),
-                            e.getOrder()
+                            e.getOrder(),
+                            e.getrecipeItem()
                     )
             );
         }
