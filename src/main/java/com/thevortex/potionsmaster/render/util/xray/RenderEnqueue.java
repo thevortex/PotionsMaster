@@ -6,8 +6,8 @@ package com.thevortex.potionsmaster.render.util.xray;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.thevortex.potionsmaster.reference.Ores;
 import com.thevortex.potionsmaster.PotionsMaster;
@@ -98,7 +98,6 @@ public class RenderEnqueue implements Runnable {
 
 		// Used for cleaning up the searching process
 		BlockState currentState;
-		TagKey<Block> block;
 		BlockStore.BlockDataWithUUID dataWithUUID;
 		// Loop on chunks (x, z)
 		for (int chunkX = box.minChunkX; chunkX <= box.maxChunkX; chunkX++) {
@@ -142,29 +141,29 @@ public class RenderEnqueue implements Runnable {
                                 //if( Controller.blackList.contains(currentState.getBlock()) )
                                 //	continue;
 
-                                final Optional<TagKey<Block>> firstTag = currentState.getTags().filter(tag -> tag.toString().contains("ores/")).findAny();
-                                if (!firstTag.isPresent())
+                                List<TagKey<?>> oreTags = currentState.getTags().filter(tag -> tag.toString().contains("ores/")).collect(Collectors.toList());
+                                if (oreTags.isEmpty())
                                     continue;
 
-                                block = firstTag.get();
-								
+                                for (TagKey<?> block : oreTags) {
                                 for(BlockData data: PotionsMaster.blockStore.getStore().values()) {
 									//PotionsMaster.LOGGER.debug("Checking block: " + block.location().toString() + " " + data.getoreTag());
-									if (block.location().toString().contains(data.getoreTag())) {
+									if (block.location().toString().contains(stripHash(data.getoreTag()))) {
 										double alpha = Math.max(0, Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().distanceToSqr(x + i, y + j, z + k) / (Controller.getRadius() / 2));
 										dataWithUUID = PotionsMaster.blockStore.getStoreByReference(data.getoreTag());
 										//PotionsMaster.LOGGER.debug("Adding block to render queue: " + block.toString() + " " + dataWithUUID.getBlockData().getEntryName());
-										
+
 										if (dataWithUUID.getBlockData() == null || !dataWithUUID.getBlockData().isDrawing()) // fail safe
 										continue;
 
 										// Calculate distance from player to block. Fade out further away blocks
 										//double alpha = Math.max(0, ((Controller.getRadius() - PotionsMaster.proxy.getClientPlayer().getDistanceSq(x + i, y + j, z + k)) / Controller.getRadius() ) * 255);
-								
+
 										// Push the block to the render queue
 										//PotionsMaster.LOGGER.debug("Adding block to render queue: " + x + i + " " + y + j + " " + z + k + " " + dataWithUUID.getBlockData().getColor() + " " + alpha);
 										renderQueue.add(new BlockInfo(x + i, y + j, z + k, dataWithUUID.getBlockData().getColor(), 1.0f));
 									}
+								}
 								}
 
 								
@@ -178,5 +177,12 @@ public class RenderEnqueue implements Runnable {
 
 		Render.ores.clear();
 		Render.ores.addAll(renderQueue); // Add all our found blocks to the Render.ores list. To be use by Render when drawing.
+	}
+
+	private static String stripHash(String tag) {
+		if (tag != null && tag.startsWith("#")) {
+			return tag.substring(1);
+		}
+		return tag;
 	}
 }
